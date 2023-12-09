@@ -2,27 +2,27 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Axys\Traits\TieneArchivos;
+use Illuminate\Database\Eloquent\Model;
 
 class Noticia extends Model
 {
-	use TieneArchivos;
+    use TieneArchivos;
 
     protected $table = 'noticias';
 
-    protected $fillable = ['id_seccion', 'id_region', 'titulo', 'fecha', 'autor', 'bajada', 'texto', 'embebido_1', 'embebido_2'];
+    protected $fillable = ['id_seccion', 'id_region', 'volanta', 'titulo', 'fecha', 'autor', 'bajada', 'texto', 'embebido_1', 'embebido_2'];
 
-    protected $dir=[
-        'thumbnail'=>'contenido/noticias',
-        'thumbnail_celular'=>'contenido/noticias'
+    protected $dir = [
+        'thumbnail' => 'contenido/noticias',
+        'thumbnail_celular' => 'contenido/noticias',
     ];
 
     protected $eliminarConArchivos = ['thumbnail', 'thumbnail_celular'];
 
     public function seccion()
     {
-    	return $this->belongsTo(Seccion::class, 'id_seccion');
+        return $this->belongsTo(Seccion::class, 'id_seccion');
     }
 
     public function region()
@@ -49,10 +49,12 @@ class Noticia extends Model
     {
         return date('d/m/Y', strtotime($this->fecha));
     }
+
     public function getFechaFfAttribute()
     {
         return date('d/m/Y H:i', strtotime($this->fecha));
     }
+
     public function getFechaHtmlAttribute()
     {
         return date('Y-m-d\TH:i', strtotime($this->fecha));
@@ -62,6 +64,7 @@ class Noticia extends Model
     {
         return str_replace('{', '<span>', str_replace('}', '</span>', $this->titulo));
     }
+
     public function getTituloPAttribute()
     {
         return str_replace('{', '', str_replace('}', '', $this->titulo));
@@ -71,7 +74,7 @@ class Noticia extends Model
     {
         $texto = str_replace('{embebido_1}', $this->embebido_1, $this->texto);
         $texto = str_replace('{embebido_2}', $this->embebido_2, $texto);
+
         return $texto;
     }
-    
 }
