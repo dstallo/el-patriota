@@ -1,0 +1,30 @@
+@import "reset";
+
+// Sweetalert
+@import "node_modules/sweetalert/dist/sweetalert";
+
+// Lity
+@import "node_modules/lity/dist/lity";
+
+@import url(https://fonts.googleapis.com/css?family=Bodoni+Moda:300,400,600,700|Poppins:300,400,700|Roboto+Condensed:300,400,600|Lora:700&display=swap);
+
+@mixin fondo-cover() { background-size:cover; background-position:center; background-repeat:no-repeat; }
+@mixin fondo-contain() { background-size:contain; background-position:center; background-repeat:no-repeat; }
+@mixin reiniciar-input() { -webkit-appearance:none; -moz-appearance:none; -ms-appearance:none; -o-appearance:none; appearance:none; box-sizing:border-box; border-radius:0; outline:none; }
+
+$oscuro: #005173;
+$color: #015E9C;
+$borde: #cfcfce;
+$texto: #353534;
+
+.cover { display:block; position:absolute; top:0; left:0; right:0; bottom:0; }
+
+@import "layout";
+
+@import "home";
+
+@import "ficha";
+
+@import "banner";
+
+@import "encuesta";

@@ -1,0 +1,30 @@
+.banner {
+	padding:0 10px;
+
+	img { max-width:100%; }
+
+	&.horizontal {
+
+	}
+
+	&.lateral {
+		margin:10px auto;
+		a {  }
+	}
+}
+
+.banner-responsive {
+	display:none;
+	text-align:center;
+	padding:0;
+	margin-bottom:20px;
+	img { max-width:100%; }
+	padding-top:10px; padding-bottom:5px;
+	// border-top:1px solid $borde;
+	// border-bottom:1px solid $borde;
+}
+
+@media(max-width:650px) {
+	.banner { display:none; }
+	.banner-responsive { display:block; }
+}

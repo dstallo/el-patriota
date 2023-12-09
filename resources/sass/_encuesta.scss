@@ -1,0 +1,156 @@
+.bloque-encuesta-responsive { display:none; }
+.bloque-encuesta {
+	border:1px solid $borde; padding:20px;
+	margin:10px;
+	.contenido {
+		max-width:230px;
+	}
+	h3 {
+		color:$color; font-size:20px; text-transform:uppercase;
+		padding-bottom:5px; border-bottom:1px solid $borde;
+		margin-bottom:20px; font-weight:600;
+	}
+	.pregunta {
+		font-size:16px; margin-bottom:15px;
+	}
+	ul {
+		margin-bottom:20px;
+	}
+	li {
+		padding:0 5px;
+		padding-bottom:8px; margin-bottom:8px;
+		color:$color; font-size:16px; font-weight:400;
+		border-bottom:1px solid $borde;
+		&:last-child { border:0; }
+	}
+	.boton {
+
+		a {
+			display:inline-block; font-size:15px; color:white;
+			background-color:$color; padding:8px 18px;
+		}
+	}
+}
+
+@media(max-width:650px) {
+	.bloque-encuesta { display:none; }
+	.bloque-encuesta-responsive {
+		display:block;
+		.bloque-encuesta {
+			display:block; margin:20px 0;
+			.contenido {
+				max-width:100%;
+			}
+		}
+	}	
+}
+
+
+
+.encuesta {
+
+	padding-left:30px; 
+
+	.votar {
+
+		display:block;
+
+		ul { margin:20px 0; max-width:620px; }
+
+		li {
+			display:flex; flex-flow:row nowrap; justify-content:flex-start;
+			align-items:flex-start; margin-bottom:10px;
+			label {
+				flex-basis:0; flex-grow:1; margin-left:10px;
+				display:block; margin-bottom:5px; padding-bottom:5px;
+				border-bottom:1px solid $borde;
+				font-size:20px; font-weight:500;
+			}
+			&:last-child { label { border-bottom:0; } }
+		}
+		.boton {
+
+			button {
+				display:inline-block; font-size:15px; color:white;
+				background-color:$color; padding:8px 18px;
+			}
+		}
+
+		/// checkbox copados
+		input[type="radio"] {
+		  /* Add if not using autoprefixer */
+		  -webkit-appearance: none;
+		  /* Remove most all native input styles */
+		  appearance: none;
+		  /* For iOS < 15 */
+		  background-color: var(white);
+		  /* Not removed via appearance */
+		  margin: 0;
+
+		  font: inherit;
+		  color: $color;
+		  width: 2em;
+		  height: 2em;
+		  border: 1px solid $borde;
+		  //border-radius: 0.15em;
+		  transform: translateY(-0.075em);
+
+		  display: grid;
+		  place-content: center;
+		}
+
+		input[type="radio"]::before {
+		  content: "";
+		  width: 1em;
+		  height: 1em;
+		  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+		  transform: scale(0);
+		  transform-origin: bottom left;
+		  transition: 120ms transform ease-in-out;
+		  box-shadow: inset 1em 1em var($borde);
+		  /* Windows High Contrast Mode */
+		  background-color: $color;
+		}
+
+		input[type="radio"]:checked {
+			border:1px solid $color;
+			&::before {
+		  		transform: scale(1);
+		  	}
+		}
+		///
+	}
+
+	.resultados {
+
+		ul {
+			margin-bottom:40px;
+
+			li {
+
+				margin-bottom:10px;
+
+				.opcion {
+					font-size:17px; font-weight:500;
+				}
+				.barra {
+					display:flex; flex-flow:row norwap; justify-content:flex-start; align-items:center;
+					span {
+						height:30px; background-color:$color; margin-right:15px;
+					}
+					label {
+						color:$color; font-size:30px; font-weight:600;
+					}
+				}
+			}
+		}
+
+		.boton {
+
+			a {
+				display:inline-block; font-size:15px; color:white;
+				background-color:$color; padding:8px 18px;
+			}
+		}
+	}
+}
