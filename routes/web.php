@@ -73,6 +73,16 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     Route::get('noticias/{noticia}/multimedia/{contenido}/eliminar-imagen', 'Contenidos@eliminarImagen')->name('eliminar_imagen_contenido_noticia');
     Route::post('noticias/{noticia}/multimedia/ordenar', 'Contenidos@ordenar')->name('ordenar_contenidos_noticia');
 
+    // videos
+    Route::get('videos', 'Videos@index')->name('videos');
+    Route::get('videos/crear', 'Videos@crear')->name('crear_video');
+    Route::get('videos/{video}/editar', 'Videos@editar')->name('editar_video');
+    Route::post('videos/guardar/{video?}', 'Videos@guardar')->name('guardar_video');
+    Route::get('videos/{video}/eliminar', 'Videos@eliminar')->name('eliminar_video');
+    Route::get('videos/{video}/cambiar-visibilidad', 'Videos@visibilidad')->name('visibilidad_video');
+    Route::post('videos/ordenar', 'Videos@ordenar')->name('ordenar_videos');
+    Route::get('videos/{video}/eliminar-archivo/{campo}', 'Videos@eliminarArchivo')->name('eliminar_archivo_video');
+
     // encuestas
     Route::get('encuestas', 'Encuestas@index')->name('encuestas');
     Route::get('encuestas/crear', 'Encuestas@crear')->name('crear_encuesta');
