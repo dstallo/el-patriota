@@ -107,3 +107,46 @@
         <input type="file" class="form-control" name="thumbnail_celular" value="{{ old('thumbnail_celular') }}">
     @endif
 </div>
+
+<div class="col-md-12">&nbsp;</div>
+
+<div class="col-md-4 form-group{{ has_error($errors, 'destacada') }}">
+    <label>Destacada</label>
+    <div>
+        <input type="checkbox" data-toggle="toggle" data-on="Sí" data-off="No" name="destacada" value="1"
+            {{ old('destacada', $noticia->destacada) ? 'checked' : '' }}>
+    </div>
+</div>
+
+<div class="col-md-4 form-group{{ has_error($errors, 'banner') }}">
+    <label>Banner</label>
+    @if ($noticia->tiene('banner'))
+        <div style="position:relative;">
+            <div style="position:absolute; left:-14px; top:4px;">
+                <a href="{{ route('eliminar_archivo_noticia', ['noticia' => $noticia, 'campo' => 'banner']) }}"
+                    class="btn btn-circle btn-sm btn-danger" title="Eliminar"><span
+                        class="glyphicon glyphicon-remove"></span></a>
+            </div>
+            <a href="{{ $noticia->url('banner') }}" data-lity><img src="{{ $noticia->url('banner') }}"></a>
+        </div>
+    @else
+        <input type="file" class="form-control" name="banner" value="{{ old('banner') }}">
+    @endif
+</div>
+
+<div class="col-md-4 form-group{{ has_error($errors, 'banner_celular') }}">
+    <label>Banner celular</label>
+    @if ($noticia->tiene('banner_celular'))
+        <div style="position:relative;">
+            <div style="position:absolute; left:-14px; top:4px;">
+                <a href="{{ route('eliminar_archivo_noticia', ['noticia' => $noticia, 'campo' => 'banner_celular']) }}"
+                    class="btn btn-circle btn-sm btn-danger" title="Eliminar"><span
+                        class="glyphicon glyphicon-remove"></span></a>
+            </div>
+            <a href="{{ $noticia->url('banner_celular') }}" data-lity><img
+                    src="{{ $noticia->url('banner_celular') }}"></a>
+        </div>
+    @else
+        <input type="file" class="form-control" name="banner_celular" value="{{ old('banner_celular') }}">
+    @endif
+</div>

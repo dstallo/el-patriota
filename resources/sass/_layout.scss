@@ -14,6 +14,18 @@ b {
     font-weight: 700;
 }
 
+
+//para los popups de imágenes
+.popup img {
+	display: block;
+	max-width:90vw;
+	max-height:90vh;
+	width: auto;
+	height: auto;
+	object-fit:contain;
+}
+
+
 #general {
     max-width: 2000px;
     margin: 0 auto;

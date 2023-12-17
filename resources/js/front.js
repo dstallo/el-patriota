@@ -1,20 +1,47 @@
-require('./bootstrap');
+require("./bootstrap");
 
-require('./mantener-relacion-alto');
+require("./mantener-relacion-alto");
 
-require('./abrir-html-fancy');
+require("./abrir-html-fancy");
 
-require('sweetalert');
+require("sweetalert");
 
-require('lity');
+require("lity");
 
-require('./formularios')
+require("./formularios");
 
 //javascript general para el front
 
 $(function() {
-    $('.fancybox').fancybox({ padding: 0, afterShow: function() { $(window).resize(); } });
-    GLightbox({selector: ".glightbox-video",closeOnOutsideClick: true,videosWidth: "90%",skin: 'glightbox-vid glightbox-clean'});
+    $(".fancybox").fancybox({
+        padding: 0,
+        afterShow: function() {
+            $(window).resize();
+        }
+    });
+    GLightbox({
+        selector: ".glightbox-video",
+        closeOnOutsideClick: true,
+        videosWidth: "90%",
+        skin: "glightbox-vid glightbox-clean"
+    });
+
+    $("[data-auto-abrir-popup]").each(function() {
+        var ancho_minimo = $(this).data("auto-abrir-popup");
+        var vw = Math.max(
+            document.documentElement.clientWidth || 0,
+            window.innerWidth || 0
+        );
+        if (!ancho_minimo || parseInt(ancho_minimo) <= vw) {
+            $(this).click();
+            return false;
+        }
+    });
+
+    $("[data-cerrar-popup]").click(function(e) {
+        e.preventDefault();
+        $.fancybox.close();
+    });
 
     // $('.menu > .desplegar').click(function(e) {
     //     e.preventDefault();
@@ -28,26 +55,31 @@ $(function() {
     // });
 
     //menu lateral
-    $('[data-abrir-menu-lateral]').click(function(e) {
+    $("[data-abrir-menu-lateral]").click(function(e) {
         e.preventDefault();
-        $('.menu-lateral').addClass('abierto');
+        $(".menu-lateral").addClass("abierto");
     });
-    $('[data-cerrar-menu-lateral]').click(function(e) {
+    $("[data-cerrar-menu-lateral]").click(function(e) {
         e.preventDefault();
-        $('.menu-lateral').removeClass('abierto');
+        $(".menu-lateral").removeClass("abierto");
     });
 
     $.ajax({
-    	dataType: "json",
-    	url: '/ajax/clima',
-    	success: function(data) {
-    		if(typeof data.temperatura != 'undefined') {
-    			var html = '<i class="owf owf-' + data.codigo + '"></i><span>' + (data.temperatura != '' ? data.temperatura + 'º' : '') + '</span>';
-    			$('header .clima').html(html);
-    		}
-    	},
-    	error: function() {
-    		$('header .clima').html('');
-    	}
+        dataType: "json",
+        url: "/ajax/clima",
+        success: function(data) {
+            if (typeof data.temperatura != "undefined") {
+                var html =
+                    '<i class="owf owf-' +
+                    data.codigo +
+                    '"></i><span>' +
+                    (data.temperatura != "" ? data.temperatura + "º" : "") +
+                    "</span>";
+                $("header .clima").html(html);
+            }
+        },
+        error: function() {
+            $("header .clima").html("");
+        }
     });
 });

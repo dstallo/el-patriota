@@ -1,27 +1,23 @@
 @extends('adminlte::page')
 
 @section('content_header')
-    <h1>Noticias</h1>
+    <h1>Popups de la home</h1>
 @stop
 
 @section('content')
     <div class="box box-primary">
         <div class="box-header with-border">
-            <h3 class="box-title">Crear noticia</h3>
+          <h3 class="box-title">Crear popup</h3>
         </div>
-        <form method="post" enctype="multipart/form-data" action="{{ route('guardar_noticia') }}">
+        <form method="post" enctype="multipart/form-data" action="{{ route('guardar_popup') }}">
             {{ csrf_field() }}
             <div class="box-body">
-                @include('admin.noticias._form')
+                @include('admin.popups._form')
             </div>
             <div class="box-footer text-right">
                 <button type="submit" class="btn btn-primary">Crear</button>
-                <a href="{{ route('noticias') }}" class="btn btn-info">Volver</a>
+                <a href="{{ route('popups') }}" class="btn btn-info">Volver</a>
             </div>
         </form>
     </div>
-@endsection
-
-@section('script.abajo')
-    @include('admin.parciales.tinymce-5-js')
 @endsection

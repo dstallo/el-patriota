@@ -16,9 +16,11 @@ class Noticia extends Model
     protected $dir = [
         'thumbnail' => 'contenido/noticias',
         'thumbnail_celular' => 'contenido/noticias',
+        'banner' => 'contenido/noticias',
+        'banner_celular' => 'contenido/noticias',
     ];
 
-    protected $eliminarConArchivos = ['thumbnail', 'thumbnail_celular'];
+    protected $eliminarConArchivos = ['thumbnail', 'thumbnail_celular', 'banner', 'banner_celular'];
 
     public function seccion()
     {
