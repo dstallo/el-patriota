@@ -14,17 +14,15 @@ b {
     font-weight: 700;
 }
 
-
 //para los popups de imágenes
 .popup img {
-	display: block;
-	max-width:90vw;
-	max-height:90vh;
-	width: auto;
-	height: auto;
-	object-fit:contain;
+    display: block;
+    max-width: 90vw;
+    max-height: 90vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
 }
-
 
 #general {
     max-width: 2000px;
@@ -72,10 +70,10 @@ b {
             justify-content: space-between;
             align-items: center;
             h2 {
-                width: 270px;
-                height: 45px;
+                width: 110px;
+                height: 100px;
                 @include fondo-contain;
-                background-image: url(../img/logo.svg);
+                background-image: url(../img/logo-c.svg);
             }
             a {
                 font-size: 24px;
@@ -88,7 +86,16 @@ b {
             color: #353534;
             font-size: 16px;
             font-weight: 600;
+            h3 {
+                color: #353534;
+                font-size: 16px;
+                font-weight: 600;
+                margin: 20px 0;
+            }
             li {
+                &.sub {
+                    padding-left: 10px;
+                }
                 margin: 5px 0;
                 line-height: 1.1em;
             }
@@ -281,6 +288,59 @@ header {
                         display: block;
                         text-transform: uppercase;
                         font-size: 15px;
+                    }
+                }
+            }
+
+            .entresub {
+                display: flex;
+                align-items: center;
+                .entrevistas {
+                    color: $texto;
+                    padding-right: 10px;
+                    padding-left: 20px;
+                    background-image: url(../img/icn-mic.svg);
+                    background-size: 15px auto;
+                    background-position: left center;
+                    background-repeat: no-repeat;
+                    line-height: 35px;
+                }
+                .newsletter {
+                    position: relative;
+                    .suscribite {
+                        display: block;
+                        line-height: 2em;
+                        background-color: $rojo;
+                        color: white;
+                        text-transform: uppercase;
+                        font-size: 14.5px;
+                        text-align: center;
+                        padding: 0 40px;
+                        font-weight: 600;
+                    }
+                    form {
+                        position: absolute;
+                        display: none;
+                        input[type="text"],
+                        input[type="email"] {
+                            width: 100%;
+                            background-color: #f0efef;
+                            border-bottom: 1px solid #a6a6a6;
+                            color: $texto;
+                            font-weight: 300;
+                            font-size: 14.5px;
+                            text-align: center;
+                            padding: 8px 0;
+                        }
+                        button {
+                            display: block;
+                            width: 100%;
+                            background-color: #7c7d7d;
+                            color: white;
+                            padding: 8px 0;
+                            text-align: center;
+                            font-size: 14.5px;
+                        }
                     }
                 }
             }

@@ -29928,11 +29928,12 @@ $.ajaxSetup({
 $(function () {
   ///// FORMULARIOS //////
   $('[data-formulario] button[type="submit"]').click(function (e) {
-    var form = $(this).parents('form').first();
-    var url = form.data('formulario');
-    var cargando = form.find('.cargando');
+    var form = $(this).parents("form").first();
+    var url = form.data("formulario");
+    var cargando = form.find(".cargando");
     if (!cargando[0]) cargando = false;
     var boton = $(this);
+    var callbackOk = form.data("ok");
     var mensajes = {
       exito: {
         titulo: form.find('input[name="exito_titulo"]').val(),
@@ -29953,8 +29954,8 @@ $(function () {
       }
 
       $.ajax({
-        type: 'POST',
-        dataType: 'json',
+        type: "POST",
+        dataType: "json",
         url: url,
         data: form.serialize(),
         success: function success(r) {
@@ -29966,6 +29967,7 @@ $(function () {
           if (r.ok) {
             sweetAlert(mensajes.exito.titulo, mensajes.exito.texto, "success");
             form[0].reset();
+            eval(callbackOk);
           } else {
             if (r.errores) {
               var mensajeFormateado = r.errores.join("\n");
@@ -29981,7 +29983,7 @@ $(function () {
             boton.show();
           }
 
-          if (_error == 'Too Many Requests') {
+          if (_error == "Too Many Requests") {
             sweetAlert("Error", "Realizaste demasiadas solicitudes, por favor aguardá unos minutos e intentá nuevamente.", "error");
           } else {
             sweetAlert(mensajes.error.titulo, mensajes.error.texto, "error");
@@ -30027,6 +30029,19 @@ $(function () {
     videosWidth: "90%",
     skin: "glightbox-vid glightbox-clean"
   });
+  $(".entresub a.suscribite").on("click", function (e) {
+    e.preventDefault();
+    $(".entresub .newsletter form").slideToggle("fast", function () {
+      if ($(this).is(":visible")) {
+        $(".entresub .newsletter form input[name='nombre']")[0].focus();
+      }
+    });
+  });
+
+  window.cerrarSlideNewsletter = function () {
+    $(".entresub .newsletter form").slideUp("fast");
+  };
+
   $("[data-auto-abrir-popup]").each(function () {
     var ancho_minimo = $(this).data("auto-abrir-popup");
     var vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);

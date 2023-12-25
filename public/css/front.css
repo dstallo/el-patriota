@@ -1447,12 +1447,12 @@ b {
   align-items: center;
 }
 .menu-lateral .contenido .logo h2 {
-  width: 270px;
-  height: 45px;
+  width: 110px;
+  height: 100px;
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
-  background-image: url(../img/logo.svg);
+  background-image: url(../img/logo-c.svg);
 }
 .menu-lateral .contenido .logo a {
   font-size: 24px;
@@ -1464,9 +1464,18 @@ b {
   font-size: 16px;
   font-weight: 600;
 }
+.menu-lateral .contenido ul h3 {
+  color: #353534;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 20px 0;
+}
 .menu-lateral .contenido ul li {
   margin: 5px 0;
   line-height: 1.1em;
+}
+.menu-lateral .contenido ul li.sub {
+  padding-left: 10px;
 }
 .menu-lateral .contenido ul.regiones a {
   text-transform: uppercase;
@@ -1671,6 +1680,58 @@ header .abajo .contenedor .menu li a {
   display: block;
   text-transform: uppercase;
   font-size: 15px;
+}
+header .abajo .contenedor .entresub {
+  display: flex;
+  align-items: center;
+}
+header .abajo .contenedor .entresub .entrevistas {
+  color: #353534;
+  padding-right: 10px;
+  padding-left: 20px;
+  background-image: url(../img/icn-mic.svg);
+  background-size: 15px auto;
+  background-position: left center;
+  background-repeat: no-repeat;
+  line-height: 35px;
+}
+header .abajo .contenedor .entresub .newsletter {
+  position: relative;
+}
+header .abajo .contenedor .entresub .newsletter .suscribite {
+  display: block;
+  line-height: 2em;
+  background-color: #ed1c25;
+  color: white;
+  text-transform: uppercase;
+  font-size: 14.5px;
+  text-align: center;
+  padding: 0 40px;
+  font-weight: 600;
+}
+header .abajo .contenedor .entresub .newsletter form {
+  position: absolute;
+  display: none;
+}
+header .abajo .contenedor .entresub .newsletter form input[type=text],
+header .abajo .contenedor .entresub .newsletter form input[type=email] {
+  width: 100%;
+  background-color: #f0efef;
+  border-bottom: 1px solid #a6a6a6;
+  color: #353534;
+  font-weight: 300;
+  font-size: 14.5px;
+  text-align: center;
+  padding: 8px 0;
+}
+header .abajo .contenedor .entresub .newsletter form button {
+  display: block;
+  width: 100%;
+  background-color: #7c7d7d;
+  color: white;
+  padding: 8px 0;
+  text-align: center;
+  font-size: 14.5px;
 }
 
 @media (max-width: 700px) {

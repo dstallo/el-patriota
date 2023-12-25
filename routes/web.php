@@ -124,3 +124,5 @@ Route::get('banners/{banner}/link', 'Banners@link')->name('link_banner');
 Route::get('encuesta/{pregunta?}', 'Noticias@verEncuesta')->name('ver-encuesta');
 Route::post('encuesta/{pregunta?}', 'Noticias@votarEncuesta');
 Route::get('encuesta/resultados/{pregunta?}', 'Noticias@verResultadosEncuesta')->name('resultados-encuesta');
+
+Route::get('entrevistas', 'Entrevistas@index');

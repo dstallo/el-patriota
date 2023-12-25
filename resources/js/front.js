@@ -26,6 +26,18 @@ $(function() {
         skin: "glightbox-vid glightbox-clean"
     });
 
+    $(".entresub a.suscribite").on("click", function(e) {
+        e.preventDefault();
+        $(".entresub .newsletter form").slideToggle("fast", function() {
+            if ($(this).is(":visible")) {
+                $(".entresub .newsletter form input[name='nombre']")[0].focus();
+            }
+        });
+    });
+    window.cerrarSlideNewsletter = () => {
+        $(".entresub .newsletter form").slideUp("fast");
+    };
+
     $("[data-auto-abrir-popup]").each(function() {
         var ancho_minimo = $(this).data("auto-abrir-popup");
         var vw = Math.max(
