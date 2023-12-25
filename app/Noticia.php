@@ -79,4 +79,13 @@ class Noticia extends Model
 
         return $texto;
     }
+
+    public function getVertical()
+    {
+        if ($this->tiene('banner_celular')) {
+            return $this->url('banner_celular');
+        }
+
+        return $this->url('banner');
+    }
 }

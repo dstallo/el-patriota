@@ -14,13 +14,14 @@ use Illuminate\Http\Request;
 
 class Noticias extends Controller
 {
-    protected function noticias($request = null)
+    protected function noticias($request = null, $excepto = [])
     {
         $noticias = Noticia::where('noticias.visible', true)
             // visibilidad en secciones
             ->select('noticias.*')
             ->join('secciones as s', 's.id', '=', 'noticias.id_seccion')
             ->where('s.visible', true)
+            ->whereNotIn('noticias.id', $excepto)
             // /
             ->with('seccion')
             ->with('region')
@@ -50,12 +51,12 @@ class Noticias extends Controller
             'terciarias_2' => [],
         ];
 
-        for ($i = 0; $i < 3 && count($noticias) > 0; ++$i) {
+        for ($i = 0; $i < 1 && count($noticias) > 0; ++$i) {
             $partes['principales'][] = $noticias->shift();
         }
         $partes['principales'] = collect($partes['principales']);
 
-        for ($i = 0; $i < 6 && count($noticias) > 0; ++$i) {
+        for ($i = 0; $i < 4 && count($noticias) > 0; ++$i) {
             $partes['secundarias'][] = $noticias->shift();
         }
         $partes['secundarias'] = collect($partes['secundarias']);
@@ -65,7 +66,7 @@ class Noticias extends Controller
         }
         $partes['terciarias_1'] = collect($partes['terciarias_1']);
 
-        for ($i = 0; $i < 12 && count($noticias) > 0; ++$i) {
+        for ($i = 0; $i < 6 && count($noticias) > 0; ++$i) {
             $partes['terciarias_2'][] = $noticias->shift();
         }
         $partes['terciarias_2'] = collect($partes['terciarias_2']);
@@ -93,7 +94,7 @@ class Noticias extends Controller
             ->where('visible', true)
             // ->inRandomOrder()
             ->orderBy('orden')
-            ->take(3)
+            // ->take(3)
             ->get();
 
         $laterales = Banner::where('ubicacion', 'Lateral')
@@ -111,7 +112,8 @@ class Noticias extends Controller
 
     public function home(Request $request)
     {
-        $noticias = $this->noticias($request);
+        $destacadas = $this->noticias($request)->where('destacada', true)->take(10)->get();
+        $noticias = $this->noticias($request, $destacadas->pluck('id'));
         $partes = $this->dividir($noticias);
 
         $leidas = $this->leidas()->get();
@@ -125,7 +127,7 @@ class Noticias extends Controller
 
         $popup = Popup::where('visible', true)->orderBy('id', 'desc')->first();
 
-        return view('home', compact('partes', 'leidas', 'banners', 'popup'));
+        return view('home', compact('destacadas', 'partes', 'leidas', 'banners', 'popup'));
     }
 
     public function seccion(Seccion $seccion, $nombre, Request $request)

@@ -30042,6 +30042,34 @@ $(function () {
     $(".entresub .newsletter form").slideUp("fast");
   };
 
+  $("footer .newsletter a").on("click", function (e) {
+    e.preventDefault(); //window.scrollTo(0, 0);
+
+    if (!$(".entresub .newsletter form").is(":visible")) {
+      $(".entresub a.suscribite").trigger("click");
+    }
+  });
+
+  if ($(".destacadas").length) {
+    //slides de la home
+    $(".destacadas").slick({
+      slidesToShow: 1,
+      infinite: true,
+      autoplay: true,
+      autoplaySpeed: 6000,
+      arrows: true,
+      dots: true,
+      responsive: [{
+        breakpoint: 650,
+        settings: {
+          // centerMode: true,
+          // centerPadding: '40px',
+          arrows: false
+        }
+      }]
+    });
+  }
+
   $("[data-auto-abrir-popup]").each(function () {
     var ancho_minimo = $(this).data("auto-abrir-popup");
     var vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);

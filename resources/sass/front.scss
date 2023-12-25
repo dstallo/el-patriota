@@ -36,7 +36,6 @@ $rojo: #ed1c25;
 $borde: #cfcfce;
 $texto: #353534;
 
-
 .cover {
     display: block;
     position: absolute;
@@ -49,6 +48,8 @@ $texto: #353534;
 @import "layout";
 
 @import "home";
+
+@import "destacadas";
 
 @import "ficha";
 

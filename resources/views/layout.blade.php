@@ -52,11 +52,8 @@
 
     <link rel="stylesheet" type="text/css" href="{{ url('clima/css/owfont-regular.min.css') }}">
 
-    <?php /*
-    <script type="text/javascript" src="/js/lib/cycle2/jquery.cycle2.min.js"></script>
-    <script type="text/javascript" src="/js/lib/cycle2/jquery.cycle2.center.min.js"></script>
-    */
-    ?>
+    <link rel="stylesheet" type="text/css" href="{{ url('js/lib/slick/slick.css') }}">
+    <script src="{{ url('js/lib/slick/slick.js') }}" type="text/javascript" charset="utf-8"></script>
 
     @if (config('app.env') == 'production')
     @endif
@@ -159,30 +156,37 @@
 
         <footer>
             <div class="contenedor">
-
                 <div class="col">
-                    <div class="redes">
-                        <a class="facebook" target="_blank"
-                            href="https://www.facebook.com/profile.php?id=100088812571474"><i></i></a>
-                        <a class="twitter" target="_blank" href="https://twitter.com/entrenoticiasok"><i></i></a>
-                        <a class="instagram" target="_blank"
-                            href="https://www.instagram.com/entrenoticiasok"><i></i></a>
-                    </div>
+                    <a href="{{ url('/') }}" class="logo">
+                        <img src="{{ url('img/logo-c.svg') }}" alt="Info al Sur">
+                    </a>
+                </div>
+                <div class="col">
                     <div class="info">
                         <p>
-                            <a href="mailto:info@entrenoticias.com.ar">info@entrenoticias.com.ar</a><br>
+                            <a href="mailto:contacto@infoalsur.com.ar">contacto@infoalsur.com.ar</a><br>
                             <strong>Edición nº
                                 {{ ceil(abs(strtotime(date('Y-m-d')) - strtotime(config('app.fecha_inicio_edicion'))) / 86400) + 1 }}</strong>
                         </p>
                     </div>
+                    <div class="redes">
+                        <a class="x" target="_blank" href="https://twitter.com/infoalsurok"><i></i></a>
+                        <a class="instagram" target="_blank" href="instagram.com/infoalsurok/"><i></i></a>
+                        <a class="tiktok" target="_blank" href="https://www.tiktok.com/@infoalsurok"><i></i></a>
+                    </div>
                 </div>
 
                 <div class="col">
-                    <a class="logo" href="{{ url('/') }}"></a>
+                    <div class="newsletter">
+                        <h3>Newsletter</h3>
+                        <p>Quérés recibir toda la info en tu mail? Suscribite.</p>
+                        <a href="">SUSCRIBITE</a>
+                    </div>
                 </div>
             </div>
             <div class="sub">
-                <p><?php /* Editor responsable: Gastón Siseles / */ ?>Copyright todos los derechos reservados {{ date('Y') }}</p>
+                <p>Editor responsable: Juan Carlos Muestra / Copyright todos los derechos reservados
+                    {{ date('Y') }}</p>
             </div>
         </footer>
 

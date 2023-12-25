@@ -39,14 +39,33 @@
                     <?php $noticia = $primera; ?>
                     @include('_noticia')
                 </div>
-                <div class="segundas">
-                    @foreach ($partes['principales'] as $noticia)
-                        @include('_noticia')
-                    @endforeach
-                </div>
-                <hr>
             </div>
         @endif
+
+    </div>
+    @if (count($destacadas))
+        <section class="destacadas">
+            @foreach ($destacadas as $destacada)
+                @continue(!$destacada->tiene('banner'))
+                <div class="destacada">
+                    <div class="imagen" style="background-image:url({{ $destacada->url('banner') }});"></div>
+                    <div class="imagen-vertical" style="background-image:url({{ $destacada->getVertical() }});"></div>
+                    <div class="info">
+                        <div class="cuerpo">
+                            <div class="volanta">{{ $destacada->volanta }}</div>
+                            <h2>{!! $destacada->titulo_h !!}</h2>
+                            <div class="bajada texto">{!! $destacada->bajada !!}</div>
+                            @if ($destacada->autor)
+                                <div class="autor">Por {{ $destacada->autor }}</div>
+                            @endif
+                        </div>
+                    </div>
+                    <a class="cover" href="{{ $destacada->link() }}" target="_blank"></a>
+                </div>
+            @endforeach
+        </section>
+    @endif
+    <div class="contenedor listado">
 
         @if ($banner = $banners['horizontales']->shift())
             <div class="banner horizontal">
@@ -64,15 +83,10 @@
 
                 @if ($banner = $banners['horizontales']->shift())
                     <div class="banner horizontal">
-                        <a href="{{ $banner->linkContador() }}" target="_blank"><img src="{{ $banner->url('imagen') }}"></a>
+                        <a href="{{ $banner->linkContador() }}" target="_blank"><img
+                                src="{{ $banner->url('imagen') }}"></a>
                     </div>
                 @endif
-
-                <div class="terciarias">
-                    @foreach ($partes['terciarias_1'] as $noticia)
-                        @include('_noticia')
-                    @endforeach
-                </div>
 
                 @if (count($leidas))
                     <div class="leidas">
@@ -91,15 +105,33 @@
                 @endif
 
                 <div class="terciarias">
+                    @foreach ($partes['terciarias_1'] as $noticia)
+                        @include('_noticia')
+                    @endforeach
+                </div>
+                @if ($banner = $banners['horizontales']->shift())
+                    <div class="banner horizontal">
+                        <a href="{{ $banner->linkContador() }}" target="_blank"><img
+                                src="{{ $banner->url('imagen') }}"></a>
+                    </div>
+                @endif
+                <div class="terciarias">
                     @foreach ($partes['terciarias_2'] as $noticia)
                         @include('_noticia')
                     @endforeach
                 </div>
+                @if ($banner = $banners['horizontales']->shift())
+                    <div class="banner horizontal">
+                        <a href="{{ $banner->linkContador() }}" target="_blank"><img
+                                src="{{ $banner->url('imagen') }}"></a>
+                    </div>
+                @endif
             </div>
             <div class="columna-banners">
                 @forelse($banners['laterales'] as $banner)
                     <div class="banner lateral">
-                        <a href="{{ $banner->linkContador() }}" target="_blank"><img src="{{ $banner->url('imagen') }}"></a>
+                        <a href="{{ $banner->linkContador() }}" target="_blank"><img
+                                src="{{ $banner->url('imagen') }}"></a>
                     </div>
                     @if ($loop->iteration == 2 || ($loop->iteration < 2 && $loop->last))
                         @include('_encuesta')
@@ -107,16 +139,6 @@
                 @empty
                     @include('_encuesta')
                 @endforelse
-                <div class="banner lateral">
-                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6107105686338244"
-                        crossorigin="anonymous"></script>
-                    <!-- Banner lateral -->
-                    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6107105686338244"
-                        data-ad-slot="7233094358" data-ad-format="auto" data-full-width-responsive="true"></ins>
-                    <script>
-                        (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script>
-                </div>
             </div>
         </div>
     </div>

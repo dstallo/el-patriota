@@ -1,0 +1,10 @@
+OK - footer
+OK - noticia principal única
+OK - resto de las noticias (4 secundarias, más leídas, 3 terciarias_1, 6 terciarias_2)
+OK - módulo de destacadas
+OK - revisar banners
+
+- ficha de noticia (epígrafes de fotos)
+- módulo de más leídas / 3 relacionadas
+- entrevistas (videos)
+- responsive de todo
