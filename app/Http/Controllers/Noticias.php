@@ -9,25 +9,15 @@ use App\Noticia;
 use App\Popup;
 use App\Region;
 use App\Seccion;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class Noticias extends Controller
 {
     protected function noticias($request = null, $excepto = [])
     {
-        $noticias = Noticia::where('noticias.visible', true)
-            // visibilidad en secciones
-            ->select('noticias.*')
-            ->join('secciones as s', 's.id', '=', 'noticias.id_seccion')
-            ->where('s.visible', true)
-            ->whereNotIn('noticias.id', $excepto)
-            // /
-            ->with('seccion')
-            ->with('region')
-            ->orderBy('fecha', 'desc')
-            ->orderBy('id', 'desc')
-        ;
+        $noticias = Noticia::obtener();
+
+        $noticias->whereNotIn('noticias.id', $excepto);
 
         if ($request && $buscar = trim($request->input('buscar'))) {
             $noticias->where(function ($query) use ($buscar) {
@@ -76,14 +66,7 @@ class Noticias extends Controller
 
     protected function leidas()
     {
-        return Noticia::where('noticias.visible', true)
-            // visibilidad en secciones
-            ->select('noticias.*')
-            ->join('secciones as s', 's.id', '=', 'noticias.id_seccion')
-            ->where('s.visible', true)
-            ->where('fecha', '>=', Carbon::now()->subDays(16))
-            // /
-            ->orderBy('visitas', 'desc')
+        return Noticia::leidas()
             ->take(3)
         ;
     }
@@ -177,14 +160,13 @@ class Noticias extends Controller
         ++$noticia->visitas;
         $noticia->save();
 
-        $noticias = $this->noticias()->where('id_seccion', $noticia->id_seccion)->where('id_region', $noticia->id_region)->where('noticias.id', '<>', $noticia->id);
-        $partes = $this->dividir($noticias);
+        $relacionadas = $this->noticias()->where('id_seccion', $noticia->id_seccion)->where('id_region', $noticia->id_region)->where('noticias.id', '<>', $noticia->id)->take(3)->get();
 
         $banners = $this->banners();
 
         $leidas = $this->leidas()->get();
 
-        return view('ficha', compact('noticia', 'banners', 'partes', 'leidas'));
+        return view('ficha', compact('noticia', 'banners', 'leidas', 'relacionadas'));
     }
 
     public function verEncuesta($pregunta, Request $request)

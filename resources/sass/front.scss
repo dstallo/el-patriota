@@ -6,7 +6,7 @@
 // Lity
 @import "node_modules/lity/dist/lity";
 
-@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,600,700|Poppins:300,400,700|Roboto+Condensed:300,400,600|Lora:700&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,300i,400,600,500,700|Poppins:300,400,700|Roboto+Condensed:300,400,600|Lora:700&display=swap");
 
 @mixin fondo-cover() {
     background-size: cover;
@@ -56,3 +56,5 @@ $texto: #353534;
 @import "banner";
 
 @import "encuesta";
+
+@import "videos";

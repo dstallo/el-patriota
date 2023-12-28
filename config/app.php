@@ -12,7 +12,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Info al sur'),
+    'name' => env('APP_NAME', 'Info al Sur'),
 
     'fecha_inicio_edicion' => env('FECHA_INICIO_EDICION', '2022-12-09'),
 

@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('titulo')
-    Entre Noticias - {{ $noticia->titulo_p }}
+    {{ config('app.name') }} - {{ $noticia->titulo_p }}
 @endsection
 
 @section('script.header')
@@ -35,12 +35,13 @@
                     <div class="copete">
                         <div class="categorias">
                             {{ $noticia->region->nombre }} | {{ $noticia->seccion->nombre }}
+                            <span>{{ $noticia->fecha_f }}</span>
                         </div>
                         <div class="botones">
                             <a class="compartir addthis_button_more" href="#compartir"></a>
                         </div>
                     </div>
-                    <div class="fecha">{{ $noticia->fecha_f }}</div>
+                    <div class="volanta">{{ $noticia->volanta }}</div>
                     <h1>{!! $noticia->titulo_h !!}</h1>
                     <div class="texto bajada">{!! $noticia->bajada !!}</div>
                     @if ($noticia->autor)
@@ -59,6 +60,7 @@
                                                 <a class="glightbox-video" href="{{ $videoResuelto->embedUrl() }}"
                                                     target="_blank"></a>
                                             </div>
+                                            <div class="epigrafe">{{ $contenido->nombre }}</div>
                                         </div>
                                     @endif
                                 @elseif($contenido->tipo == 'imagen')
@@ -66,6 +68,7 @@
                                         <div class="foto" style="background-image:url({{ $contenido->url('tn') }});">
                                             <a href="{{ $contenido->url('imagen') }}" data-lity></a>
                                         </div>
+                                        <div class="epigrafe">{{ $contenido->nombre }}</div>
                                     </div>
                                 @endif
                             @endforeach
@@ -90,7 +93,7 @@
                     @if (count($leidas))
                         <div class="leidas">
                             <div class="contenido">
-                                <h2>MÁS LEÍDAS</h2>
+                                <h2>LAS MÁS LEÍDAS</h2>
                                 <ul>
                                     @foreach ($leidas as $leida)
                                         <li>
@@ -103,7 +106,7 @@
                         </div>
                     @endif
                     <div class="terciarias">
-                        @foreach ($partes['principales'] as $noticia)
+                        @foreach ($relacionadas as $noticia)
                             @include('_noticia')
                         @endforeach
                     </div>

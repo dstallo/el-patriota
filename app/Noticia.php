@@ -4,6 +4,7 @@ namespace App;
 
 use App\Axys\Traits\TieneArchivos;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class Noticia extends Model
 {
@@ -87,5 +88,31 @@ class Noticia extends Model
         }
 
         return $this->url('banner');
+    }
+
+    public function scopeObtener($query)
+    {
+        return $query->where('noticias.visible', true)
+            // visibilidad en secciones
+            ->select('noticias.*')
+            ->join('secciones as s', 's.id', '=', 'noticias.id_seccion')
+            ->where('s.visible', true)
+            // /
+            ->with('seccion')
+            ->with('region')
+            ->orderBy('fecha', 'desc')
+            ->orderBy('id', 'desc');
+    }
+
+    public function scopeLeidas($query)
+    {
+        return $query->where('noticias.visible', true)
+            // visibilidad en secciones
+            ->select('noticias.*')
+            ->join('secciones as s', 's.id', '=', 'noticias.id_seccion')
+            ->where('s.visible', true)
+            ->where('fecha', '>=', Carbon::now()->subDays(16))
+            // /
+            ->orderBy('visitas', 'desc');
     }
 }

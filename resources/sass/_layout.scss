@@ -213,6 +213,16 @@ header {
                             width: 18px;
                             height: 20px;
                         }
+                        &.tiktok i {
+                            background-image: url(../img/redes-negro/tiktok.svg);
+                            width: 18px;
+                            height: 18px;
+                        }
+                        &.x i {
+                            background-image: url(../img/redes-negro/x.svg);
+                            width: 18px;
+                            height: 18px;
+                        }
                     }
                 }
                 .fecha {
@@ -370,6 +380,16 @@ header {
                         margin: 0 auto;
                     }
                     margin-bottom: 10px;
+                }
+            }
+        }
+        .abajo {
+            .contenedor {
+                .menu {
+                    display: none;
+                }
+                .entresub {
+                    display: none;
                 }
             }
         }

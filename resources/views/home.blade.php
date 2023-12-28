@@ -91,7 +91,7 @@
                 @if (count($leidas))
                     <div class="leidas">
                         <div class="contenido">
-                            <h2>NOTICIAS MÁS LEÍDAS</h2>
+                            <h2>LAS MÁS LEÍDAS</h2>
                             <ul>
                                 @foreach ($leidas as $leida)
                                     <li>

@@ -30070,6 +30070,12 @@ $(function () {
     });
   }
 
+  $(".videos .contenidos").slick({
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    dots: false,
+    infinite: true
+  });
   $("[data-auto-abrir-popup]").each(function () {
     var ancho_minimo = $(this).data("auto-abrir-popup");
     var vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);

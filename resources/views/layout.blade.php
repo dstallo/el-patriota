@@ -107,11 +107,9 @@
                             <div class="clima"></div>
                         </div>
                         <div class="redes">
-                            <a class="facebook" target="_blank"
-                                href="https://www.facebook.com/profile.php?id=100088812571474"><i></i></a>
-                            <a class="twitter" target="_blank" href="https://twitter.com/entrenoticiasok"><i></i></a>
-                            <a class="instagram" target="_blank"
-                                href="https://www.instagram.com/entrenoticiasok"><i></i></a>
+                            <a class="x" target="_blank" href="https://twitter.com/infoalsurok"><i></i></a>
+                            <a class="instagram" target="_blank" href="instagram.com/infoalsurok/"><i></i></a>
+                            <a class="tiktok" target="_blank" href="https://www.tiktok.com/@infoalsurok"><i></i></a>
                         </div>
                     </div>
                 </div>
