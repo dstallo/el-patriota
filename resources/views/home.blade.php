@@ -43,7 +43,7 @@
         @endif
 
     </div>
-    @if (count($destacadas))
+    @if (count($destacadas ?? []))
         <section class="destacadas">
             @foreach ($destacadas as $destacada)
                 @continue(!$destacada->tiene('banner'))
