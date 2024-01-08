@@ -504,6 +504,9 @@ footer {
             font-weight: 600;
             max-width: 140px;
         }
+        form {
+            display: none;
+        }
     }
 
     .sub {
@@ -534,6 +537,51 @@ footer {
         }
         .sub {
             margin-top: 25px;
+        }
+
+        .newsletter {
+            max-width: 240px;
+            h3 {
+                font-size: 17px;
+                font-weight: 700;
+            }
+            a {
+                display: none;
+            }
+            form {
+                margin-top: 10px;
+                width: 100%;
+                display: block;
+                input[type="email"],
+                input[type="text"] {
+                    font-size: 14px;
+                    margin-bottom: 10px;
+                    border: 0;
+                    display: block;
+                    width: 100%;
+                    padding: 6px;
+                    background-color: transparent;
+                    border: 1px solid $color;
+                    &::placeholder {
+                        color: $color;
+                    }
+                    color: $color;
+                }
+                button {
+                    display: block;
+                    box-sizing: border-box;
+                    text-align: center;
+                    width: 100%;
+                    line-height: 2em;
+                    background-color: $rojo;
+                    color: white;
+                    text-transform: uppercase;
+                    font-size: 14.5px;
+                    text-align: center;
+                    padding: 0 20px;
+                    font-weight: 600;
+                }
+            }
         }
     }
 }

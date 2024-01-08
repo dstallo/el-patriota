@@ -173,7 +173,8 @@
                     <li class="header">OTRAS</li>
                     <li><a href="{{ url('admin/popups') }}"><i class="fa fa-fw fa-window-maximize"></i><span>Popups
                                 home</span></a></li>
-                    <li><a href="{{ url('admin/videos') }}"><i class="fa fa-fw fa-play"></i><span>Videos</span></a></li>
+                    <li><a href="{{ url('admin/videos') }}"><i class="fa fa-fw fa-play"></i><span>Entrevistas</span></a>
+                    </li>
                     <li><a href="{{ url('admin/encuestas') }}"><i
                                 class="fa fa-fw fa-question-circle"></i><span>Encuestas</span></a></li>
                     <li><a href="{{ url('admin/newsletter/inscriptos') }}"><i class="fa fa-fw fa-envelope"></i>

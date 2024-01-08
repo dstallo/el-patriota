@@ -125,4 +125,41 @@
         right: 2.5%;
         background-color: transparent;
     }
+
+    @media (max-width: 650px) {
+        height: 45vh;
+        .destacada {
+            .imagen {
+                height: 45vh;
+                display: none;
+            }
+            .imagen-vertical {
+                height: 45vh;
+                display: block;
+            }
+
+            .info {
+                .cuerpo {
+                    max-width: 700px;
+                    padding: 20px;
+                    .volanta {
+                        font-size: 18px;
+                        font-weight: 600;
+                        margin-bottom: 20px;
+                        &:after {
+                            content: "";
+                            border-bottom: 2px solid white;
+                            display: block;
+                            max-width: 70px;
+                            padding-top: 10px;
+                        }
+                    }
+                    h2 {
+                        font-size: 25px;
+                        font-weight: 700;
+                    }
+                }
+            }
+        }
+    }
 }

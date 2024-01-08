@@ -178,7 +178,20 @@
                     <div class="newsletter">
                         <h3>Newsletter</h3>
                         <p>Quérés recibir toda la info en tu mail? Suscribite.</p>
-                        <a href="">SUSCRIBITE</a>
+                        <a href="#">SUSCRIBITE</a>
+                        <form autocomplete="off" data-formulario="{{ url('ajax/newsletter') }}">
+                            {{ csrf_field() }}
+                            <input type="hidden" name="exito_titulo" value="Suscripto!">
+                            <input type="hidden" name="exito_texto"
+                                value="Te suscribiste exitosamente a nuestro newsletter.">
+                            <input type="hidden" name="error_titulo" value="Error">
+                            <input type="hidden" name="error_texto"
+                                value="Ocurrió un error con tu suscripción, por favor intenta de nuevo en unos minutos.">
+                            <input type="text" name="nombre" placeholder="nombre" autocomplete="off" required>
+                            <input type="email" name="email" placeholder="tu mail acá" autocomplete="off"
+                                required>
+                            <button type="submit">SUSCRIBITE</button>
+                        </form>
                     </div>
                 </div>
             </div>
