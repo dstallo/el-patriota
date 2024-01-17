@@ -196,7 +196,7 @@
                 </div>
             </div>
             <div class="sub">
-                <p>Editor responsable: Juan Carlos Muestra / Copyright todos los derechos reservados
+                <p><?php /* Editor responsable: Juan Carlos Muestra / */ ?>Copyright todos los derechos reservados
                     {{ date('Y') }}</p>
             </div>
         </footer>
