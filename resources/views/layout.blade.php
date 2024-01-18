@@ -108,7 +108,7 @@
                         </div>
                         <div class="redes">
                             <a class="x" target="_blank" href="https://twitter.com/infoalsurok"><i></i></a>
-                            <a class="instagram" target="_blank" href="instagram.com/infoalsurok/"><i></i></a>
+                            <a class="instagram" target="_blank" href="https://instagram.com/infoalsurok/"><i></i></a>
                             <a class="tiktok" target="_blank" href="https://www.tiktok.com/@infoalsurok"><i></i></a>
                         </div>
                     </div>
@@ -169,7 +169,7 @@
                     </div>
                     <div class="redes">
                         <a class="x" target="_blank" href="https://twitter.com/infoalsurok"><i></i></a>
-                        <a class="instagram" target="_blank" href="instagram.com/infoalsurok/"><i></i></a>
+                        <a class="instagram" target="_blank" href="https://instagram.com/infoalsurok/"><i></i></a>
                         <a class="tiktok" target="_blank" href="https://www.tiktok.com/@infoalsurok"><i></i></a>
                     </div>
                 </div>
