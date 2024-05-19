@@ -223,6 +223,16 @@ header {
                             width: 18px;
                             height: 18px;
                         }
+                        &.whatsapp i {
+                            background-image: url(../img/redes-negro/whatsapp.svg);
+                            width: 18px;
+                            height: 18px;
+                        }
+                        &.telegram i {
+                            background-image: url(../img/redes-negro/telegram.svg);
+                            width: 18px;
+                            height: 18px;
+                        }
                     }
                 }
                 .fecha {
@@ -476,6 +486,16 @@ footer {
             }
             &.x i {
                 background-image: url(../img/redes-negro/x.svg);
+                width: 18px;
+                height: 18px;
+            }
+            &.whatsapp i {
+                background-image: url(../img/redes-negro/whatsapp.svg);
+                width: 18px;
+                height: 18px;
+            }
+            &.telegram i {
+                background-image: url(../img/redes-negro/telegram.svg);
                 width: 18px;
                 height: 18px;
             }

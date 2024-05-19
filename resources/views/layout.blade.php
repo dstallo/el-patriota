@@ -107,9 +107,12 @@
                             <div class="clima"></div>
                         </div>
                         <div class="redes">
+                            <a class="whatsapp" target="_blank"
+                                href="https://whatsapp.com/channel/0029VaJ8rJd42DchkW2xSK0K"><i></i></a>
+                            <a class="telegram" target="_blank" href="https://t.me/+wxDUXewwL1MzMTQx"><i></i></a>
                             <a class="x" target="_blank" href="https://twitter.com/infoalsurok"><i></i></a>
                             <a class="instagram" target="_blank" href="https://instagram.com/infoalsurok/"><i></i></a>
-                            <a class="tiktok" target="_blank" href="https://www.tiktok.com/@infoalsurok"><i></i></a>
+                            <a class="tiktok" target="_blank" href="https://www.tiktok.com/@infoalsur"><i></i></a>
                         </div>
                     </div>
                 </div>
@@ -168,9 +171,12 @@
                         </p>
                     </div>
                     <div class="redes">
+                        <a class="whatsapp" target="_blank"
+                            href="https://whatsapp.com/channel/0029VaJ8rJd42DchkW2xSK0K"><i></i></a>
+                        <a class="telegram" target="_blank" href="https://t.me/+wxDUXewwL1MzMTQx"><i></i></a>
                         <a class="x" target="_blank" href="https://twitter.com/infoalsurok"><i></i></a>
                         <a class="instagram" target="_blank" href="https://instagram.com/infoalsurok/"><i></i></a>
-                        <a class="tiktok" target="_blank" href="https://www.tiktok.com/@infoalsurok"><i></i></a>
+                        <a class="tiktok" target="_blank" href="https://www.tiktok.com/@infoalsur"><i></i></a>
                     </div>
                 </div>
 
