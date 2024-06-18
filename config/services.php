@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Third Party Services
@@ -44,4 +43,7 @@ return [
         ],
     ],
 
+    'tinymce' => [
+        'apikey' => env('TINY_API_KEY'),
+    ],
 ];
