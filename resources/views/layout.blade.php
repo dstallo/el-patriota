@@ -56,6 +56,16 @@
     <script src="{{ url('js/lib/slick/slick.js') }}" type="text/javascript" charset="utf-8"></script>
 
     @if (config('app.env') == 'production')
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-92XX09WK5Y"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+            gtag('config', 'G-92XX09WK5Y');
+        </script>
     @endif
 
     @yield('script.header')
