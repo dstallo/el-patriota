@@ -57,7 +57,7 @@
 </div>
 <div class="col-md-6 form-group{{ has_error($errors, 'bajada') }}">
     <label>Bajada</label>
-    <textarea class="tiny" style="height:180px;" name="bajada">{{ old('bajada', $noticia->bajada) }}</textarea>
+    <textarea class="quill-editor" style="height:180px;" name="bajada">{{ old('bajada', $noticia->bajada) }}</textarea>
 </div>
 <div class="col-md-2 form-group{{ has_error($errors, 'con_video') }}">
     <label>Contiene video</label>
@@ -66,11 +66,10 @@
             {{ old('con_video', $noticia->con_video) ? 'checked' : '' }}>
     </div>
 </div>
-
-<div class="col-md-12 form-group{{ has_error($errors, 'texto') }}">
+<div class="col-md-12 form-group{{ has_error($errors,'texto') }}">
     <label>Texto</label>
-    <textarea class="tiny-img" style="height:180px;" name="texto">{{ old('texto', $noticia->texto) }}</textarea>
-    <span class="help-block">{embebido_1} y {embebido_1} para ubicar los embebidos.</span>
+    <textarea class="quill-editor" style="height:180px;" name="texto">{{ old('texto',$noticia->texto) }}</textarea>
+    <span class="help-block">{embebido_1} y {embebido_2} para ubicar los embebidos.</span>
 </div>
 
 <div class="col-md-12"></div>

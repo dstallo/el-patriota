@@ -10,6 +10,7 @@ use App\Popup;
 use App\Region;
 use App\Seccion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class Noticias extends Controller
 {
@@ -102,12 +103,6 @@ class Noticias extends Controller
         $leidas = $this->leidas()->get();
         $banners = $this->banners();
 
-        if (!count($partes['principales'])) {
-            Flasher::set('No se encontraron noticias.', 'Sin resultados', 'error')->flashear();
-
-            return redirect('/');
-        }
-
         $popup = Popup::where('visible', true)->orderBy('id', 'desc')->first();
 
         return view('home', compact('destacadas', 'partes', 'leidas', 'banners', 'popup'));
@@ -125,12 +120,6 @@ class Noticias extends Controller
         $leidas = $this->leidas()->where('id_seccion', $seccion->id)->get();
         $banners = $this->banners();
 
-        if (!count($partes['principales'])) {
-            Flasher::set('No se encontraron noticias.', 'Sin resultados', 'error')->flashear();
-
-            return redirect('/');
-        }
-
         return view('home', compact('partes', 'leidas', 'banners'));
     }
 
@@ -141,12 +130,6 @@ class Noticias extends Controller
 
         $leidas = $this->leidas()->where('id_region', $region->id)->get();
         $banners = $this->banners();
-
-        if (!count($partes['principales'])) {
-            Flasher::set('No se encontraron noticias.', 'Sin resultados', 'error')->flashear();
-
-            return redirect('/');
-        }
 
         return view('home', compact('partes', 'leidas', 'banners'));
     }
@@ -177,7 +160,7 @@ class Noticias extends Controller
         }
 
         if ($request->session()->get('encuesta_votada_'.$encuesta->id)) {
-            return redirect()->route('resultados-encuesta', str_slug($encuesta->pregunta));
+            return redirect()->route('resultados-encuesta', Str::slug($encuesta->pregunta));
         }
 
         $noticias = $this->noticias();
@@ -198,7 +181,7 @@ class Noticias extends Controller
         }
 
         if ($request->session()->get('encuesta_votada_'.$encuesta->id)) {
-            return redirect()->route('resultados-encuesta', str_slug($encuesta->pregunta));
+            return redirect()->route('resultados-encuesta', Str::slug($encuesta->pregunta));
         }
 
         $opcion = $encuesta->opciones()->find($request->input('opcion'));
@@ -209,7 +192,7 @@ class Noticias extends Controller
 
         $request->session()->put('encuesta_votada_'.$encuesta->id, true);
 
-        return redirect()->route('resultados-encuesta', str_slug($encuesta->pregunta));
+        return redirect()->route('resultados-encuesta', Str::slug($encuesta->pregunta));
     }
 
     public function verResultadosEncuesta(Request $request)
@@ -220,7 +203,7 @@ class Noticias extends Controller
         }
 
         if (!$request->session()->get('encuesta_votada_'.$encuesta->id)) {
-            return redirect()->route('ver-encuesta', str_slug($encuesta->pregunta));
+            return redirect()->route('ver-encuesta', Str::slug($encuesta->pregunta));
         }
 
         $noticias = $this->noticias();

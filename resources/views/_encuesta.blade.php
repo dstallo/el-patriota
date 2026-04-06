@@ -10,7 +10,7 @@
 				@endforeach
 			</ul>
 			<div class="boton">
-				<a href="{{ route('ver-encuesta', str_slug($encuesta->pregunta)) }}">IR A VOTAR</a>
+				<a href="{{ route('ver-encuesta', \Illuminate\Support\Str::slug($encuesta->pregunta)) }}">IR A VOTAR</a>
 			</div>
 		</div>
 	</div>

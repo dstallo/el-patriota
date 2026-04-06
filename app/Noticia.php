@@ -5,6 +5,7 @@ namespace App;
 use App\Axys\Traits\TieneArchivos;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 
 class Noticia extends Model
 {
@@ -45,7 +46,7 @@ class Noticia extends Model
 
     public function link()
     {
-        return route('ficha_noticia', [$this, str_slug($this->titulo)]);
+        return route('ficha_noticia', [$this, Str::slug($this->titulo)]);
     }
 
     public function getFechaFAttribute()

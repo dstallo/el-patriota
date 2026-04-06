@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class Dashboard extends Controller
 {
@@ -41,8 +42,8 @@ class Dashboard extends Controller
 
         $archivo = $request->file('imagen');
 
-        $nombre=str_slug(pathinfo($archivo->getClientOriginalName(), PATHINFO_FILENAME)); //simplifico el nombre
-        $nombre=$nombre.'-'.str_random(5); //lo vuelvo único
+        $nombre=Str::random(pathinfo($archivo->getClientOriginalName(), PATHINFO_FILENAME)); //simplifico el nombre
+        $nombre=$nombre.'-'.Str::random(5); //lo vuelvo único
         $nombre=$nombre.'.'.$archivo->getClientOriginalExtension();//le agrego la extensión
         $ruta = Storage::disk(config('filesystems.contenido'))->putFileAs('public/tinymce', $archivo, $nombre, 'public');
         $url = url(preg_replace("/^public/", 'storage', $ruta));

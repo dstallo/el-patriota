@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Axys\Traits\EsOrdenable;
+use Illuminate\Support\Str;
 
 class Seccion extends Model
 {
@@ -25,6 +26,6 @@ class Seccion extends Model
 
     public function link()
     {
-        return route('seccion', [$this, str_slug($this->nombre)]);
+        return route('seccion', [$this, Str::slug($this->nombre)]);
     }
 }

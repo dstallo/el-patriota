@@ -6,6 +6,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\File as FileHttp;
+use Illuminate\Support\Str;
 use \Image;
 
 /**
@@ -24,8 +25,8 @@ trait TieneArchivos
         if(!$archivo) {
             return $this;
         }
-        $nombre=str_slug(pathinfo($archivo->getClientOriginalName(), PATHINFO_FILENAME)); //simplifico el nombre
-        $nombre=$nombre.'-'.str_random(5); //lo vuelvo único
+        $nombre=Str::slug(pathinfo($archivo->getClientOriginalName(), PATHINFO_FILENAME)); //simplifico el nombre
+        $nombre=$nombre.'-'.Str::random(5); //lo vuelvo único
         $nombre=$nombre.'.'.$archivo->getClientOriginalExtension();//le agrego la extensión
         //DO STORAGE - directamente al storage
         //$archivo->move(public_path($this->getDir($campo)), $nombre);
@@ -41,8 +42,8 @@ trait TieneArchivos
      */
     public function guardarImagenBase64($base64, $campo='foto')
     {
-        $nombre=str_random(10); //invento un nombre
-        $nombre=$nombre.'-'.str_random(5); //lo vuelvo único (ya era único :-P)
+        $nombre=Str::random(10); //invento un nombre
+        $nombre=$nombre.'-'.Str::random(5); //lo vuelvo único (ya era único :-P)
         $nombre=$nombre.'.png'; //le agrego la extensión
 
         //$archivo->move(public_path($this->getDir($campo)), $nombre);

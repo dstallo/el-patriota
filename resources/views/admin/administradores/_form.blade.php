@@ -43,13 +43,13 @@
 @if ($mostrarFormPassword)
     <div class="col-md-4 form-group{{ has_error($errors,'password') }}">
         <label>Password</label>
-        <input type="password" class="form-control" name="password">
+        <input type="password" class="form-control" name="password" autocomplete="new-password">
         @if ($administrador->id)
             <span class="help-block">Dejar en blanco para no cambiar.</span>
         @endif
     </div>
     <div class="col-md-4 form-group{{ has_error($errors,'password_confirmation') }}">
         <label>Confirmar Password</label>
-        <input type="password" class="form-control" name="password_confirmation">
+        <input type="password" class="form-control" name="password_confirmation"  autocomplete="new-password">
     </div>
 @endif

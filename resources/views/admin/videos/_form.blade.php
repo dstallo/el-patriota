@@ -21,7 +21,7 @@
 
 <div class="col-md-6 form-group{{ has_error($errors, 'bajada') }}">
     <label>Bajada</label>
-    <textarea class="tiny" style="height:180px;" name="bajada">{{ old('bajada', $video->bajada) }}</textarea>
+    <textarea class="quill-editor" style="height:180px;" name="bajada">{{ old('bajada', $video->bajada) }}</textarea>
 </div>
 
 <div class="col-md-2 form-group{{ has_error($errors, 'destacado') }}">

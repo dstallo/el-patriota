@@ -36,5 +36,5 @@
 @endsection
 
 @section('script.abajo')
-    @include('admin.parciales.tinymce-5-js')
+    @include('admin.parciales.quill-js')
 @endsection

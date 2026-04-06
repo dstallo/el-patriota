@@ -15,5 +15,5 @@
 </div>
 <div class="col-md-6 form-group{{ has_error($errors,'pregunta') }}">
     <label>Pregunta</label>
-    <input type="text" class="tiny" style="height:180px;" name="pregunta" value="{{ old('pregunta',$encuesta->pregunta) }}">
+    <input type="text" class="quill-editor" style="height:180px;" name="pregunta" value="{{ old('pregunta',$encuesta->pregunta) }}">
 </div>

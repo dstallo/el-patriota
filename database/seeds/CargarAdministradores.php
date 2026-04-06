@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class CargarAdministradores extends Seeder
 {
@@ -12,12 +14,12 @@ class CargarAdministradores extends Seeder
     public function run()
     {
         DB::table('administradores')->insert([
-            'nombre' => 'Gaby',
-            'email' => 'gaby86@gmail.com',
-            'password' => bcrypt('mandi0ca'),
+            'nombre' => 'Diego',
+            'email' => 'dstallo@gmail.com',
+            'password' => bcrypt('p@ssw@rd'),
 
-            'api_token' => str_random(60),
-            'remember_token' => str_random(10),
+            'api_token' => Str::random(60),
+            'remember_token' => Str::random(10),
 
             //'rol' => 'Administrador',
 
@@ -28,10 +30,10 @@ class CargarAdministradores extends Seeder
         DB::table('administradores')->insert([
             'nombre' => 'Gastón',
             'email' => 'gastonsiseles@gmail.com',
-            'password' => bcrypt('mandioca'),
+            'password' => bcrypt('p@ssw@rd'),
 
-            'api_token' => str_random(60),
-            'remember_token' => str_random(10),
+            'api_token' => Str::random(60),
+            'remember_token' => Str::random(10),
 
             //'rol' => 'Administrador',
 

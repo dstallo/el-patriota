@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Axys\Traits\EsOrdenable;
+use Illuminate\Support\Str;
 
 class Region extends Model
 {
@@ -25,6 +26,6 @@ class Region extends Model
 
     public function link()
     {
-        return route('region', [$this, str_slug($this->nombre)]);
+        return route('region', [$this, Str::slug($this->nombre)]);
     }
 }

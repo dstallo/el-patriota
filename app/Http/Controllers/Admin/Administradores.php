@@ -8,6 +8,7 @@ use App\Axys\AxysFlasher as Flasher;
 use App\Axys\AxysListado as Listado;
 
 use App\Administrador;
+use Illuminate\Support\Str;
 
 class Administradores extends Controller
 {
@@ -162,8 +163,8 @@ class Administradores extends Controller
             $administrador->email = $request->get('email');
             //$administrador->rol = $request->get('rol');
             $administrador->password = bcrypt($request->get('password'));
-            $administrador->remember_token = str_random(10);
-            $administrador->api_token = str_random(60);
+            $administrador->remember_token = Str::random(10);
+            $administrador->api_token = Str::random(60);
 
             $administrador->save();
 
