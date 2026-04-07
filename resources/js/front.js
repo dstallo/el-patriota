@@ -26,25 +26,26 @@ $(function() {
         skin: "glightbox-vid glightbox-clean"
     });
 
-    $(".entresub a.suscribite").on("click", function(e) {
+    $(".newsletter a.suscribite").on("click", function(e) {
         e.preventDefault();
-        $(".entresub .newsletter form").slideToggle("fast", function() {
+        $(this).siblings("form").slideToggle("fast", function() {
             if ($(this).is(":visible")) {
-                $(".entresub .newsletter form input[name='nombre']")[0].focus();
+                $(this).find("input[name='nombre']")[0].focus();
             }
         });
     });
     window.cerrarSlideNewsletter = () => {
-        $(".entresub .newsletter form").slideUp("fast");
+        $(".newsletter form").slideUp("fast");
     };
-
-    $("footer .newsletter a").on("click", function(e) {
+    /*
+    $(".newsletter a").on("click", function(e) {
         e.preventDefault();
         //window.scrollTo(0, 0);
         if (!$(".entresub .newsletter form").is(":visible")) {
             $(".entresub a.suscribite").trigger("click");
         }
     });
+    */
 
     if ($(".destacadas").length) {
         //slides de la home

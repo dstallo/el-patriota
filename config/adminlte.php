@@ -12,7 +12,7 @@ return [
     |
     */
 
-    'title' => 'Info al Sur',
+    'title' => env('APP_NAME', 'Portal de Noticias'),
 
     'title_prefix' => '',
 
@@ -29,9 +29,9 @@ return [
     |
     */
 
-    'logo' => '<b>Info al Sur</b>',
+    'logo' => '<b>'.env('APP_NAME', 'Portal de Noticias').'</b>',
 
-    'logo_mini' => '<b>IaS</b>',
+    'logo_mini' => '<b>'.env('APP_SHORT_NAME', 'Portal de Noticias').'</b>',
 
     /*
     |--------------------------------------------------------------------------

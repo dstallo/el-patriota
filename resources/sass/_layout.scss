@@ -5,9 +5,12 @@ html {
     scroll-behavior: smooth;
 }
 body {
-    font-family: "Roboto", sans-serif;
-    font-weight: 300;
-    color: #414142;
+    font-family: "Libre Baskerville", serif;
+    font-optical-sizing: auto;
+  
+    font-style: normal;
+    font-weight: 400;
+    color: $color-text;
 }
 strong,
 b {
@@ -70,15 +73,15 @@ b {
             justify-content: space-between;
             align-items: center;
             h2 {
-                width: 110px;
-                height: 100px;
+                width: 200px;
+                height: 35px;
                 @include fondo-contain;
-                background-image: url(../img/logo-c.svg);
+                background-image: url(../img/logo.svg);
             }
             a {
                 font-size: 24px;
                 font-weight: 900;
-                font-family: "Lato", sans-serif;
+                &:hover, &:focus {color: $color-primary;}
             }
         }
 
@@ -116,8 +119,49 @@ b {
     }
 }
 
+.newsletter {
+    position: relative;
+    .suscribite {
+        display: block;
+        line-height: 2em;
+        background-color: $color-primary;
+        color: white;
+        text-transform: uppercase;
+        font-size: 14.5px;
+        text-align: center;
+        padding: 0 40px;
+        font-weight: 600;
+    }
+    .suscribite:hover, .suscribite:focus {
+        filter:brightness(1.1);
+    }
+    form {
+        position: absolute;
+        display: none;
+        input[type="text"],
+        input[type="email"] {
+            width: 100%;
+            background-color: #f0efef;
+            border-bottom: 1px solid #a6a6a6;
+            color: $color-text;
+            font-weight: 300;
+            font-size: 14.5px;
+            text-align: center;
+            padding: 8px 0;
+        }
+        button {
+            display: block;
+            width: 100%;
+            background-color: #7c7d7d;
+            color: white;
+            padding: 8px 0;
+            text-align: center;
+            font-size: 14.5px;
+        }
+    }
+}
+
 header {
-    font-family: "Roboto Condensed", sans-serif;
     background-color: white;
     position: sticky;
     top: 0;
@@ -125,7 +169,44 @@ header {
     //border-bottom: 1px solid #f5f5f5;
     padding-bottom: 20px;
     color: #231f20;
+
+    .logo {
+        flex-basis: 0;
+        flex-grow: 1;
+        
+        h1 {
+            width: 450px;
+            height: 60px;
+            @include fondo-contain;
+            background-image: url(../img/logo.svg);
+            font-size: 0;
+            margin: 0 auto;
+        }
+    }
+
+    .entresub {
+        display: flex;
+        align-items: center;
+        .entrevistas {
+            color: $color-text;
+            padding-right: 10px;
+            padding-left: 30px;
+            background-image: url(../img/icn-mic.svg);
+            background-size: 15px auto;
+            background-position: left center;
+            background-repeat: no-repeat;
+            line-height: 35px;
+
+            &:hover, &:focus {
+                text-decoration:underline;
+            }
+        }
+    }
+
     .arriba {
+
+        font-family: Arial, sans-serif;
+
         .contenedor {
             padding: 10px;
             display: flex;
@@ -147,15 +228,17 @@ header {
                 }
 
                 .menu-secciones {
-                    padding-left: 24px;
+                    padding: 10px 10px 10px 35px;
                     @include fondo-contain;
-                    background-position: left center;
+                    background-position: 10px center;
                     background-size: 13px auto;
                     background-image: url(../img/menu.svg);
                     font-size: 14px;
                     text-transform: uppercase;
                     font-weight: 600;
                     margin-right: 15px;
+
+                    &:hover, &:focus {background-color: $color-quaternary;}
                 }
 
                 .buscar {
@@ -164,20 +247,24 @@ header {
                     flex-grow: 1;
                     input[type="text"] {
                         @include reiniciar-input;
-                        width: 100%;
+                        width: 50%;
                         font-weight: 600;
                         font-size: 13px;
                         border: 0;
-                        background-color: #f5f5f5;
+                        background-color: $color-input;
                         padding: 10px;
                         padding-left: 35px;
                         @include fondo-contain;
                         background-position: left 10px center;
                         background-size: 18px auto;
                         background-image: url(../img/lupa.svg);
+                        transition: width 0.3s ease-in-out;
+                        color: $color-text;
                         &::placeholder {
-                            color: #231f20;
+                            color: $color-input-placeholder;
                         }
+
+                        &:focus {background-color: $color-input-focus; width:100%;}
                     }
                 }
 
@@ -189,47 +276,51 @@ header {
                     a {
                         display: block;
                         margin: 0 8px;
+                        &:hover {i {filter:brightness(1.1);}}
                         i {
-                            @include fondo-contain;
+                            mask-size: contain;
+                            mask-position:center;
+                            mask-repeat:no-repeat;
+                            background-color:$color-primary;
                             display: block;
                         }
                         &.facebook i {
-                            background-image: url(../img/redes-negro/facebook.svg);
+                            mask-image: url(../img/redes-negro/facebook.svg);
                             width: 11px;
                             height: 19px;
                         }
                         &.twitter i {
-                            background-image: url(../img/redes-negro/twitter.svg);
+                            mask-image: url(../img/redes-negro/twitter.svg);
                             width: 20px;
                             height: 17px;
                         }
                         &.instagram i {
-                            background-image: url(../img/redes-negro/instagram.svg);
+                            mask-image: url(../img/redes-negro/instagram.svg);
                             width: 18px;
                             height: 18px;
                         }
                         &.compartir i {
-                            background-image: url(../img/redes-negro/compartir.svg);
+                            mask-image: url(../img/redes-negro/compartir.svg);
                             width: 18px;
                             height: 20px;
                         }
                         &.tiktok i {
-                            background-image: url(../img/redes-negro/tiktok.svg);
+                            mask-image: url(../img/redes-negro/tiktok.svg);
                             width: 18px;
                             height: 18px;
                         }
                         &.x i {
-                            background-image: url(../img/redes-negro/x.svg);
+                            mask-image: url(../img/redes-negro/x.svg);
                             width: 18px;
                             height: 18px;
                         }
                         &.whatsapp i {
-                            background-image: url(../img/redes-negro/whatsapp.svg);
+                            mask-image: url(../img/redes-negro/whatsapp.svg);
                             width: 18px;
                             height: 18px;
                         }
                         &.telegram i {
-                            background-image: url(../img/redes-negro/telegram.svg);
+                            mask-image: url(../img/redes-negro/telegram.svg);
                             width: 18px;
                             height: 18px;
                         }
@@ -253,27 +344,13 @@ header {
                     }
                 }
             }
-            .logo {
-                flex-basis: 0;
-                flex-grow: 1;
-                h1 {
-                    width: 320px;
-                    height: 60px;
-                    @include fondo-contain;
-                    background-image: url(../img/logo.svg);
-                    font-size: 0;
-                    margin: 0 auto;
-                }
-            }
+            
         }
     }
 
     .abajo {
         .contenedor {
-            display: flex;
-            flex-flow: row nowrap;
-            justify-content: center;
-            align-items: center;
+            padding:2em 0;
             .col {
                 flex-basis: 0;
                 flex-grow: 1;
@@ -294,6 +371,7 @@ header {
 
                 display: flex;
                 justify-content: center;
+                margin-top:1em;
                 li {
                     padding: 3px 0;
                     padding-right: 10px;
@@ -308,59 +386,8 @@ header {
                         display: block;
                         text-transform: uppercase;
                         font-size: 15px;
-                    }
-                }
-            }
 
-            .entresub {
-                display: flex;
-                align-items: center;
-                .entrevistas {
-                    color: $texto;
-                    padding-right: 10px;
-                    padding-left: 20px;
-                    background-image: url(../img/icn-mic.svg);
-                    background-size: 15px auto;
-                    background-position: left center;
-                    background-repeat: no-repeat;
-                    line-height: 35px;
-                }
-                .newsletter {
-                    position: relative;
-                    .suscribite {
-                        display: block;
-                        line-height: 2em;
-                        background-color: $rojo;
-                        color: white;
-                        text-transform: uppercase;
-                        font-size: 14.5px;
-                        text-align: center;
-                        padding: 0 40px;
-                        font-weight: 600;
-                    }
-                    form {
-                        position: absolute;
-                        display: none;
-                        input[type="text"],
-                        input[type="email"] {
-                            width: 100%;
-                            background-color: #f0efef;
-                            border-bottom: 1px solid #a6a6a6;
-                            color: $texto;
-                            font-weight: 300;
-                            font-size: 14.5px;
-                            text-align: center;
-                            padding: 8px 0;
-                        }
-                        button {
-                            display: block;
-                            width: 100%;
-                            background-color: #7c7d7d;
-                            color: white;
-                            padding: 8px 0;
-                            text-align: center;
-                            font-size: 14.5px;
-                        }
+                        &:hover, &:focus {text-decoration:underline;}
                     }
                 }
             }
@@ -369,7 +396,21 @@ header {
 }
 
 @media (max-width: 700px) {
+
+    .entresub {
+        display: none;
+    }
+
     header {
+
+        .logo {
+            order: 1;
+            a {
+                margin: 0 auto;
+            }
+            margin-bottom: 10px;
+        }
+
         .arriba {
             .contenedor {
                 flex-flow: column nowrap;
@@ -384,21 +425,11 @@ header {
                     align-items: center;
                     width: 100%;
                 }
-                .logo {
-                    order: 1;
-                    a {
-                        margin: 0 auto;
-                    }
-                    margin-bottom: 10px;
-                }
             }
         }
         .abajo {
             .contenedor {
                 .menu {
-                    display: none;
-                }
-                .entresub {
                     display: none;
                 }
             }
@@ -418,9 +449,13 @@ header {
 }
 
 footer {
-    color: $texto;
+    color: #FFFFFF;
     font-weight: 400;
     font-size: 17px;
+    font-family: Arial, sans-serif;
+
+    .arriba {background-color: $color-tertiary;}
+
     .contenedor {
         padding: 30px 0;
         display: flex;
@@ -442,7 +477,7 @@ footer {
 
     .logo {
         img {
-            width: 100px;
+            
         }
     }
 
@@ -455,47 +490,51 @@ footer {
         a {
             display: block;
             margin: 0 6px;
+            &:hover {i {background-color:$color-primary;}}
             i {
-                @include fondo-contain;
+                mask-size: contain;
+                mask-position:center;
+                mask-repeat:no-repeat;
+                background-color:#FFFFFF;
                 display: block;
             }
             &.facebook i {
-                background-image: url(../img/redes-negro/facebook.svg);
+                mask-image: url(../img/redes-negro/facebook.svg);
                 width: 11px;
                 height: 19px;
             }
             &.twitter i {
-                background-image: url(../img/redes-negro/twitter.svg);
+                mask-image: url(../img/redes-negro/twitter.svg);
                 width: 20px;
                 height: 17px;
             }
             &.instagram i {
-                background-image: url(../img/redes-negro/instagram.svg);
+                mask-image: url(../img/redes-negro/instagram.svg);
                 width: 18px;
                 height: 18px;
             }
             &.compartir i {
-                background-image: url(../img/redes-negro/compartir.svg);
+                mask-image: url(../img/redes-negro/compartir.svg);
                 width: 18px;
                 height: 20px;
             }
             &.tiktok i {
-                background-image: url(../img/redes-negro/tiktok.svg);
+                mask-image: url(../img/redes-negro/tiktok.svg);
                 width: 18px;
                 height: 18px;
             }
             &.x i {
-                background-image: url(../img/redes-negro/x.svg);
+                mask-image: url(../img/redes-negro/x.svg);
                 width: 18px;
                 height: 18px;
             }
             &.whatsapp i {
-                background-image: url(../img/redes-negro/whatsapp.svg);
+                mask-image: url(../img/redes-negro/whatsapp.svg);
                 width: 18px;
                 height: 18px;
             }
             &.telegram i {
-                background-image: url(../img/redes-negro/telegram.svg);
+                mask-image: url(../img/redes-negro/telegram.svg);
                 width: 18px;
                 height: 18px;
             }
@@ -515,7 +554,7 @@ footer {
         a {
             display: block;
             line-height: 2em;
-            background-color: $rojo;
+            background-color: $color-primary;
             color: white;
             text-transform: uppercase;
             font-size: 14.5px;
@@ -531,8 +570,9 @@ footer {
 
     .sub {
         text-align: center;
-        font-size: 13px;
+        font-size: 15px;
         padding: 30px 0;
+        color:$color-text;
 
         p {
             margin: 0;
@@ -581,11 +621,11 @@ footer {
                     width: 100%;
                     padding: 6px;
                     background-color: transparent;
-                    border: 1px solid $color;
+                    border: 1px solid $color-text;
                     &::placeholder {
-                        color: $color;
+                        color: $color-input-placeholder;
                     }
-                    color: $color;
+                    color: $color-text;
                 }
                 button {
                     display: block;
@@ -593,7 +633,7 @@ footer {
                     text-align: center;
                     width: 100%;
                     line-height: 2em;
-                    background-color: $rojo;
+                    background-color: $color-primary;
                     color: white;
                     text-transform: uppercase;
                     font-size: 14.5px;
@@ -636,7 +676,6 @@ footer {
 }
 
 .texto {
-    font-family: "Poppins", sans-serif;
 
     ul {
         margin-bottom: 10px;

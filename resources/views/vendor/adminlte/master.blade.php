@@ -3,10 +3,29 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="shortcut icon" href="{{ url('img/logo.png') }}">
+
     <title>@yield('title_prefix', config('adminlte.title_prefix', ''))
-@yield('title', config('adminlte.title', 'AdminLTE 2'))
-@yield('title_postfix', config('adminlte.title_postfix', ''))</title>
+    @yield('title', config('adminlte.title', 'AdminLTE 2'))
+    @yield('title_postfix', config('adminlte.title_postfix', ''))</title>
+
+    <meta name="description" content="@yield('bajada', config('app.description'))" />
+    <meta name="keywords" content="{{ config('app.keywords') }}" />
+    <meta name="author" content="{{ config('app.name') }}" />
+
+    <meta property="og:image" content="@yield('imagen', url('favicon.png'))" />
+    <meta property="og:site_name" content="{{ config('app.name') }}" />
+    <meta property="og:title" content="@yield('titulo', config('app.name'))" />
+    <meta property="og:description" content="@yield('bajada', config('app.description'))" />
+
+    <meta property="twitter:creator" content="{{ config('app.name') }}" />
+    <meta property="twitter:title" content="@yield('titulo', config('app.name'))" />
+    <meta property="twitter:description" content="@yield('bajada', config('app.description'))" />
+    <meta property="twitter:card" content="summary_large_image" />
+    
+    <link rel="shortcut icon" href="{{ url('favicon.svg') }}" type="image/svg+xml"  />
+    <link rel="icon" href="{{ url('favicon.ico') }}" sizes="32x32" />
+    <link rel="apple-touch-icon" href="{{ url('apple-touch-icon.png') }}" />
+    
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->

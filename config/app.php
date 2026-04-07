@@ -14,7 +14,15 @@ return [
 
     'name' => env('APP_NAME', 'Portal de Noticias'),
 
+    'short_name' => env('APP_SHORT_NAME', 'N'),
+
+    'description' => env('APP_DESCRIPTION', 'Portal de Noticias'),
+
+    'keywords' => env('APP_DESCRIPTION', 'portal,noticias'),
+
     'fecha_inicio_edicion' => env('FECHA_INICIO_EDICION', '2022-12-09'),
+
+    'email_notificacion_consulta' => env('EMAIL_NOTIFICACION_CONSULTA'),
 
     /*
     |--------------------------------------------------------------------------

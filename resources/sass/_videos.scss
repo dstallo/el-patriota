@@ -24,7 +24,7 @@
 
             // @media (max-width: 700px) {
             //     background-size: 25%;
-            //     background-color: $texto;
+            //     background-color: $color-text;
             //     border-radius: 50%;
             //     width: 45px;
             //     height: 45px;
@@ -139,7 +139,7 @@
                     transform: none;
                     background-color: transparent;
                     border: 1px solid $borde;
-                    color: $texto;
+                    color: $color-text;
                     h2 {
                         font-size: 25px;
                     }
@@ -210,7 +210,7 @@
                             margin-bottom: 20px;
                             &:after {
                                 content: "";
-                                border-bottom: 1px solid $texto;
+                                border-bottom: 1px solid $color-text;
                                 display: block;
                                 max-width: 40%;
                                 padding-top: 10px;
@@ -220,16 +220,16 @@
                             font-size: 20px;
                             font-weight: 700;
                             margin-bottom: 10px;
-                            color: $color;
+                            color: $color-text;
                             line-height: 1.25;
                             span {
-                                color: $color;
+                                color: $color-text;
                             }
                         }
                         .bajada {
                             display: block;
                             font-size: 15px;
-                            color: $texto;
+                            color: $color-text;
                         }
                     }
                 }
