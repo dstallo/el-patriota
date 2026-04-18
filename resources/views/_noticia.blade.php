@@ -2,9 +2,11 @@
     <div class="contenido">
         <div class="imagen">
             <div style="background-image:url({{ $noticia->url('thumbnail') }});"></div>
+        @if ($noticia->obtenerCategorias())
             <div class="categorias">
-                {{ $noticia->region->nombre }} | {{ $noticia->seccion->nombre }}
+                {{ $noticia->obtenerCategorias() }}
             </div>
+        @endif
             @if ($noticia->con_video)
                 <span class="contiene-video"></span>
             @endif

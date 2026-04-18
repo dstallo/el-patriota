@@ -10,27 +10,9 @@
 
         @if ($banner = $banners['horizontales']->shift())
             <div class="banner horizontal">
-                <a href="{{ $banner->linkContador() }}" target="_blank"><img src="{{ $banner->url('imagen') }}"></a>
+                <a href="{{ $banner->linkContador() }}" target="_blank"><img src="{{ $banner->url('imagen') }}" alt="" /></a>
             </div>
         @endif
-
-        <?php /*
-	<div class="banner horizontal">
-		<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6107105686338244"
-		     crossorigin="anonymous"></script>
-		<!-- Banner Horizontal -->
-		<ins class="adsbygoogle"
-		     style="display:block"
-		     data-ad-client="ca-pub-6107105686338244"
-		     data-ad-slot="1971376428"
-		     data-ad-format="auto"
-		     data-full-width-responsive="true"></ins>
-		<script>
-		     (adsbygoogle = window.adsbygoogle || []).push({});
-		</script>
-	</div>
-	*/
-        ?>
 
         <?php $primera = $partes['principales']->shift(); ?>
         @if ($primera)
@@ -105,7 +87,7 @@
                 @endif
 
                 <div class="terciarias">
-                    @foreach ($partes['terciarias_1'] as $noticia)
+                    @foreach ($partes['terciarias'] as $noticia)
                         @include('_noticia')
                     @endforeach
                 </div>
@@ -116,7 +98,7 @@
                     </div>
                 @endif
                 <div class="terciarias">
-                    @foreach ($partes['terciarias_2'] as $noticia)
+                    @foreach ($partes['cuaternarias'] as $noticia)
                         @include('_noticia')
                     @endforeach
                 </div>

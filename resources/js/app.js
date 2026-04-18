@@ -34,6 +34,33 @@ $(function(){
 		return this.href == url;
 	}).parentsUntil(".sidebar-menu > .treeview-menu").addClass('active');
 
+
+    $(".select2").select2({
+	    theme: "bootstrap"
+	});
+
+    $(".select2-nosearch").select2({
+        theme: "bootstrap",
+        minimumResultsForSearch: Infinity
+    })
+    
+    $('.select2-icono,.select2-custom').select2({
+        theme: "bootstrap",
+        templateResult: select2TemplateCustom,
+        templateSelection: select2TemplateCustom
+    });
+
+    $('.select-sync').on('change', function(){
+        selectSync($($(this).data('sync-with')), $(this).val(), ! $(this).data('sync-no-trigger-change'));
+    }).each(function(){
+        selectSync($($(this).data('sync-with')), $(this).val(), false);
+    });
+
+    $('.select2-multiple').on('change', function(){
+        select2AppendHidden($(this));
+    }).each(function(){
+        select2AppendHidden($(this));
+    });
 	
 	//confirmar eliminar
 	$('.axys-confirmar-eliminar').click(function(e) {

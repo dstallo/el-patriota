@@ -27,42 +27,23 @@
                 </div>
                 <form>
                     <div class="box-body">
-                        <div class="col-md-3">
+                        <div class="col-md-3 form-group">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-asterisk"></i></span>
                                 <input type="text" class="form-control" name="buscando_id" placeholder="ID#"
                                     value="{{ $listado->old('buscando_id') }}">
                             </div>
                         </div>
-                        <div class="col-md-5">
+                        <div class="col-md-9 form-group">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
                                 <input type="text" class="form-control" name="buscando" placeholder="Buscar noticia..."
                                     value="{{ $listado->old('buscando') }}">
                             </div>
                         </div>
-                        <div class="col-md-4 form-group">
-                            <select class="form-control select2" name="buscando_id_seccion"
-                                onchange="$(this).closest('form').submit()">
-                                <option value="">Elegir sección</option>
-                                @foreach ($secciones as $i_seccion)
-                                    <option
-                                        value="{{ $i_seccion->id }}"{{ selected($listado->old('buscando_id_seccion') == $i_seccion->id) }}>
-                                        {{ $i_seccion->nombre }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col-md-4 form-group">
-                            <select class="form-control select2" name="buscando_id_region"
-                                onchange="$(this).closest('form').submit()">
-                                <option value="">Elegir región</option>
-                                @foreach ($regiones as $i_region)
-                                    <option
-                                        value="{{ $i_region->id }}"{{ selected($listado->old('buscando_id_region') == $i_region->id) }}>
-                                        {{ $i_region->nombre }}</option>
-                                @endforeach
-                            </select>
-                        </div>
+                        <x-form.select onchange="$(this).closest('form').submit()" container="col-md-4" name="buscando_id_seccion" :opciones="$secciones" :selected="$listado->old('buscando_id_seccion')" placeholder="Elegí la sección" field_value="id" field_name="nombre" :allow_clear="true" />
+                        <x-form.select onchange="$(this).closest('form').submit()" container="col-md-4" name="buscando_id_region" :opciones="$regiones" :selected="$listado->old('buscando_id_region')" placeholder="Elegí la región" field_value="id" field_name="nombre" :allow_clear="true" />
+                        <x-form.select onchange="$(this).closest('form').submit()" container="col-md-4" name="buscando_grupo" :opciones="$grupos" :selected="$listado->old('buscando_grupo')" placeholder="Elegí el grupo de noticias" field_value="valor" field_name="valor" :allow_clear="true" />
 
                     </div>
                     <input type="submit" class="hidden">
@@ -85,8 +66,9 @@
                         <th><a href="{{ $listado->linkOrden('fecha') }}">Fecha</a></th>
                         <th><a href="{{ $listado->linkOrden('titulo') }}">Título</a></th>
                         <th><a href="{{ $listado->linkOrden('visitas') }}">Visitas</a></th>
-                        <th>Sección</th>
-                        <th>Región</th>
+                        <th><a href="{{ $listado->linkOrden('id_seccion') }}">Sección</a></th>
+                        <th><a href="{{ $listado->linkOrden('id_region') }}">Región</a></th>
+                        <th><a href="{{ $listado->linkOrden('grupo') }}">Grupo</a></th>
                         <th></th>
                     </tr>
                 </thead>
@@ -97,8 +79,9 @@
                             <td>{{ $noticia->fecha_ff }}</td>
                             <td>{{ $noticia->titulo }}</td>
                             <td>{{ $noticia->visitas }}</td>
-                            <td>{{ $noticia->seccion->nombre }}</td>
-                            <td>{{ $noticia->region->nombre }}</td>
+                            <td>{{ $noticia->seccion?->nombre ?? '-' }}</td>
+                            <td>{{ $noticia->region?->nombre ?? '-' }}</td>
+                            <td>{{ $noticia->grupo ?? '-' }}</td>
                             <td width="190" class="text-right">
                                 <a href="{{ route('contenidos', compact('noticia')) }}"
                                     class="btn btn-primary btn-sm">Contenido</a>

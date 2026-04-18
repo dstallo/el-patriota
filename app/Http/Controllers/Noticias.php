@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Axys\AxysFlasher as Flasher;
 use App\Banner;
+use App\Configuracion;
 use App\Encuesta;
 use App\Noticia;
 use App\Popup;
@@ -33,16 +34,16 @@ class Noticias extends Controller
 
     protected function dividir($noticias)
     {
-        $noticias = $noticias->take(24)->get();
+        $noticias = $noticias->take(14)->get();
 
         $partes = [
             'principales' => [],
             'secundarias' => [],
-            'terciarias_1' => [],
-            'terciarias_2' => [],
+            'terciarias' => [],
+            'cuaternarias' => [],
         ];
 
-        for ($i = 0; $i < 1 && count($noticias) > 0; ++$i) {
+        for ($i = 0; $i < 3 && count($noticias) > 0; ++$i) {
             $partes['principales'][] = $noticias->shift();
         }
         $partes['principales'] = collect($partes['principales']);
@@ -52,15 +53,15 @@ class Noticias extends Controller
         }
         $partes['secundarias'] = collect($partes['secundarias']);
 
-        for ($i = 0; $i < 3 && count($noticias) > 0; ++$i) {
-            $partes['terciarias_1'][] = $noticias->shift();
+        for ($i = 0; $i < 1 && count($noticias) > 0; ++$i) {
+            $partes['terciarias'][] = $noticias->shift();
         }
-        $partes['terciarias_1'] = collect($partes['terciarias_1']);
+        $partes['terciarias'] = collect($partes['terciarias']);
 
         for ($i = 0; $i < 6 && count($noticias) > 0; ++$i) {
-            $partes['terciarias_2'][] = $noticias->shift();
+            $partes['cuaternarias'][] = $noticias->shift();
         }
-        $partes['terciarias_2'] = collect($partes['terciarias_2']);
+        $partes['cuaternarias'] = collect($partes['cuaternarias']);
 
         return $partes;
     }
@@ -70,6 +71,18 @@ class Noticias extends Controller
         return Noticia::leidas()
             ->take(3)
         ;
+    }
+
+    protected function grupo(Request $request) {
+        $query = $this->noticias($request);
+
+        $grupo = Configuracion::obtener('GRUPO_ACTIVO');
+        if ($grupo)
+            $query->where('grupo', $grupo->valor);
+        else
+            $query->whereRaw('1 != 1');
+
+        return $query;
     }
 
     protected function banners()
@@ -101,11 +114,14 @@ class Noticias extends Controller
         $partes = $this->dividir($noticias);
 
         $leidas = $this->leidas()->get();
-        $banners = $this->banners();
 
+        $grupo = Configuracion::obtener('GRUPO_ACTIVO');
+        $noticias_grupo = $this->grupo($request)->get();
+        
+        $banners = $this->banners();
         $popup = Popup::where('visible', true)->orderBy('id', 'desc')->first();
 
-        return view('home', compact('destacadas', 'partes', 'leidas', 'banners', 'popup'));
+        return view('home', compact('destacadas', 'partes', 'leidas', 'banners', 'grupo', 'noticias_grupo', 'popup'));
     }
 
     public function seccion(Seccion $seccion, $nombre, Request $request)
@@ -120,7 +136,10 @@ class Noticias extends Controller
         $leidas = $this->leidas()->where('id_seccion', $seccion->id)->get();
         $banners = $this->banners();
 
-        return view('home', compact('partes', 'leidas', 'banners'));
+        $grupo = Configuracion::obtener('GRUPO_ACTIVO');
+        $noticias_grupo = $this->grupo($request)->where('id_seccion', $seccion->id)->get();
+
+        return view('home', compact('partes', 'leidas', 'banners', 'grupo', 'noticias_grupo'));
     }
 
     public function region(Region $region, $nombre, Request $request)
@@ -131,19 +150,31 @@ class Noticias extends Controller
         $leidas = $this->leidas()->where('id_region', $region->id)->get();
         $banners = $this->banners();
 
+        $grupo = Configuracion::obtener('GRUPO_ACTIVO');
+        $noticias_grupo = $this->grupo($request)->where('id_region', $region->id)->get();
+
         return view('home', compact('partes', 'leidas', 'banners'));
     }
 
     public function ficha(Noticia $noticia)
     {
-        if (!$noticia->seccion->visible) {
+        if (! ($noticia->seccion?->visible ?? true)) {
             return redirect('/');
         }
 
         ++$noticia->visitas;
         $noticia->save();
 
-        $relacionadas = $this->noticias()->where('id_seccion', $noticia->id_seccion)->where('id_region', $noticia->id_region)->where('noticias.id', '<>', $noticia->id)->take(3)->get();
+        $query = $this->noticias()->where('noticias.id', '<>', $noticia->id);
+        
+        if ($noticia->grupo)
+            $query->where('grupo', $noticia->grupo);
+        elseif ($noticia->id_seccion)
+            $query->where('id_seccion', $noticia->id_seccion);
+        elseif ($noticia->id_region)
+            $query->where('id_region', $noticia->id_region);
+        
+        $relacionadas = $query->take(3)->get();
 
         $banners = $this->banners();
 

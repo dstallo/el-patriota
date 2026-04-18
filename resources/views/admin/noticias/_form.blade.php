@@ -9,25 +9,9 @@
         </div>
     @endif
 </div>
-
-<div class="col-md-4 form-group{{ has_error($errors, 'seccion') }}">
-    <label>Sección</label>
-    <select name="id_seccion" class="form-control">
-        @foreach ($secciones as $seccion)
-            <option value="{{ $seccion->id }}"{{ selected($seccion->id == old('id_seccion', $noticia->id_seccion)) }}>
-                {{ $seccion->nombre }}</option>
-        @endforeach
-    </select>
-</div>
-<div class="col-md-4 form-group{{ has_error($errors, 'region') }}">
-    <label>Región</label>
-    <select name="id_region" class="form-control">
-        @foreach ($regiones as $region)
-            <option value="{{ $region->id }}"{{ selected($region->id == old('id_region', $noticia->id_region)) }}>
-                {{ $region->nombre }}</option>
-        @endforeach
-    </select>
-</div>
+<x-form.select label="Sección" container="col-md-4" name="id_seccion" :opciones="$secciones" :selected="old('id_seccion', $noticia->id_seccion)" placeholder="Elegí la sección" field_value="id" field_name="nombre" :allow_clear="true" />
+<x-form.select label="Región" container="col-md-4" name="id_region" :opciones="$regiones" :selected="old('id_region', $noticia->id_region)" placeholder="Elegí la región" field_value="id" field_name="nombre" :allow_clear="true" />
+<x-form.select label="Grupo de noticias" container="col-md-4" name="grupo" :opciones="$grupos" :selected="old('grupo', $noticia->grupo)" placeholder="Completá o elegí el grupo de noticias" field_value="valor" field_name="valor" :tags="true" :allow_clear="true" />
 <div class="col-md-4 form-group{{ has_error($errors, 'fecha') }}">
     <label>Fecha</label>
     <input type="datetime-local" class="form-control" name="fecha" value="{{ old('fecha', $noticia->fecha_html) }}">

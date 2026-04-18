@@ -31,7 +31,7 @@ class Noticias extends Controller
             'listado_noticias',
             Noticia::with('seccion')->with('region'),
             $request,
-            ['id', 'fecha', 'titulo', 'visitas'],
+            ['id', 'fecha', 'titulo', 'visitas', 'grupo', 'id_region', 'id_seccion'],
             [
                 'buscando' => [
                     ['campo' => 'titulo', 'comparacion' => 'like'],
@@ -47,6 +47,9 @@ class Noticias extends Controller
                 'buscando_id_region' => [
                     ['campo' => 'id_region', 'comparacion' => 'igual'],
                 ],
+                'buscando_grupo' => [
+                    ['campo' => 'grupo', 'comparacion' => 'igual'],
+                ]
             ]
         );
 
@@ -54,8 +57,9 @@ class Noticias extends Controller
 
         $secciones = Seccion::orderBy('orden')->get();
         $regiones = Region::orderBy('orden')->get();
+        $grupos = Noticia::obtenerGrupos();
 
-        return view('admin.noticias.index', compact('noticias', 'listado', 'secciones', 'regiones'));
+        return view('admin.noticias.index', compact('noticias', 'listado', 'secciones', 'regiones', 'grupos'));
     }
 
     public function eliminar(Noticia $noticia)
@@ -80,33 +84,37 @@ class Noticias extends Controller
         $noticia->fecha = date('Y-m-d H:i');
         $secciones = Seccion::orderBy('orden')->get();
         $regiones = Region::orderBy('orden')->get();
+        $grupos = Noticia::obtenerGrupos();
 
-        return view('admin.noticias.crear', compact('noticia', 'secciones', 'regiones'));
+        return view('admin.noticias.crear', compact('noticia', 'secciones', 'regiones', 'grupos'));
     }
 
     public function editar(Noticia $noticia)
     {
         $secciones = Seccion::orderBy('orden')->get();
         $regiones = Region::orderBy('orden')->get();
+        $grupos = Noticia::obtenerGrupos();
 
-        return view('admin.noticias.editar', compact('noticia', 'secciones', 'regiones'));
+        return view('admin.noticias.editar', compact('noticia', 'secciones', 'regiones', 'grupos'));
     }
 
     public function guardar(Request $request, $id = null)
     {
         $this->validate($request, [
-            'id_seccion' => 'required|exists:secciones,id',
-            'id_region' => 'required|exists:regiones,id',
+            'id_seccion' => 'nullable|exists:secciones,id',
+            'id_region' => 'nullable|exists:regiones,id',
             'fecha' => 'required|date',
             'titulo' => 'required',
             'thumbnail' => 'nullable|file|mimes:jpg,png|max:1024',
             'thumbnail_celular' => 'nullable|file|mimes:jpg,png|max:1024',
             'banner' => 'nullable|file|mimes:jpg,png|max:1024',
             'banner_celular' => 'nullable|file|mimes:jpg,png|max:1024',
+            'grupo' => ['nullable']
         ], [], [
             'id_seccion' => 'sección',
             'id_region' => 'región',
             'titulo' => 'título',
+            'grupo'  => 'grupo de noticias'
         ]);
 
         if ($id) {

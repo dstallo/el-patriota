@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Axys\Traits\TieneArchivos;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
@@ -11,9 +12,11 @@ class Noticia extends Model
 {
     use TieneArchivos;
 
+    use HasFactory;
+
     protected $table = 'noticias';
 
-    protected $fillable = ['id_seccion', 'id_region', 'volanta', 'titulo', 'fecha', 'autor', 'bajada', 'texto', 'embebido_1', 'embebido_2'];
+    protected $fillable = ['id_seccion', 'id_region', 'volanta', 'titulo', 'fecha', 'autor', 'bajada', 'texto', 'embebido_1', 'embebido_2', 'grupo'];
 
     protected $dir = [
         'thumbnail' => 'contenido/noticias',
@@ -96,9 +99,10 @@ class Noticia extends Model
         return $query->where('noticias.visible', true)
             // visibilidad en secciones
             ->select('noticias.*')
-            ->join('secciones as s', 's.id', '=', 'noticias.id_seccion')
-            ->where('s.visible', true)
-            // /
+            ->leftJoin('secciones as s', 's.id', '=', 'noticias.id_seccion')
+            ->where(function($query){
+                return $query->where('s.visible', true)->orWhereNull('s.visible');
+            })
             ->with('seccion')
             ->with('region')
             ->orderBy('fecha', 'desc')
@@ -110,10 +114,28 @@ class Noticia extends Model
         return $query->where('noticias.visible', true)
             // visibilidad en secciones
             ->select('noticias.*')
-            ->join('secciones as s', 's.id', '=', 'noticias.id_seccion')
-            ->where('s.visible', true)
+            ->leftJoin('secciones as s', 's.id', '=', 'noticias.id_seccion')
+            ->where(function($query){
+                return $query->where('s.visible', true)->orWhereNull('s.visible');
+            })
             ->where('fecha', '>=', Carbon::now()->subDays(16))
             // /
             ->orderBy('visitas', 'desc');
+    }
+
+    public function obtenerCategorias() {
+        $categorias = [];
+        if ($this->region)
+            $categorias[] = $this->region->nombre;
+        if ($this->seccion)
+            $categorias[] = $this->seccion->nombre;
+
+        return implode(' | ', $categorias);
+    }
+
+    public static function obtenerGrupos(){
+        
+        return Noticia::select('grupo as valor')->whereNotNull('grupo')->groupBy('valor')->orderBy('valor', 'asc')->get();
+    
     }
 }

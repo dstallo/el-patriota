@@ -34,7 +34,7 @@
                 <div class="cuerpo-noticia">
                     <div class="copete">
                         <div class="categorias">
-                            {{ $noticia->region->nombre }} | {{ $noticia->seccion->nombre }}
+                            {{ $noticia->obtenerCategorias() }}
                             <span>{{ $noticia->fecha_f }}</span>
                         </div>
                         <div class="botones">
@@ -90,26 +90,28 @@
                 @endif
 
                 <div class="listado">
-                    @if (count($leidas))
-                        <div class="leidas">
-                            <div class="contenido">
-                                <h2>LAS MÁS LEÍDAS</h2>
-                                <ul>
-                                    @foreach ($leidas as $leida)
-                                        <li>
-                                            <h3>{!! $leida->titulo_h !!}</h3>
-                                            <a class="cover" href="{{ $leida->link() }}"></a>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        </div>
-                    @endif
+                @if (count($relacionadas))
                     <div class="terciarias">
                         @foreach ($relacionadas as $noticia)
                             @include('_noticia')
                         @endforeach
                     </div>
+                @endif
+                @if (count($leidas))
+                    <div class="leidas">
+                        <div class="contenido">
+                            <h2>LAS MÁS LEÍDAS</h2>
+                            <ul>
+                                @foreach ($leidas as $leida)
+                                    <li>
+                                        <h3>{!! $leida->titulo_h !!}</h3>
+                                        <a class="cover" href="{{ $leida->link() }}"></a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                @endif
                 </div>
             </div>
 

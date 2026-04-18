@@ -11,7 +11,9 @@ if (config('app.env') === 'production') {
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     GenerarRutas::auth();
 
-    Route::get('/', 'Dashboard@index');
+    Route::get('/', 'Dashboard@index')->name('home');
+
+    Route::post('/configuraciones', 'Dashboard@guardar')->name('guardar_configuraciones');
 
     // imágenes tinymce
     Route::post('subir-tiny', 'Dashboard@subirTiny')->name('subir-tiny');
