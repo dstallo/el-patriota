@@ -36,7 +36,8 @@
                             </div>
                         </div>
                         <div class="col-md-4 form-group">
-                            <select class="form-control" name="buscando_ubicacion" onchange="$(this).closest('form').submit()">
+                            <select class="form-control select2" data-allow-clear="true" data-placeholder="Elegir ubicación" name="buscando_ubicacion" onchange="$(this).closest('form').submit()">
+                                <option></option>
                                 @foreach(App\Banner::ubicaciones() as $i_ubicacion)
                                     <option value="{{ $i_ubicacion }}"{{ selected($listado->old('buscando_ubicacion')==$i_ubicacion) }}>{{ $i_ubicacion }}</option>
                                 @endforeach

@@ -11,8 +11,8 @@
 </div>
 <div class="col-md-4 form-group{{ has_error($errors, 'ubicacion') }}">
     <label>Ubicación</label>
-    <select name="ubicacion" id="ubicacion" class="form-control"{{ $banner->id ? ' disabled' : '' }}>
-        <option value="">Seleccionar</option>
+    <select name="ubicacion" data-allow-clear="true" id="ubicacion" class="form-control select2"{{ $banner->id ? ' disabled' : '' }} data-placeholder="Seleccionar">
+        <option></option>    
         @foreach (App\Banner::ubicaciones() as $ubicacion)
             <option value="{{ $ubicacion }}" {!! selected($ubicacion == old('ubicacion', $banner->ubicacion)) !!}>{{ $ubicacion }}</option>
         @endforeach
