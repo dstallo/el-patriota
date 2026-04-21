@@ -1,11 +1,12 @@
 $font-size-basico: 15px;
 
+
 html {
     font-size: $font-size-basico;
     scroll-behavior: smooth;
 }
 body {
-    font-family: "Libre Baskerville", serif;
+    font-family: $font-primaria;
     font-optical-sizing: auto;
   
     font-style: normal;
@@ -205,7 +206,7 @@ header {
 
     .arriba {
 
-        font-family: Arial, sans-serif;
+        font-family: $font-secundaria;
 
         .contenedor {
             padding: 10px;
@@ -350,7 +351,7 @@ header {
 
     .abajo {
         .contenedor {
-            padding:2em 0;
+            padding:2em 0 0;
             .col {
                 flex-basis: 0;
                 flex-grow: 1;
@@ -452,7 +453,7 @@ footer {
     color: #FFFFFF;
     font-weight: 400;
     font-size: 17px;
-    font-family: Arial, sans-serif;
+    font-family: $font-secundaria;
 
     .arriba {background-color: $color-tertiary;}
 

@@ -43,22 +43,22 @@ class Noticias extends Controller
             'cuaternarias' => [],
         ];
 
-        for ($i = 0; $i < 3 && count($noticias) > 0; ++$i) {
+        for ($i = 0; $i < 3 && count($noticias) > 0; $i++) {
             $partes['principales'][] = $noticias->shift();
         }
         $partes['principales'] = collect($partes['principales']);
 
-        for ($i = 0; $i < 4 && count($noticias) > 0; ++$i) {
+        for ($i = 0; $i < 4 && count($noticias) > 0; $i++) {
             $partes['secundarias'][] = $noticias->shift();
         }
         $partes['secundarias'] = collect($partes['secundarias']);
 
-        for ($i = 0; $i < 1 && count($noticias) > 0; ++$i) {
+        for ($i = 0; $i < 1 && count($noticias) > 0; $i++) {
             $partes['terciarias'][] = $noticias->shift();
         }
         $partes['terciarias'] = collect($partes['terciarias']);
 
-        for ($i = 0; $i < 6 && count($noticias) > 0; ++$i) {
+        for ($i = 0; $i < 6 && count($noticias) > 0; $i++) {
             $partes['cuaternarias'][] = $noticias->shift();
         }
         $partes['cuaternarias'] = collect($partes['cuaternarias']);

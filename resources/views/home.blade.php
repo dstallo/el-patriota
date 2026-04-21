@@ -1,6 +1,13 @@
 @extends('layout')
 
 @section('script.header')
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $('.leidas li h3').on('click', function(e){
+            $(this).siblings('.cover').click();
+        })
+    })
+    </script>
 @endsection
 
 @section('contenido')
@@ -21,6 +28,31 @@
                     <?php $noticia = $primera; ?>
                     @include('_noticia')
                 </div>
+            @php
+                $segundas = $partes['principales']->shift(2);
+            @endphp
+            @if (count($segundas)>0)
+                <div class="segundas">
+                    <div class="contenido">
+                    @php $noticia = $segundas->shift() @endphp
+                        <div class="noticia">
+                            <h2>{{ $noticia->titulo_h }}</h2>
+                            <a href="{{ $noticia->link() }}" target="_blank" class="cover"></a>
+                        </div>
+                    @php $noticia = $segundas->shift() @endphp
+                    @if ($noticia)
+                        <hr  />
+                        <div class="noticia tercera">
+                            <div>
+                                <h2>{{ $noticia->titulo_h }}</h2>
+                                <div class="bajada">{!! $noticia->bajada !!}</div>
+                            </div>
+                            <a href="{{ $noticia->link() }}" class="cover" target="_blank"></a>
+                        </div>
+                    @endif
+                    </div>
+                </div>
+            @endif
             </div>
         @endif
 
@@ -70,6 +102,12 @@
                     </div>
                 @endif
 
+                <div class="terciarias">
+                @foreach ($partes['terciarias'] as $noticia)
+                    <a href="{{ $noticia->link() }}" class="noticia">{!! $noticia->titulo_h !!}</a>
+                @endforeach
+                </div>
+
                 @if (count($leidas))
                     <div class="leidas">
                         <div class="contenido">
@@ -86,18 +124,13 @@
                     </div>
                 @endif
 
-                <div class="terciarias">
-                    @foreach ($partes['terciarias'] as $noticia)
-                        @include('_noticia')
-                    @endforeach
-                </div>
                 @if ($banner = $banners['horizontales']->shift())
                     <div class="banner horizontal">
                         <a href="{{ $banner->linkContador() }}" target="_blank"><img
                                 src="{{ $banner->url('imagen') }}"></a>
                     </div>
                 @endif
-                <div class="terciarias">
+                <div class="cuaternarias">
                     @foreach ($partes['cuaternarias'] as $noticia)
                         @include('_noticia')
                     @endforeach

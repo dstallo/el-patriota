@@ -27,9 +27,11 @@
                 padding: 20px;
                 color: white;
                 .volanta {
-                    font-size: 30px;
-                    font-weight: 600;
+                    font-family: $font-secundaria;
+                    font-size: 20px;
+                    font-weight: 300;
                     margin-bottom: 30px;
+                    text-transform:uppercase;
                     &:after {
                         content: "";
                         border-bottom: 3px solid white;
@@ -53,9 +55,10 @@
                 }
                 .autor {
                     //display: none;
+                    font-family:$font-secundaria;
                     margin-top: 20px;
                     color: white;
-                    font-weight: 600;
+                    font-weight: 300;
                     text-transform: uppercase;
                     font-size: 18px;
                 }
@@ -143,6 +146,7 @@
                     max-width: 700px;
                     padding: 20px;
                     .volanta {
+                        font-family: $font-secundaria;
                         font-size: 18px;
                         font-weight: 600;
                         margin-bottom: 20px;

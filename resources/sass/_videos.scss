@@ -205,8 +205,10 @@
                     .cuerpo {
                         margin-top: 0;
                         .volanta {
-                            font-size: 15px;
-                            font-weight: 600;
+                            font-family: $font-secundaria;
+                            font-size: 14px;
+                            font-weight: 400;
+                            text-transform:uppercase;
                             margin-bottom: 20px;
                             &:after {
                                 content: "";
