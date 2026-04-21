@@ -1,6 +1,6 @@
-# Info al sur
+# El Patriota
 
-Plataforma general de noticias.
+Portal de noticias de El Patriota
 
 ### (Re)Iniciar base de datos
 
