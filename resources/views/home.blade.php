@@ -31,7 +31,7 @@
             @php
                 $segundas = $partes['principales']->shift(2);
             @endphp
-            @if (count($segundas)>0)
+            @if (count($segundas ?? []))
                 <div class="segundas">
                     <div class="contenido">
                     @php $noticia = $segundas->shift() @endphp
@@ -108,7 +108,7 @@
                 @endforeach
                 </div>
 
-                @if (count($leidas))
+                @if (count($leidas ?? []))
                     <div class="leidas">
                         <div class="contenido">
                             <h2>LAS MÁS LEÍDAS</h2>
