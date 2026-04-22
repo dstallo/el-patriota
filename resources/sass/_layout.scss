@@ -325,6 +325,17 @@ header {
                             width: 18px;
                             height: 18px;
                         }
+                        &.youtube i {
+                            mask-image: url(../img/redes-negro/youtube-2.svg);
+                            width: 30px;
+                            height: 18px;
+                            mask-size:cover;
+                        }
+                        &.pinterest i {
+                            mask-image: url(../img/redes-negro/pinterest.svg);
+                            width: 20px;
+                            height: 22px;
+                        }
                     }
                 }
                 .fecha {
@@ -538,6 +549,17 @@ footer {
                 mask-image: url(../img/redes-negro/telegram.svg);
                 width: 18px;
                 height: 18px;
+            }
+            &.youtube i {
+                mask-image: url(../img/redes-negro/youtube-2.svg);
+                width: 30px;
+                height: 18px;
+                mask-size:cover;
+            }
+            &.pinterest i {
+                mask-image: url(../img/redes-negro/pinterest.svg);
+                width: 20px;
+                height: 22px;
             }
         }
     }
