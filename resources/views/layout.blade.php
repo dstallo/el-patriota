@@ -126,12 +126,11 @@
                             </form>
                         </div>
                         <div class="redes">
-                            <?php /*
-                            <a class="whatsapp" target="_blank" href="#"><i></i></a>
-                            <a class="telegram" target="_blank" href="#"><i></i></a> */ ?>
-                            <a class="x" target="_blank" href="#"><i></i></a>
                             <a class="instagram" target="_blank" href="#"><i></i></a>
-                            <?php /*<a class="tiktok" target="_blank" href="#"><i></i></a> */ ?>
+                            <a class="tiktok" target="_blank" href="#"><i></i></a>
+                            <a class="x" target="_blank" href="#"><i></i></a>
+                            <a class="youtube" target="_blank" href="#"><i></i></a>
+                            <a class="pinterest" target="_blank" href="#"><i></i></a>
                         </div>
                     </div>
                 </div>
@@ -169,11 +168,11 @@
                             </p>
                         </div>
                         <div class="redes">
-                        <?php /* <a class="whatsapp" target="_blank" href="#"><i></i></a>
-                            <a class="telegram" target="_blank" href="#"><i></i></a> */?>
-                            <a class="x" target="_blank" href="#"><i></i></a>
                             <a class="instagram" target="_blank" href="#"><i></i></a>
-                        <?php /* <a class="tiktok" target="_blank" href="#"><i></i></a> */ ?>
+                            <a class="tiktok" target="_blank" href="#"><i></i></a>
+                            <a class="x" target="_blank" href="#"><i></i></a>
+                            <a class="youtube" target="_blank" href="#"><i></i></a>
+                            <a class="pinterest" target="_blank" href="#"><i></i></a>
                         </div>
                     </div>
 
