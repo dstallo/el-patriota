@@ -117,5 +117,84 @@ $(function(){
 		        });
 			}
 		});
-	})
+	});
+
+    window.addEventListener('resize', setWindowHeight);
+    setWindowHeight();
+
 });
+
+function selectSync($synced, value, triggerChange) {
+
+    if (Array.isArray(value) && value.length>0 || ! Array.isArray(value) && value) {
+        $synced.find('optgroup,option').attr('disabled', 'disabled');
+        if (Array.isArray(value)) { // For multiple select's
+            value.forEach((id) => $synced.find('[data-sync-id='+id+']').removeAttr('disabled'));
+        } 
+        else { // For single select's.
+            $synced.find('[data-sync-id='+value+']').removeAttr('disabled');
+        }
+    }
+    else {
+        $synced.find('optgroup,option').removeAttr('disabled');
+    }
+    
+    if (triggerChange)
+        $synced.val('').trigger('change');
+}
+
+function select2AppendHidden($select) {
+    let $input = $select.siblings('input[type=hidden]');
+
+    if ($select.val().length == 0) {
+        if ($input.length == 0)
+            $('<input type="hidden" name="'+$select.prop('name')+'" value="" />').insertBefore($select);
+    }
+    else {
+        if ($input.length > 0)
+            $input.remove();
+    }
+}
+
+function select2TemplateCustom (state) {
+
+    if (!state.id) { return state.text; }
+
+    let icono = state.id;
+
+    let $option = $(state.element);
+
+    if ($option.data('icono'))
+        icono = $option.data('icono');
+
+    let color = '';
+
+    if ($option.data('color'))
+        color = 'color: '+$option.data('color')+';';
+
+    let $item;
+
+    if (! icono || /^\d+$/.test(icono))
+        $item = $('<span>'+state.text+'</span>');
+    else if ($option.parents('select').hasClass('sin-texto'))
+        $item = $('<span class="tag"><i class="material-icons" style="'+color+'">'+icono+'</i></span>');
+    else
+        $item = $('<span class="tag"><i class="material-icons" style="'+color+'">'+icono+'</i><span class="text">'+state.text+'</span></span>');
+
+    if ($option.data('label')) {
+        let $label = $('<span class="label">'+$option.data('label')+'</span>');
+        if ($option.data('label_color'))
+            $label.css('background-color', $option.data('label_color'));
+        if ($option.data('label_class'))
+            $label.addClass($option.data('label_class'));
+        $item.append($label);
+    }
+        
+    return $item;
+};
+
+function setWindowHeight() {
+    
+    document.documentElement.style.setProperty('--window-height', `${window.innerHeight}px`);
+    
+}

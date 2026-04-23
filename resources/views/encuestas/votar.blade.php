@@ -64,9 +64,7 @@
 		<div class="columna-banners" style="position:relative; top:-10px;">
 			@foreach($banners['laterales'] as $banner)
 				@break($loop->iteration > 5)
-				<div class="banner lateral">
-					<a href="{{ $banner->linkContador() }}" target="_blank"><img src="{{ $banner->url('imagen') }}"></a>
-				</div>
+				<x-banner type="imagen" class="banner lateral" :banner="$banner" />
 			@endforeach
 		</div>
 	</div>

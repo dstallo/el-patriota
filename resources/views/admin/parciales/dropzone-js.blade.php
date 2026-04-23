@@ -1,9 +1,10 @@
+<link rel="stylesheet" type="text/css" href="{{ url('js/lib/dropzone/dropzone.min.css') }}" />
 <script type="text/javascript" src="{{ url('js/lib/dropzone/dropzone.min.js') }}"></script>
 <script type="text/javascript">
     Dropzone.autoDiscover = false;
-    Dropzone.prototype.defaultOptions.dictDefaultMessage = "Drop files here to upload";
-    Dropzone.prototype.defaultOptions.dictFallbackMessage = "Your browser does not support drag'n'drop file uploads.";
-    Dropzone.prototype.defaultOptions.dictFallbackText = "Please use the fallback form below to upload your files like in the olden days.";
+    Dropzone.prototype.defaultOptions.dictDefaultMessage = "Arrastrá tus archivos aquí para subirlos.";
+    Dropzone.prototype.defaultOptions.dictFallbackMessage = "Tu navegador no admite drag & drop.";
+    Dropzone.prototype.defaultOptions.dictFallbackText = "Por favor, utilizá el formulario para subir tus imágenes.";
     Dropzone.prototype.defaultOptions.dictFileTooBig = "El archivo es demasiado grande (@{{filesize}}MiB). Máximo permitido: @{{maxFilesize}}MiB.";
     Dropzone.prototype.defaultOptions.dictInvalidFileType = "No se permiten archivos de este tipo.";
     Dropzone.prototype.defaultOptions.dictResponseError = "El servidor respondió con código @{{statusCode}}.";

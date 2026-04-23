@@ -16,9 +16,7 @@
 
 
         @if ($banner = $banners['horizontales']->shift())
-            <div class="banner horizontal">
-                <a href="{{ $banner->linkContador() }}" target="_blank"><img src="{{ $banner->url('imagen') }}" alt="" /></a>
-            </div>
+            <x-banner type="imagen" class="banner horizontal" :banner="$banner" />
         @endif
 
         <?php $primera = $partes['principales']->shift(); ?>
@@ -82,9 +80,7 @@
     <div class="contenedor listado">
 
         @if ($banner = $banners['horizontales']->shift())
-            <div class="banner horizontal">
-                <a href="{{ $banner->linkContador() }}" target="_blank"><img src="{{ $banner->url('imagen') }}"></a>
-            </div>
+            <x-banner type="imagen" class="banner horizontal" :banner="$banner" />
         @endif
 
         <div class="columnas">
@@ -96,10 +92,7 @@
                 </div>
 
                 @if ($banner = $banners['horizontales']->shift())
-                    <div class="banner horizontal">
-                        <a href="{{ $banner->linkContador() }}" target="_blank"><img
-                                src="{{ $banner->url('imagen') }}"></a>
-                    </div>
+                    <x-banner type="imagen" class="banner horizontal" :banner="$banner" />
                 @endif
 
                 <div class="terciarias">
@@ -125,10 +118,7 @@
                 @endif
 
                 @if ($banner = $banners['horizontales']->shift())
-                    <div class="banner horizontal">
-                        <a href="{{ $banner->linkContador() }}" target="_blank"><img
-                                src="{{ $banner->url('imagen') }}"></a>
-                    </div>
+                    <x-banner type="imagen" class="banner horizontal" :banner="$banner" />
                 @endif
                 <div class="cuaternarias">
                     @foreach ($partes['cuaternarias'] as $noticia)
@@ -136,18 +126,12 @@
                     @endforeach
                 </div>
                 @if ($banner = $banners['horizontales']->shift())
-                    <div class="banner horizontal">
-                        <a href="{{ $banner->linkContador() }}" target="_blank"><img
-                                src="{{ $banner->url('imagen') }}"></a>
-                    </div>
+                    <x-banner type="imagen" class="banner horizontal" :banner="$banner" />
                 @endif
             </div>
             <div class="columna-banners">
                 @forelse($banners['laterales'] as $banner)
-                    <div class="banner lateral">
-                        <a href="{{ $banner->linkContador() }}" target="_blank"><img
-                                src="{{ $banner->url('imagen') }}"></a>
-                    </div>
+                    <x-banner type="imagen" class="banner lateral" :banner="$banner" />
                     @if ($loop->iteration == 2 || ($loop->iteration < 2 && $loop->last))
                         @include('_encuesta')
                     @endif
