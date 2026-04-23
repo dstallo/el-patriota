@@ -91,7 +91,7 @@
             <div class="arriba">
                 <div class="contenedor">
                     <div class="col gap-1">
-                        <a class="menu-secciones" href="#desplegar-menu" data-abrir-menu-lateral>Secciones</a>
+                        <a class="menu-secciones" href="#desplegar-menu" data-abrir-menu-lateral></a>
                         <div class="buscar">
                             <form method="GET" action="{{ url('/') }}">
                                 <input type="text" name="buscar" value="{{ Request::get('buscar') }}"
@@ -137,7 +137,7 @@
             </div>
             <div class="abajo">
                 <div class="contenedor">
-                    <div class="logo"><a href="{{ url('/') }}"><h1>Info al Sur</h1></a></div>
+                    <h1 class="logo"><a href="{{ url('/') }}">{{ config('app.name') }}</a></h1>
                     <ul class="menu">
                         @foreach ($regiones as $region)
                             <li><a href="{{ $region->link() }}">{{ $region->nombre }}</a></li>

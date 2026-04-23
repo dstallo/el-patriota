@@ -49,7 +49,7 @@
             <div class="col-md-6 form-group">
                 <h4>Subir imágenes</h4>
                 <div class="dropzone" data-input="imagen" data-cantidad="multi" data-mimes="image/*" data-url="{{ route('subir_imagen_noticia', $noticia) }}" max="2" data-reload="si">
-                    <div class="dz-message" data-dz-message><span>Arrastrá los archivos o clickeá para subir imagenés.</span></div>
+                    <div class="dz-message" data-dz-message><span>Arrastrá los archivos o clickeá para subir imágenes.</span></div>
                 </div>
             </div>
             <div id="crear-video" class="col-md-6 form-group">

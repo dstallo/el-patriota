@@ -20,7 +20,5 @@
         @include('_encuesta')
     </div>
 @elseif($banner = $banners['responsive']->shift())
-    <div class="banner-responsive">
-        <a href="{{ $banner->linkContador() }}" target="_blank"><img src="{{ $banner->urlImagenResponsive() }}"></a>
-    </div>
+    <x-banner url="responsive" class="banner-responsive" :banner="$banner" />
 @endif

@@ -86,7 +86,10 @@ class Banner extends Model
 
     public function linkContador()
     {
-        return route('link_banner', $this);
+        if ($this->link)
+            return route('link_banner', $this);
+
+        return null;
     }
     
 }

@@ -120,6 +120,7 @@
             .imagen {
                 margin-bottom: 0;
                 & > div:first-child {
+                    min-height:350px;
                 }
                 .categorias {
                     display: inline-block;
@@ -195,6 +196,8 @@
                             display: block;
                             font-size: 15px;
                             color: $color-text;
+                            font-family: $font-secundaria;
+                            font-weight: 200;
                         }
                         .autor {
                             display: block;
@@ -499,6 +502,10 @@ $alto-foto-responsive: 240px;
                         width: 100%;
                         position: relative;
                         height: $alto-foto-responsive;
+
+                        & > div:first-child {
+                            min-height:250px;
+                        }
                     }
                     .info {
                         width: 100%;
@@ -520,14 +527,27 @@ $alto-foto-responsive: 240px;
                 }
             }
 
-            .segundas .noticia {
-                height: auto;
-                .imagen {
-                    position: relative;
-                    margin-bottom: 10px;
-                    height: $alto-foto-responsive;
+            .segundas {
+                border-left:none;
+                width:100%;
+                .noticia {
+                    height: auto;
+                    border-top: 1px solid $borde;
+                    padding:20px;
+                    .imagen {
+                        position: relative;
+                        margin-bottom: 10px;
+                        height: $alto-foto-responsive;
+                    }
+                }
+
+                .contenido {
+                    padding-left:0;
+                    
                 }
             }
+
+            .segundas 
             .primera {
                 border-right: 0;
                 padding-right: 0;

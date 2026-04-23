@@ -83,15 +83,12 @@
                 </div>
 
                 @if ($banner = $banners['horizontales']->shift())
-                    <div class="banner horizontal">
-                        <a href="{{ $banner->linkContador() }}" target="_blank"><img
-                                src="{{ $banner->url('imagen') }}"></a>
-                    </div>
+                    <x-banner type="imagen" class="banner horizontal" :banner="$banner" />
                 @endif
 
                 <div class="listado">
                 @if (count($relacionadas))
-                    <div class="terciarias">
+                    <div class="cuaternarias">
                         @foreach ($relacionadas as $noticia)
                             @include('_noticia')
                         @endforeach
@@ -119,10 +116,7 @@
 
             <div class="columna-banners">
                 @forelse($banners['laterales'] as $banner)
-                    <div class="banner lateral">
-                        <a href="{{ $banner->linkContador() }}" target="_blank"><img
-                                src="{{ $banner->url('imagen') }}"></a>
-                    </div>
+                    <x-banner type="imagen" class="banner lateral" :banner="$banner" />
                     @if ($loop->iteration == 2 || ($loop->iteration < 2 && $loop->last))
                         @include('_encuesta')
                     @endif
