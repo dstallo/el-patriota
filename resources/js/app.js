@@ -121,7 +121,6 @@ $(function(){
 
     window.addEventListener('resize', setWindowHeight);
     setWindowHeight();
-
 });
 
 function selectSync($synced, value, triggerChange) {
