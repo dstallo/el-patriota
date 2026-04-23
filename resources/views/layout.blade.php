@@ -130,7 +130,6 @@
                             <a class="tiktok" target="_blank" href="https://www.tiktok.com/@elpatriotamedia"><i></i></a>
                             <a class="x" target="_blank" href="https://x.com/elpatriotamedia"><i></i></a>
                             <a class="youtube" target="_blank" href="https://youtube.com/@elpatriotamedia"><i></i></a>
-                            <a class="pinterest" target="_blank" href="https://pin.it/3YbszhHiK"><i></i></a>
                         </div>
                     </div>
                 </div>
@@ -172,7 +171,6 @@
                             <a class="tiktok" target="_blank" href="https://www.tiktok.com/@elpatriotamedia"><i></i></a>
                             <a class="x" target="_blank" href="https://x.com/elpatriotamedia"><i></i></a>
                             <a class="youtube" target="_blank" href="https://youtube.com/@elpatriotamedia"><i></i></a>
-                            <a class="pinterest" target="_blank" href="https://pin.it/3YbszhHiK"><i></i></a>
                         </div>
                     </div>
 
