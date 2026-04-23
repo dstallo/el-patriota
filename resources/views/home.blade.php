@@ -1,12 +1,12 @@
 @extends('layout')
 
 @section('script.header')
-    <script type="text/javascript">
-    $(document).ready(function(){
-        $('.leidas li h3').on('click', function(e){
-            $(this).siblings('.cover').click();
+    <script>
+        $(document).ready(function(){
+            $('.listado .leidas ul li h3').on('click', function(){
+                window.location.href = $(this).siblings('.cover').prop('href');
+            });
         })
-    })
     </script>
 @endsection
 
@@ -106,12 +106,12 @@
                         <div class="contenido">
                             <h2>LAS MÁS LEÍDAS</h2>
                             <ul>
-                                @foreach ($leidas as $leida)
-                                    <li>
-                                        <h3>{!! $leida->titulo_h !!}</h3>
-                                        <a class="cover" href="{{ $leida->link() }}"></a>
-                                    </li>
-                                @endforeach
+                            @foreach ($leidas as $leida)
+                                <li>
+                                    <h3>{!! $leida->titulo_h !!}</h3>
+                                    <a class="cover" href="{{ $leida->link() }}"></a>
+                                </li>
+                            @endforeach
                             </ul>
                         </div>
                     </div>
