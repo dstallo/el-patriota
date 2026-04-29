@@ -1,4 +1,6 @@
-<div class="noticia">
+@props(["noticia", "type" => "full"])
+<div {{ $attributes->merge(["class" => "noticia"]) }}>
+@if ($type == "full")
     <div class="contenido">
         <div class="imagen">
             <div style="background-image:url({{ $noticia->url('thumbnail') }});"></div>
@@ -26,4 +28,27 @@
         </div>
         <a href="{{ $noticia->link() }}" class="cover"></a>
     </div>
+@elseif ($type == "reducida")
+    <div class="imagen">
+        <div style="background-image:url({{ $noticia->url('thumbnail') }});"></div>
+    @if ($noticia->obtenerCategorias())
+        <div class="categorias">
+            {{ $noticia->obtenerCategorias() }}
+        </div>
+    @endif
+        @if ($noticia->con_video)
+            <span class="contiene-video"></span>
+        @endif
+    </div>
+    
+    <div class="volanta">{{ $noticia->volanta }}</div>
+    <div>
+        <h2>{{ $noticia->titulo_h }}</h2>
+        <div class="texto bajada">{!! $noticia->bajada !!}</div>
+    </div>
+    @if ($noticia->autor)
+        <div class="autor">Por {{ $noticia->autor }}</div>
+    @endif
+    <a href="{{ $noticia->link() }}" target="_blank" class="cover"></a>
+@endif
 </div>

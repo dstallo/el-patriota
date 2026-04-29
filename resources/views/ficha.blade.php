@@ -61,8 +61,7 @@
                                 @if ($contenido->tipo == 'video')
                                     @if ($videoResuelto = $contenido->getVideo())
                                         <div>
-                                            <div class="foto video"
-                                                style="background-image:url({{ $contenido->tiene('imagen') ? $contenido->url('tn') : $videoResuelto->thumb([1290, 585]) }});">
+                                            <div class="foto video" style="background-image:url({{ $contenido->tiene('imagen') ? $contenido->url('tn') : $videoResuelto->thumb([1290, 585]) }});">
                                                 <a class="glightbox-video" href="{{ $videoResuelto->embedUrl() }}"
                                                     target="_blank"></a>
                                             </div>
@@ -79,6 +78,10 @@
                                 @endif
                             @endforeach
                         </div>
+                    @elseif ($noticia->url('thumbnail'))
+                        <div class="foto" style="background-image:url({{ $noticia->url('thumbnail') }});">
+                            <a href="{{ $noticia->url('thumbnail') }}" data-lity></a>
+                        </div>
                     @endif
 
                     <div class="texto">
@@ -89,14 +92,14 @@
                 </div>
 
                 @if ($banner = $banners['horizontales']->shift())
-                    <x-banner type="imagen" class="banner horizontal" :banner="$banner" />
+                    <x-banner class="banner horizontal" :banner="$banner" />
                 @endif
 
                 <div class="listado">
                 @if (count($relacionadas))
-                    <div class="cuaternarias">
+                    <div class="terciarias">
                         @foreach ($relacionadas as $noticia)
-                            @include('_noticia')
+                            <x-noticia :noticia="$noticia" />
                         @endforeach
                     </div>
                 @endif
@@ -122,7 +125,7 @@
 
             <div class="columna-banners">
                 @forelse($banners['laterales'] as $banner)
-                    <x-banner type="imagen" class="banner lateral" :banner="$banner" />
+                    <x-banner class="banner lateral" :banner="$banner" />
                     @if ($loop->iteration == 2 || ($loop->iteration < 2 && $loop->last))
                         @include('_encuesta')
                     @endif

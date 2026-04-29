@@ -90,7 +90,8 @@
         <header>
             <div class="arriba">
                 <div class="contenedor">
-                    <div class="col gap-1">
+                    <h1 class="logo"><a href="{{ url('/') }}">{{ config('app.name') }}</a></h1>
+                    <div class="col actions gap-1">
                         <a class="menu-secciones" href="#desplegar-menu" data-abrir-menu-lateral></a>
                         <div class="buscar">
                             <form method="GET" action="{{ url('/') }}">
@@ -189,9 +190,8 @@
                                 <input type="hidden" name="error_titulo" value="Error">
                                 <input type="hidden" name="error_texto"
                                     value="Ocurrió un error con tu suscripción, por favor intenta de nuevo en unos minutos.">
-                                <input type="text" name="nombre" placeholder="nombre" autocomplete="off" required>
-                                <input type="email" name="email" placeholder="tu mail acá" autocomplete="off"
-                                    required>
+                                <input type="text" name="nombre" placeholder="nombre" autocomplete="off" required />
+                                <input type="email" name="email" placeholder="email" autocomplete="off" required />
                                 <button type="submit">SUSCRIBITE</button>
                             </form>
                         </div>

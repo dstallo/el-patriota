@@ -61,7 +61,7 @@
 				@endif
 				<div class="terciarias">
 					@foreach($partes['principales'] as $noticia)
-						@include('_noticia')
+						<x-noticia :noticia="$noticia" />
 					@endforeach
 				</div>
 			</div>
@@ -70,7 +70,7 @@
 		<div class="columna-banners" style="position:relative; top:-10px;">
 			@foreach($banners['laterales'] as $banner)
 				@break($loop->iteration > 5)
-				<x-banner type="imagen" class="banner lateral" :banner="$banner" />
+				<x-banner class="banner lateral" :banner="$banner" />
 			@endforeach
 		</div>
 	</div>

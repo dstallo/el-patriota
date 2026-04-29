@@ -34,13 +34,12 @@ class Noticias extends Controller
 
     protected function dividir($noticias)
     {
-        $noticias = $noticias->take(14)->get();
+        $noticias = $noticias->take(13)->get();
 
         $partes = [
             'principales' => [],
             'secundarias' => [],
-            'terciarias' => [],
-            'cuaternarias' => [],
+            'terciarias' => []
         ];
 
         for ($i = 0; $i < 3 && count($noticias) > 0; $i++) {
@@ -53,15 +52,10 @@ class Noticias extends Controller
         }
         $partes['secundarias'] = collect($partes['secundarias']);
 
-        for ($i = 0; $i < 1 && count($noticias) > 0; $i++) {
+        for ($i = 0; $i < 6 && count($noticias) > 0; $i++) {
             $partes['terciarias'][] = $noticias->shift();
         }
         $partes['terciarias'] = collect($partes['terciarias']);
-
-        for ($i = 0; $i < 6 && count($noticias) > 0; $i++) {
-            $partes['cuaternarias'][] = $noticias->shift();
-        }
-        $partes['cuaternarias'] = collect($partes['cuaternarias']);
 
         return $partes;
     }
@@ -101,10 +95,7 @@ class Noticias extends Controller
             // ->take(6)
             ->get();
 
-        $responsive = clone $horizontales;
-        $responsive = $responsive->concat(clone $laterales);
-
-        return compact('horizontales', 'laterales', 'responsive');
+        return compact('horizontales', 'laterales');
     }
 
     public function home(Request $request)

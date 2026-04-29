@@ -25,10 +25,7 @@ class Entrevistas extends Controller
             // ->take(6)
             ->get();
 
-        $responsive = clone $horizontales;
-        $responsive = $responsive->concat(clone $laterales);
-
-        return compact('horizontales', 'laterales', 'responsive');
+        return compact('horizontales', 'laterales');
     }
 
     public function index(Request $request)

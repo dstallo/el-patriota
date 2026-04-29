@@ -14,30 +14,22 @@
 
     &.lateral {
         margin: 10px auto;
-        a {
-        }
+        a {}
     }
 }
 
-.banner-responsive {
+.banner-img-celular {
     display: none;
-    text-align: center;
-    padding: 0;
-    margin-bottom: 20px;
-    img {
-        max-width: 100%;
-    }
-    padding-top: 10px;
-    padding-bottom: 5px;
-    // border-top:1px solid $borde;
-    // border-bottom:1px solid $borde;
 }
 
-@media (max-width: 650px) {
-    .banner {
+@media (max-width: 700px) {
+    .banner {padding:0; margin-bottom:20px;}
+
+    .banner-img-desktop {
         display: none;
     }
-    .banner-responsive {
+    .banner-img-celular {
         display: block;
+        margin:0 auto;
     }
 }
