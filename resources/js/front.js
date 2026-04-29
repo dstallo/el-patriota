@@ -58,11 +58,33 @@ $(function() {
             dots: true,
             responsive: [
                 {
-                    breakpoint: 650,
+                    breakpoint: 700,
                     settings: {
                         // centerMode: true,
                         // centerPadding: '40px',
                         arrows: false
+                    }
+                }
+            ]
+        });
+    }
+
+    if ($('.grupo.con-slides').length) {
+        $('.grupo.con-slides .slides').slick({
+            slidesToShow: 3,
+            slidesToScroll: 3,
+            infinite: true,
+            autoplay: false,
+            arrows: true,
+            dots: false,
+            prevArrow: '.grupo .prev',
+            nextArrow: '.grupo .next',
+            centerPadding: '10px',
+            responsive: [
+                {
+                    breakpoint: 700,
+                    settings: {
+                        slidesToShow: 1
                     }
                 }
             ]
@@ -132,4 +154,10 @@ $(function() {
             $("header .clima").html("");
         }
     });
+
+    $('header .buscar input').on('focus', function(){
+        $('header .arriba .logo').addClass('buscar-focus');
+    }).on('blur', function(){
+        $('header .arriba .logo').removeClass('buscar-focus');
+    })
 });

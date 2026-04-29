@@ -212,6 +212,9 @@ header {
             flex-flow: row nowrap;
             justify-content: center;
             align-items: center;
+
+            .logo {display:none;}
+
             .col {
                 margin: 0 10px;
 
@@ -407,43 +410,50 @@ header {
 
 @media (max-width: 700px) {
 
+    .contenedor {
+        padding-left:15px; padding-right:15px;
+    }
+
     header {
+        padding-bottom:0;
 
         .entresub {
             display: none;
         }
-
-        .logo {
-            order: 1;
-            a {
-                margin: 0 auto;
-            }
-            margin-bottom: 10px;
-        }
-
+        
         .arriba {
+            position:relative;
+
             .contenedor {
                 flex-flow: column nowrap;
+                padding:20px 10px;
                 .col {
                     display: none;
                 }
-                .col:nth-child(1) {
+                .col.actions {
                     order: 2;
                     display: flex;
                     flex-flow: row nowrap;
                     justify-content: space-between;
                     align-items: center;
                     width: 100%;
+                    .menu-secciones {margin-right:0; background-size:16px auto; padding:0; width:40px; height:30px; background-position:center center; }
 
                     .buscar {
-                        display:flex; justify-content:flex-end; 
-                        form {width:auto; display:flex; justify-content:flex-end;} 
-                        input { width:100px;}
+                        display:flex; justify-content:flex-end; max-width:none;
+                        form {width:100%; display:flex; justify-content:flex-end;} 
+                        input { width:10px; background-size: 22px auto; background-color:transparent; padding-left:40px;}
+                        input:not(:focus) {
+                            &::placeholder {color: transparent;}
+                        }
                     }
                 }
+                .logo {display:block; position:absolute;}
+                .logo.buscar-focus {display:none;}
             }
         }
         .abajo {
+            display: none;
             .contenedor {
                 padding-top:0;
                 .menu {
@@ -608,7 +618,7 @@ footer {
     }
 }
 
-@media (max-width: 650px) {
+@media (max-width: 700px) {
     footer {
         padding: 30px 0;
         text-align: center;
@@ -636,40 +646,6 @@ footer {
             a {
                 display: none;
             }
-            form {
-                margin-top: 10px;
-                width: 100%;
-                display: block;
-                input[type="email"],
-                input[type="text"] {
-                    font-size: 14px;
-                    margin-bottom: 10px;
-                    border: 0;
-                    display: block;
-                    width: 100%;
-                    padding: 6px;
-                    background-color: transparent;
-                    border: 1px solid $color-text;
-                    &::placeholder {
-                        color: $color-input-placeholder;
-                    }
-                    color: $color-text;
-                }
-                button {
-                    display: block;
-                    box-sizing: border-box;
-                    text-align: center;
-                    width: 100%;
-                    line-height: 2em;
-                    background-color: $color-primary;
-                    color: white;
-                    text-transform: uppercase;
-                    font-size: 14.5px;
-                    text-align: center;
-                    padding: 0 20px;
-                    font-weight: 600;
-                }
-            }
         }
     }
 }
@@ -691,14 +667,18 @@ footer {
     }
 }
 
-@media (max-width: 650px) {
+@media (max-width: 700px) {
     .columnas {
+
+        /* Para traer la columna lateral primero que la de noticias */
+        display: flex;flex-direction: column-reverse;
+
         .columna-noticias {
             display: block;
             width: 100%;
         }
         .columna-banners {
-            display: none;
+            width: auto;
         }
     }
 }

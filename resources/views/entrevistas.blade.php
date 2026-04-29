@@ -27,7 +27,7 @@
         </div>
 
         @if ($banner = $banners['horizontales']->shift())
-            <x-banner type="imagen" class="banner horizontal sin-padding" :banner="$banner" />
+            <x-banner class="banner horizontal sin-padding" :banner="$banner" />
         @endif
 
         <div class="columnas">
@@ -43,7 +43,7 @@
                 </div>
 
                 @if ($banner = $banners['horizontales']->shift())
-                    <x-banner type="imagen" class="banner horizontal sin-padding" :banner="$banner" />
+                    <x-banner class="banner horizontal sin-padding" :banner="$banner" />
                 @endif
 
                 <div class="videos completo">
@@ -59,7 +59,7 @@
 
             <div class="columna-banners">
                 @forelse($banners['laterales'] as $banner)
-                    <x-banner type="imagen" class="banner lateral" :banner="$banner" />
+                    <x-banner class="banner lateral" :banner="$banner" />
                     @if ($loop->iteration == 2 || ($loop->iteration < 2 && $loop->last))
                         @include('_encuesta')
                     @endif

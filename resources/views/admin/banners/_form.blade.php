@@ -45,9 +45,9 @@
         <input type="file" class="form-control" name="imagen" value="{{ old('imagen') }}">
     @endif
 </div>
-<?php /*
+
 <div class="col-md-4 form-group{{ has_error($errors,'imagen_responsive') }}">
-    <label>Imagen responsive</label>
+    <label>Imagen para celulares</label>
     @if($banner->tiene('imagen_responsive'))
         <div style="position:relative;">
             <div style="position:absolute; left:-14px; top:4px;">
@@ -59,5 +59,3 @@
         <input type="file" class="form-control" name="imagen_responsive" value="{{ old('imagen_responsive') }}">
     @endif
 </div>
-*/
-?>

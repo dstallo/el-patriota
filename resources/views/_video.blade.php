@@ -19,6 +19,4 @@
     <div class="bloque-encuesta-responsive">
         @include('_encuesta')
     </div>
-@elseif($banner = $banners['responsive']->shift())
-    <x-banner url="responsive" class="banner-responsive" :banner="$banner" />
 @endif

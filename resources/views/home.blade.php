@@ -14,17 +14,15 @@
 
     <div class="contenedor listado">
 
-
         @if ($banner = $banners['horizontales']->shift())
-            <x-banner type="imagen" class="banner horizontal" :banner="$banner" />
+            <x-banner class="banner horizontal" :banner="$banner" />
         @endif
 
         <?php $primera = $partes['principales']->shift(); ?>
         @if ($primera)
             <div class="principales">
                 <div class="primera">
-                    <?php $noticia = $primera; ?>
-                    @include('_noticia')
+                    <x-noticia :noticia="$primera" />
                 </div>
             @php
                 $segundas = $partes['principales']->shift(2);
@@ -33,20 +31,11 @@
                 <div class="segundas">
                     <div class="contenido">
                     @php $noticia = $segundas->shift() @endphp
-                        <div class="noticia">
-                            <h2>{{ $noticia->titulo_h }}</h2>
-                            <a href="{{ $noticia->link() }}" target="_blank" class="cover"></a>
-                        </div>
+                        <x-noticia :noticia="$noticia" type="reducida" />
                     @php $noticia = $segundas->shift() @endphp
                     @if ($noticia)
                         <hr  />
-                        <div class="noticia tercera">
-                            <div>
-                                <h2>{{ $noticia->titulo_h }}</h2>
-                                <div class="bajada">{!! $noticia->bajada !!}</div>
-                            </div>
-                            <a href="{{ $noticia->link() }}" class="cover" target="_blank"></a>
-                        </div>
+                        <x-noticia :noticia="$noticia" type="reducida" class="tercera" />
                     @endif
                     </div>
                 </div>
@@ -80,26 +69,45 @@
     <div class="contenedor listado">
 
         @if ($banner = $banners['horizontales']->shift())
-            <x-banner type="imagen" class="banner horizontal" :banner="$banner" />
+            <x-banner class="banner horizontal" :banner="$banner" />
         @endif
 
         <div class="columnas">
             <div class="columna-noticias">
                 <div class="secundarias">
                     @foreach ($partes['secundarias'] as $noticia)
-                        @include('_noticia')
+                        <x-noticia :noticia="$noticia" />
                     @endforeach
                 </div>
-
+                
                 @if ($banner = $banners['horizontales']->shift())
-                    <x-banner type="imagen" class="banner horizontal" :banner="$banner" />
+                    <x-banner class="banner horizontal" :banner="$banner" />
                 @endif
 
-                <div class="terciarias">
-                @foreach ($partes['terciarias'] as $noticia)
-                    <a href="{{ $noticia->link() }}" class="noticia">{!! $noticia->titulo_h !!}</a>
-                @endforeach
-                </div>
+                @if (count($noticias_grupo ?? [])>0)
+                    <div class="grupo {{ count($noticias_grupo) > 3 ? 'con-slides' : 'sin-slides' }}">
+                        <div class="contenido">
+                            <div class="header">
+                                <h2>{{ $grupo?->valor }}</h2>
+                            @if (count($noticias_grupo)>3)
+                                <div class="arrows">
+                                    <a href="#" class="prev">&lt;</a>
+                                    <a href="#" class="next">&gt;</a>
+                                </div>
+                            @endif
+                            </div>
+                            <div class="slides">
+                            @foreach($noticias_grupo as $noticia)
+                                <div class="slide"><x-noticia :noticia="$noticia" /></div>
+                            @endforeach
+                            </div>
+                        </div>
+                    </div>
+                    @if ($banner = $banners['horizontales']->shift())
+                        <x-banner class="banner horizontal" :banner="$banner" />
+                    @endif
+                @endif
+                <?php/* AGREGAR AQUÍ EL GRUPO DE NOTICIAS (con su respectivo banner horizontal por debajo) */?>
 
                 @if (count($leidas ?? []))
                     <div class="leidas">
@@ -118,20 +126,20 @@
                 @endif
 
                 @if ($banner = $banners['horizontales']->shift())
-                    <x-banner type="imagen" class="banner horizontal" :banner="$banner" />
+                    <x-banner class="banner horizontal" :banner="$banner" />
                 @endif
-                <div class="cuaternarias">
-                    @foreach ($partes['cuaternarias'] as $noticia)
-                        @include('_noticia')
+                <div class="terciarias">
+                    @foreach ($partes['terciarias'] as $noticia)
+                        <x-noticia :noticia="$noticia" />
                     @endforeach
                 </div>
-                @if ($banner = $banners['horizontales']->shift())
-                    <x-banner type="imagen" class="banner horizontal" :banner="$banner" />
-                @endif
+                @while ($banner = $banners['horizontales']->shift())
+                    <x-banner class="banner horizontal" :banner="$banner" />
+                @endwhile
             </div>
             <div class="columna-banners">
                 @forelse($banners['laterales'] as $banner)
-                    <x-banner type="imagen" class="banner lateral" :banner="$banner" />
+                    <x-banner class="banner lateral" :banner="$banner" />
                     @if ($loop->iteration == 2 || ($loop->iteration < 2 && $loop->last))
                         @include('_encuesta')
                     @endif
@@ -148,7 +156,7 @@
             @if ($popup->link)
                 <a href="{{ $popup->link }}" target="_blank"><img src="{{ $popup->url('imagen') }}"></a>
             @else
-                <img src="{{ $popup->url('imagen') }}">
+                <img src="{{ $popup->url('imagen') }}" alt="" />
             @endif
         </div>
     @endif
@@ -158,7 +166,7 @@
             @if ($popup->link)
                 <a href="{{ $popup->link }}" target="_blank"><img src="{{ $popup->url('imagen_vertical') }}"></a>
             @else
-                <img src="{{ $popup->url('imagen_vertical') }}">
+                <img src="{{ $popup->url('imagen_vertical') }}" alt="">
             @endif
         </div>
     @endif
