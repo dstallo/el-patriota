@@ -101,6 +101,8 @@
             font-family: $font-secundaria;
             font-weight:200;
             margin-top:5px;
+            line-height:1.5;
+            font-size:16px;
         }
     }
 }
@@ -202,10 +204,11 @@
                         }
                         .bajada {
                             display: block;
-                            font-size: 15px;
+                            font-size: 16px;
                             color: $color-text;
                             font-family: $font-secundaria;
                             font-weight: 200;
+                            line-height:1.5;
                         }
                     }
                 }
@@ -478,8 +481,9 @@ $alto-foto-responsive: 240px;
             .noticia.tercera {
                 
                 h2 {
-                    font-size: 15px;
+                    font-size: 18px;
                     font-weight:600;
+                    line-height:1.5;
                     color: $color-text;
                 }
 
@@ -511,8 +515,9 @@ $alto-foto-responsive: 240px;
                         margin-bottom: 5px;
                     }
                     .bajada {
-                        font-size: 15px;
+                        font-size: 16px;
                         font-weight: 300;
+                        line-height:1.5;
                     }
                 }
             }
@@ -555,8 +560,9 @@ $alto-foto-responsive: 240px;
                             margin-bottom: 5px;
                         }
                         .bajada {
-                            font-size: 15px;
+                            font-size: 16px;
                             font-weight: 300;
+                            line-height:1.5;
                         }
                     }
                 }
