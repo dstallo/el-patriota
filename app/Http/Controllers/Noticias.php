@@ -107,7 +107,9 @@ class Noticias extends Controller
         $leidas = $this->leidas()->get();
 
         $grupo = Configuracion::obtener('GRUPO_ACTIVO');
-        $noticias_grupo = $this->grupo($request)->get();
+        
+        
+        $noticias_grupo = $grupo?->valor ? $this->grupo($request)->get() : collect([]);
         
         $banners = $this->banners();
         $popup = Popup::where('visible', true)->orderBy('id', 'desc')->first();

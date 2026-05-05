@@ -84,7 +84,7 @@
                     <x-banner class="banner horizontal" :banner="$banner" />
                 @endif
 
-                @if (count($noticias_grupo ?? [])>0)
+                @if ($grupo?->valor && count($noticias_grupo ?? [])>0)
                     <div class="grupo {{ count($noticias_grupo) > 3 ? 'con-slides' : 'sin-slides' }}">
                         <div class="contenido">
                             <div class="header">
