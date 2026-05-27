@@ -63,6 +63,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'rol.admin' => \App\Http\Middleware\SoloRolAdmin::class,
         'permitir.origen' => \App\Http\Middleware\PermitirOrigen::class,
+        'api' => \App\Http\Middleware\Api::class
     ];
 
     /**

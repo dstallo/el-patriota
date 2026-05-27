@@ -14,6 +14,7 @@
         "ixudra/curl": "^6.18",
         "jeroennoten/laravel-adminlte": "^3.0",
         "laravel/framework": "^12.0",
+        "laravel/passport": "^13.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^4.6"
     },
@@ -26,7 +27,10 @@
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
     },
     "extra": {
         "laravel": {
@@ -38,7 +42,7 @@
             "App\\": "app/"
         },
         "classmap": [
-            "database/seeds",
+            "database/seeders",
             "database/factories"
         ],
         "files": [

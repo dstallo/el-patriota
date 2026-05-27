@@ -7,10 +7,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 use App\Notifications\ReiniciarPassword as ResetPasswordNotification;
 use App\Axys\Traits\TieneArchivos;
+use Laravel\Passport\Contracts\OAuthenticatable;
+use Laravel\Passport\HasApiTokens;
 
-class Administrador extends Authenticatable
+class Administrador extends Authenticatable implements OAuthenticatable
 {
-    use Notifiable, TieneArchivos;
+    use Notifiable, TieneArchivos, HasApiTokens;
 
     protected $table = 'administradores';
 
