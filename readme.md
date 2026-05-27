@@ -24,3 +24,20 @@ Plataforma general de noticias.
 ```sh
 /usr/bin/php8.2 artisan passport:client --password
 ```
+
+### Instalar Passport
+
+```sh
+php artisan install:api --passport
+
+php artisan passport:keys
+
+php artisan vendor:publish --tag=passport-config
+
+```
+
+### Configurar Client Secret / ID para Aplicación.
+
+```sh
+php artisan passport:client --password
+```

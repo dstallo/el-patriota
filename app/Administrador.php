@@ -11,9 +11,9 @@ use Illuminate\Support\Facades\Auth;
 use Laravel\Passport\Contracts\OAuthenticatable;
 use Laravel\Passport\HasApiTokens;
 
-class Administrador extends Authenticatable
+class Administrador extends Authenticatable implements OAuthenticatable
 {
-    use Notifiable, TieneArchivos;
+    use Notifiable, TieneArchivos, HasApiTokens;
 
     protected $table = 'administradores';
 
