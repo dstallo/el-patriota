@@ -30,20 +30,20 @@
                         <div class="col-md-3 form-group">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-asterisk"></i></span>
-                                <input type="text" class="form-control" name="buscando_id" placeholder="ID#"
-                                    value="{{ $listado->old('buscando_id') }}">
+                                <input type="text" class="form-control" name="id" placeholder="ID#"
+                                    value="{{ $listado->old('id') }}">
                             </div>
                         </div>
                         <div class="col-md-9 form-group">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-                                <input type="text" class="form-control" name="buscando" placeholder="Buscar noticia..."
-                                    value="{{ $listado->old('buscando') }}">
+                                <input type="text" class="form-control" name="query" placeholder="Buscar noticia..."
+                                    value="{{ $listado->old('query') }}">
                             </div>
                         </div>
-                        <x-form.select onchange="$(this).closest('form').submit()" container="col-md-4" name="buscando_id_seccion" :opciones="$secciones" :selected="$listado->old('buscando_id_seccion')" placeholder="Elegí la sección" field_value="id" field_name="nombre" :allow_clear="true" />
-                        <x-form.select onchange="$(this).closest('form').submit()" container="col-md-4" name="buscando_id_region" :opciones="$regiones" :selected="$listado->old('buscando_id_region')" placeholder="Elegí la región" field_value="id" field_name="nombre" :allow_clear="true" />
-                        <x-form.select onchange="$(this).closest('form').submit()" container="col-md-4" name="buscando_grupo" :opciones="$grupos" :selected="$listado->old('buscando_grupo')" placeholder="Elegí el grupo de noticias" field_value="valor" field_name="valor" :allow_clear="true" />
+                        <x-form.select onchange="$(this).closest('form').submit()" container="col-md-4" name="seccion" :opciones="$secciones" :selected="$listado->old('seccion')" placeholder="Elegí la sección" field_value="id" field_name="nombre" :allow_clear="true" />
+                        <x-form.select onchange="$(this).closest('form').submit()" container="col-md-4" name="region" :opciones="$regiones" :selected="$listado->old('region')" placeholder="Elegí la región" field_value="id" field_name="nombre" :allow_clear="true" />
+                        <x-form.select onchange="$(this).closest('form').submit()" container="col-md-4" name="grupo" :opciones="$grupos" :selected="$listado->old('grupo')" placeholder="Elegí el grupo de noticias" field_value="valor" field_name="valor" :allow_clear="true" />
 
                     </div>
                     <input type="submit" class="hidden">

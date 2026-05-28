@@ -16,7 +16,19 @@ class Noticia extends Model
 
     protected $table = 'noticias';
 
-    protected $fillable = ['id_seccion', 'id_region', 'volanta', 'titulo', 'fecha', 'autor', 'bajada', 'texto', 'embebido_1', 'embebido_2', 'grupo'];
+    protected $fillable = [
+        'id_seccion', 
+        'id_region', 
+        'volanta', 
+        'titulo', 
+        'fecha', 
+        'autor', 
+        'bajada', 
+        'texto', 
+        'embebido_1', 
+        'embebido_2', 
+        'grupo'
+    ];
 
     protected $dir = [
         'thumbnail' => 'contenido/noticias',

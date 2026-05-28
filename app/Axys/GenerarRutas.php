@@ -6,67 +6,67 @@
 
 namespace App\Axys;
 
-use \Route;
+use Illuminate\Support\Facades\Route;
 
 class GenerarRutas
 {
-	public static function ABM($url, $var, $controlador, $excepto=[])
+	public static function ABM($controlador, $url, $var, $basename, $excepto=[])
 	{
 		if(!in_array('index', $excepto)) {
-			Route::get("$url", "$controlador@index")
-				->name($controlador.'Index');
+			Route::get("$url", [$controlador, "index"])
+				->name($basename.'Index');
 		}
 		if(!in_array('eliminar-archivo', $excepto)) {
-	    	Route::get("$url/eliminar/{".$var."}/{campo}", "$controlador@eliminarArchivo")
+	    	Route::get("$url/eliminar/{".$var."}/{campo}", [$controlador, "eliminarArchivo"])
 	    		->where($var, '[0-9]+')
-	    		->name($controlador.'EliminarArchivo');
+	    		->name($basename.'EliminarArchivo');
 		}
 	    if(!in_array('eliminar', $excepto)) {
-	    	Route::get("$url/eliminar/{".$var."}", "$controlador@eliminar")
+	    	Route::get("$url/eliminar/{".$var."}", [$controlador, "eliminar"])
 	    		->where($var, '[0-9]+')
-	    		->name($controlador.'Eliminar');
+	    		->name($basename.'Eliminar');
 	    }
 	    if(!in_array('crear', $excepto)) {
-	    	Route::get("$url/crear", "$controlador@crear")
-	    		->name($controlador.'Crear');
+	    	Route::get("$url/crear", [$controlador, "crear"])
+	    		->name($basename.'Crear');
 	    }
 	    if(!in_array('editar', $excepto)) {
-	    	Route::get("$url/editar/{".$var."}", "$controlador@editar")
+	    	Route::get("$url/editar/{".$var."}", [$controlador, "editar"])
 	    		->where($var, '[0-9]+')
-	    		->name($controlador.'Editar');
+	    		->name($basename.'Editar');
 	    }
 	    if(!in_array('guardar', $excepto)) {
-	    	Route::post("$url/guardar/{".$var."?}", "$controlador@guardar")
+	    	Route::post("$url/guardar/{".$var."?}", [$controlador, "guardar"])
 	    		->where($var, '[0-9]+')
-	    		->name($controlador.'Guardar');
+	    		->name($basename.'Guardar');
 	    }
 	    if(!in_array('visibilidad', $excepto)) {
-	    	Route::get("$url/visibilidad/{".$var."}", "$controlador@visibilidad")
+	    	Route::get("$url/visibilidad/{".$var."}", [$controlador, "visibilidad"])
 	    		->where($var, '[0-9]+')
-	    		->name($controlador.'Visibilidad');
+	    		->name($basename.'Visibilidad');
 	    }
 	}
 
-	public static function Fotos($urlPadre, $varPadre, $url, $var, $controlador)
+	public static function Fotos($controlador, $urlPadre, $varPadre, $url, $var, $basename)
 	{
-		Route::get("$urlPadre/{".$varPadre."}/$url", "$controlador@index")
+		Route::get("$urlPadre/{".$varPadre."}/$url", [$controlador, "index"])
 			->where($varPadre, '[0-9]+')
-			->name($controlador.'Index');
-	    Route::get("$urlPadre/{".$varPadre."}/$url/eliminar/{".$var."}", "$controlador@eliminar")
+			->name($basename.'Index');
+	    Route::get("$urlPadre/{".$varPadre."}/$url/eliminar/{".$var."}", [$controlador, "eliminar"])
 	    	->where([$var => '[0-9]+', $varPadre => '[0-9]+'])
-	    	->name($controlador.'Eliminar');
-	    Route::get("$urlPadre/{".$varPadre."}/$url/principal/{".$var."}", "$controlador@principal")
+	    	->name($basename.'Eliminar');
+	    Route::get("$urlPadre/{".$varPadre."}/$url/principal/{".$var."}", [$controlador, "principal"])
 	    	->where([$var => '[0-9]+', $varPadre => '[0-9]+'])
-	    	->name($controlador.'Principal');
-	    Route::post("$urlPadre/{".$varPadre."}/$url", "$controlador@subir")
+	    	->name($basename.'Principal');
+	    Route::post("$urlPadre/{".$varPadre."}/$url", [$controlador, "subir"])
 	    	->where($varPadre, '[0-9]+')
-	    	->name($controlador.'Subir');
-	    Route::get("$urlPadre/{".$varPadre."}/$url/editar-epigrafe/{".$var."}", "$controlador@editar")
+	    	->name($basename.'Subir');
+	    Route::get("$urlPadre/{".$varPadre."}/$url/editar-epigrafe/{".$var."}", [$controlador, "editar"])
 	    	->where([$var => '[0-9]+', $varPadre => '[0-9]+'])
-	    	->name($controlador.'Editar');
-	    Route::post("$urlPadre/{".$varPadre."}/$url/editar-epigrafe/{".$var."}", "$controlador@guardar")
+	    	->name($basename.'Editar');
+	    Route::post("$urlPadre/{".$varPadre."}/$url/editar-epigrafe/{".$var."}", [$controlador, "guardar"])
 	    	->where([$var => '[0-9]+', $varPadre => '[0-9]+'])
-	    	->name($controlador.'Guardar');
+	    	->name($basename.'Guardar');
 	}
 
 	public static function auth()

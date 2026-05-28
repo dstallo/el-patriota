@@ -1,59 +1,24 @@
 <?php
 
-use App\Noticia;
+use App\Http\Controllers\API\Noticias;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
 use Laravel\Passport\Http\Controllers\AccessTokenController;
-use Laravel\Passport\Http\Controllers\AuthorizedAccessTokenController;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
-    
 // En AuthServiceProvider se deshabilitaron las rutas que crea Passport por defecto. Solo habilitaremos manualmente las siguientes. 
 
-
 // Ruta para emitir access token
-//Route::post('/oauth/token', ['uses' => 'AccessTokenController@issueToken', 'as' => 'passport.token']);
 Route::post('/oauth/token', [AccessTokenController::class, 'issueToken'])->name('api.oauth.token');
 
-// Segui acá: cambiar middleware para usar 'api'.
-// Lograr implementar bien la validación del guard en ese middleware.
-Route::middleware('auth:api')->group(function(){
-    Route::post('/noticias', function(){
-        return [
-            "error" => false,
-            "noticia" => Noticia::first()?->makeHidden(
-                ['visitas', 'embebido_1', 'embebido_2', 'con_video']
-            )
-        ];
-    })->name('api.noticias.crear');
+Route::middleware(['throttle:api', 'auth:api'])->group(function(){
+    Route::post('/noticias', [Noticias::class, 'store'])->name('api.noticias.crear');
 
-    Route::get('/noticias', function(){
-        return [
-            "error" => false,
-            "noticias" => Noticia::get()?->makeHidden(
-                ['visitas', 'embebido_1', 'embebido_2', 'con_video']
-            )
-        ];
-    })->name('api.noticias.listar');
+    Route::get('/noticias', [Noticias::class, "index"])->name('api.noticias.listar');
 });
 
 
 
 /*
-Route::post('/token/refresh', [
-    'uses' => 'TransientTokenController@refresh',
-    'as' => 'passport.token.refresh',
-]);
+
 
 Route::post('/tokens/refresh', [
     'uses' => 'ApproveAuthorizationController@approve',
