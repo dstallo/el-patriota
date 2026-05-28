@@ -67,47 +67,52 @@ class AxysListado
 
     private function olvidarPagina()
     {
-      $claveCache='axys.listado.'.$this->identificador;
+        if (! $this->identificador)
+            return;
 
-      Cache::forget("$claveCache.pagina");
+        $claveCache='axys.listado.'.$this->identificador;
+        Cache::forget("$claveCache.pagina");
     }
 
     protected function obtenerValores()
     {
-      $claveCache='axys.listado.'.$this->identificador;
+        $claveCache = $this->identificador ? 'axys.listado.'.$this->identificador : null;
 
-      foreach ($this->filtros as $filtro => $reglas) {
-        $this->valores[$filtro] = Cache::get("$claveCache.valores.$filtro", '');
-        if($this->input->exists($filtro)) {
-            $this->olvidarPagina();
-            $this->valores[$filtro] = $this->input->get($filtro);
-            //cache(["$claveCache.valores.$filtro" => $this->valores[$filtro]], $this->minutosCache);
-                session(["$claveCache.valores.$filtro" => $this->valores[$filtro]]);
+        foreach ($this->filtros as $filtro => $reglas) {
+            $this->valores[$filtro] = $claveCache ? Cache::get("$claveCache.valores.$filtro", '') : '';
+            if($this->input->exists($filtro)) {
+                $this->olvidarPagina();
+                $this->valores[$filtro] = $this->input->get($filtro);
+                //cache(["$claveCache.valores.$filtro" => $this->valores[$filtro]], $this->minutosCache);
+                if ($claveCache)
+                    session(["$claveCache.valores.$filtro" => $this->valores[$filtro]]);
+            }
         }
-      }
     }
 
     protected function procesarOrdenamiento()
     {
-        $claveCache='axys.listado.'.$this->identificador;
+        $claveCache = $this->identificador ? 'axys.listado.'.$this->identificador : null;
         
-        $this->orden = Cache::get("$claveCache.orden", 'id');
-        $this->sentido = Cache::get("$claveCache.sentido", 'asc');
+        $this->orden = $claveCache ? Cache::get("$claveCache.orden", 'id') : 'id';
+        $this->sentido = $claveCache ? Cache::get("$claveCache.sentido", 'asc') : 'asc';
 
         if ($this->input->has('orden')) {
-          $this->olvidarPagina();
+            $this->olvidarPagina();
 
             $this->orden = in_array($this->input->get('orden'), $this->ordenables) ? $this->input->get('orden') : $this->orden;
             //cache(["$claveCache.orden"=>$this->orden], $this->minutosCache);
-            session(["$claveCache.orden"=>$this->orden]);
+            if ($claveCache)
+                session(["$claveCache.orden"=>$this->orden]);
         }
 
         if ($this->input->has('sentido')) {
-          $this->olvidarPagina();
+            $this->olvidarPagina();
 
             $this->sentido = in_array($this->input->get('sentido'), ['asc','desc']) ? $this->input->get('sentido') : $this->sentido;
-            //cache(["$claveCache.sentido"=>$this->sentido], $this->minutosCache);
-            session(["$claveCache.sentido"=>$this->sentido]);
+            
+            if ($claveCache)
+                session(["$claveCache.sentido"=>$this->sentido]);
         }
         
         $this->query->orderBy($this->orden, $this->sentido);
@@ -115,42 +120,42 @@ class AxysListado
 
     protected function procesarFiltros()
     {
-      foreach($this->filtros as $filtro => $reglas) {
-        if(!empty($valor=$this->valores[$filtro])||$this->valores[$filtro]===0||$this->valores[$filtro]==="0") {
-          $this->procesarFiltro($filtro, $valor, $reglas);
+        foreach($this->filtros as $filtro => $reglas) {
+            if(!empty($valor=$this->valores[$filtro])||$this->valores[$filtro]===0||$this->valores[$filtro]==="0") {
+                $this->procesarFiltro($filtro, $valor, $reglas);
+            }
         }
-      }
     }
 
     private function procesarFiltro($filtro, $valor, $reglas)
     {
-    $this->query->where(
-      function($query) use ($reglas, $valor) {
-        foreach($reglas as $regla) {
-          $campo=$regla['campo'];
-          
-          if($regla['comparacion']=='igual') {
-                $query->orWhere($campo, $valor);
-                continue;
-              }
+        $this->query->where(
+            function($query) use ($reglas, $valor) {
+                foreach($reglas as $regla) {
+                    $campo=$regla['campo'];
+                    
+                    if($regla['comparacion']=='igual') {
+                        $query->orWhere($campo, $valor);
+                        continue;
+                    }
 
-              if($regla['comparacion']=='like') {
-                $query->orWhere($campo, 'like', '%'.$valor.'%');
-                continue;
-              }
+                    if($regla['comparacion']=='like') {
+                        $query->orWhere($campo, 'like', '%'.$valor.'%');
+                        continue;
+                    }
 
-              if($regla['comparacion']=='mayor') {
-                $query->orWhere($campo, '>=', $valor);
-                continue;
-              }
+                    if($regla['comparacion']=='mayor') {
+                        $query->orWhere($campo, '>=', $valor);
+                        continue;
+                    }
 
-              if($regla['comparacion']=='menor') {
-                $query->orWhere($campo, '<=', $valor);
-                continue;
-              }
+                    if($regla['comparacion']=='menor') {
+                        $query->orWhere($campo, '<=', $valor);
+                        continue;
+                    }
+                }
             }
-      }
-    );
+        );
     }
 
 
@@ -158,28 +163,28 @@ class AxysListado
    * Hace un paginate de Eloquent, pero conserva el número de página en la caché.
    * La misma clase se encarga de olvidar el número cuando cambió un filtro
    * o un ordenamiento.
-   * TODO: cambiar la variable GET de la página (por ahora es 'page').
      */
-    public function paginar($registrosPorPagina=null)
+    public function paginar($registrosPorPagina=null, $param = 'pagina')
     {
-      $claveCache='axys.listado.'.$this->identificador;
+        $claveCache = $this->identificador ? 'axys.listado.'.$this->identificador : null;
 
-      //fix para cachear la página también
-      $pagina=Cache::get("$claveCache.pagina", '1');
-      if($this->input->has('page')) {
-        $pagina=$this->input->get('page');
-        //cache(["$claveCache.pagina"=>$pagina], $this->minutosCache);
-        session(["$claveCache.pagina"=>$pagina]);
-      }
-      Paginator::currentPageResolver(function() use ($pagina) {
-         return $pagina;
-    });
+        $pagina= $claveCache ? Cache::get("$claveCache.pagina", '1') : '1';
+        if ($this->input->has($param)) {
+            $pagina=$this->input->get($param);
+            //cache(["$claveCache.pagina"=>$pagina], $this->minutosCache);
+            if ($claveCache)
+                session(["$claveCache.pagina"=>$pagina]);
+        }
 
-      if(!$registrosPorPagina) {
-        $registrosPorPagina=config('axys.listado.registros_por_pagina');
-      }
+        Paginator::currentPageResolver(function() use ($pagina) {
+            return $pagina;
+        });
 
-    return $this->query->paginate($registrosPorPagina);
+        if(!$registrosPorPagina) {
+            $registrosPorPagina=config('axys.listado.registros_por_pagina');
+        }
+
+        return $this->query->paginate($registrosPorPagina);
     }
 
     /**

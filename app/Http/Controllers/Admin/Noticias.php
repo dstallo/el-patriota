@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Admin;
 use App\Axys\AxysFlasher as Flasher;
 use App\Axys\AxysListado as Listado;
 use App\Axys\Traits\TieneVisibilidad;
+use App\Http\Controllers\API\Noticias as APINoticias;
 use App\Http\Controllers\Controller;
 use App\Noticia;
 use App\Region;
 use App\Seccion;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class Noticias extends Controller
 {
@@ -27,31 +29,7 @@ class Noticias extends Controller
             session(['axys.listado.listado_noticias.sentido' => 'desc']);
         }
 
-        $listado = new Listado(
-            'listado_noticias',
-            Noticia::with('seccion')->with('region'),
-            $request,
-            ['id', 'fecha', 'titulo', 'visitas', 'grupo', 'id_region', 'id_seccion'],
-            [
-                'buscando' => [
-                    ['campo' => 'titulo', 'comparacion' => 'like'],
-                    ['campo' => 'bajada', 'comparacion' => 'like'],
-                    ['campo' => 'texto', 'comparacion' => 'like'],
-                ],
-                'buscando_id' => [
-                    ['campo' => 'id', 'comparacion' => 'igual'],
-                ],
-                'buscando_id_seccion' => [
-                    ['campo' => 'id_seccion', 'comparacion' => 'igual'],
-                ],
-                'buscando_id_region' => [
-                    ['campo' => 'id_region', 'comparacion' => 'igual'],
-                ],
-                'buscando_grupo' => [
-                    ['campo' => 'grupo', 'comparacion' => 'igual'],
-                ]
-            ]
-        );
+        $listado = APINoticias::listado('listado_noticias');
 
         $noticias = $listado->paginar(50);
 
@@ -100,44 +78,12 @@ class Noticias extends Controller
 
     public function guardar(Request $request, $id = null)
     {
-        $this->validate($request, [
-            'id_seccion' => 'nullable|exists:secciones,id',
-            'id_region' => 'nullable|exists:regiones,id',
-            'fecha' => 'required|date',
-            'titulo' => 'required',
-            'thumbnail' => 'nullable|file|mimes:jpg,png|max:1024',
-            'thumbnail_celular' => 'nullable|file|mimes:jpg,png|max:1024',
-            'banner' => 'nullable|file|mimes:jpg,png|max:1024',
-            'banner_celular' => 'nullable|file|mimes:jpg,png|max:1024',
-            'grupo' => ['nullable']
-        ], [], [
-            'id_seccion' => 'sección',
-            'id_region' => 'región',
-            'titulo' => 'título',
-            'grupo'  => 'grupo de noticias'
-        ]);
+        $validator = APINoticias::validar($request, $id);
 
-        if ($id) {
-            $noticia = Noticia::findOrFail($id);
-        } else {
-            $noticia = new Noticia();
-            $noticia->visible = false;
-        }
+        if ($validator->fails())
+            throw ValidationException::withMessages($validator->errors()->messages());
 
-        $noticia->fill($request->all())
-            ->subir($request->file('thumbnail'), 'thumbnail')
-            ->subir($request->file('thumbnail_celular'), 'thumbnail_celular')
-            ->subir($request->file('banner'), 'banner')
-            ->subir($request->file('banner_celular'), 'banner_celular');
-
-        foreach (['con_video', 'destacada'] as $check) {
-            $noticia->$check = boolval($request->input($check));
-        }
-
-        $noticia->save();
-
-        // if($request->file('thumbnail')) $noticia->fit(___, ___, 'thumbnail');
-        // if($request->file('thumbnail_celular')) $noticia->fit(___, ___, 'thumbnail_celular');
+        $noticia = APINoticias::guardar($request, $validator->validated(), $id);
 
         if ($id) {
             Flasher::set('La noticia fue modificada exitosamente.', 'Noticia Editada', 'success')->flashear();
