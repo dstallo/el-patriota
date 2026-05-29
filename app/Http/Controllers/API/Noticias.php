@@ -6,6 +6,7 @@ use App\Axys\AxysListado;
 use App\Http\Controllers\Controller;
 use App\Noticia;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class Noticias extends Controller
@@ -14,7 +15,7 @@ class Noticias extends Controller
     {
         $listado = static::listado();
 
-        $noticias = $listado->paginar(3);
+        $noticias = $listado->paginar(20);
 
         return response()->json([
             "error"     => false, 
@@ -26,7 +27,7 @@ class Noticias extends Controller
                 "total_pagina_actual"  =>  $noticias->count()
             ],
             "noticias"  => $noticias->makeHidden(
-                ['visitas', 'embebido_1', 'embebido_2', 'con_video', 'id_region', 'id_seccion']
+                ['visitas', 'embebido_1', 'embebido_2', 'con_video']
             ),
         ], 200);
     }
@@ -42,7 +43,7 @@ class Noticias extends Controller
             ], 400);
         }
 
-        $noticia = static::guardar($request, $validator->validated());
+        $noticia = static::guardar($request, $validator->validated(), null, true);
 
         return [
             "error"     => false,
@@ -57,7 +58,7 @@ class Noticias extends Controller
     static public function listado (?String $identificador = null, mixed $query = null) {
         
         if (! $query)
-            $query = Noticia::with('seccion:id,nombre')->with('region:id,nombre');
+            $query = Noticia::with('seccion:id,nombre')->with('region:id,nombre')->with('creador:id,nombre');
     
         return new AxysListado(
             $identificador,
@@ -94,6 +95,12 @@ class Noticias extends Controller
                 ],
                 'fecha_fin' => [
                     ['campo' => 'fecha', 'comparacion' => 'menor'],
+                ],
+                'creador' => [
+                    ['campo' => 'id_creador', 'comparacion' => 'igual'],
+                ],
+                'creado_por_api' => [
+                    ['campo' => 'creado_por_api', 'comparacion' => 'igual'],
                 ],
             ]
         );
@@ -133,7 +140,7 @@ class Noticias extends Controller
     }
 
     // Guardar campos ya validados en la noticia especificada o una nueva.
-    static public function guardar(Request $request, $form, $id = null) {
+    static public function guardar(Request $request, $form, $id = null, $por_api = false) {
         if ($id) {
             $noticia = Noticia::findOrFail($id);
         } else {
@@ -150,6 +157,9 @@ class Noticias extends Controller
         foreach (['con_video', 'destacada'] as $check) {
             $noticia->$check = boolval($request->input($check));
         }
+
+        $noticia->id_creador = Auth::user()->id;
+        $noticia->creado_por_api = $por_api;
 
         $noticia->save();
 

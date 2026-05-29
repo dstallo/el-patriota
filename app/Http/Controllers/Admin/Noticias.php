@@ -19,7 +19,8 @@ class Noticias extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('admin');
+        $this->middleware('rol:admin');
     }
 
     public function index(Request $request)
@@ -37,7 +38,12 @@ class Noticias extends Controller
         $regiones = Region::orderBy('orden')->get();
         $grupos = Noticia::obtenerGrupos();
 
-        return view('admin.noticias.index', compact('noticias', 'listado', 'secciones', 'regiones', 'grupos'));
+        $opciones_generacion = [
+            (object) ["id" => "0", "nombre" => "Manuales"],
+            (object) ["id" => "1", "nombre" => "Automáticas"]
+        ];
+
+        return view('admin.noticias.index', compact('noticias', 'listado', 'secciones', 'regiones', 'grupos', 'opciones_generacion'));
     }
 
     public function eliminar(Noticia $noticia)

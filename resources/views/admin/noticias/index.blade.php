@@ -8,7 +8,7 @@
 
     <div class="row">
 
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="box box-info">
                 <div class="box-header with-border">
                     <h3 class="box-title">Acciones</h3>
@@ -20,7 +20,7 @@
         </div>
 
 
-        <div class="col-md-8">
+        <div class="col-md-9">
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h3 class="box-title">Filtros</h3>
@@ -41,9 +41,14 @@
                                     value="{{ $listado->old('query') }}">
                             </div>
                         </div>
-                        <x-form.select onchange="$(this).closest('form').submit()" container="col-md-4" name="seccion" :opciones="$secciones" :selected="$listado->old('seccion')" placeholder="Elegí la sección" field_value="id" field_name="nombre" :allow_clear="true" />
-                        <x-form.select onchange="$(this).closest('form').submit()" container="col-md-4" name="region" :opciones="$regiones" :selected="$listado->old('region')" placeholder="Elegí la región" field_value="id" field_name="nombre" :allow_clear="true" />
-                        <x-form.select onchange="$(this).closest('form').submit()" container="col-md-4" name="grupo" :opciones="$grupos" :selected="$listado->old('grupo')" placeholder="Elegí el grupo de noticias" field_value="valor" field_name="valor" :allow_clear="true" />
+                        
+                        <x-form.select onchange="$(this).closest('form').submit()" container="col-md-3" name="seccion" :opciones="$secciones" :selected="$listado->old('seccion')" placeholder="Elegí la sección" field_value="id" field_name="nombre" :allow_clear="true" />
+                        <x-form.select onchange="$(this).closest('form').submit()" container="col-md-3" name="region" :opciones="$regiones" :selected="$listado->old('region')" placeholder="Elegí la región" field_value="id" field_name="nombre" :allow_clear="true" />
+                        <x-form.select onchange="$(this).closest('form').submit()" container="col-md-3" name="grupo" :opciones="$grupos" :selected="$listado->old('grupo')" placeholder="Elegí el grupo de noticias" field_value="valor" field_name="valor" :allow_clear="true" />
+                    
+                        <x-form.select onchange="$(this).closest('form').submit()" name="creado_por_api" container="col-md-3" :opciones="$opciones_generacion" :selected="$listado->old('creado_por_api')" placeholder="Tipo de creación" :allow_clear="true"  />
+                        
+                        
 
                     </div>
                     <input type="submit" class="hidden">
@@ -69,7 +74,7 @@
                         <th><a href="{{ $listado->linkOrden('id_seccion') }}">Sección</a></th>
                         <th><a href="{{ $listado->linkOrden('id_region') }}">Región</a></th>
                         <th><a href="{{ $listado->linkOrden('grupo') }}">Grupo</a></th>
-                        <th></th>
+                        <th colspan="2"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -82,6 +87,7 @@
                             <td>{{ $noticia->seccion?->nombre ?? '-' }}</td>
                             <td>{{ $noticia->region?->nombre ?? '-' }}</td>
                             <td>{{ $noticia->grupo ?? '-' }}</td>
+                            <td>{!! $noticia->creado_por_api ? '<i>&laquo;Automática&raquo;</i>' : '' !!}</td>
                             <td width="190" class="text-right">
                                 <a href="{{ route('contenidos', compact('noticia')) }}"
                                     class="btn btn-primary btn-sm">Contenido</a>

@@ -30,17 +30,9 @@
         <input type="file" class="form-control" name="foto" value="{{ old('foto') }}">
     @endif
 </div>
-<?php /*
-<div class="col-md-4 form-group{{ has_error($errors,'rol') }}">
-    <label>Rol</label>
-    <select name="rol" id="rol" class="form-control">
-        @foreach($roles as $rol)
-            <option value="{{ $rol }}" {!! selected($rol==old('rol',$administrador->rol)) !!}>{{ $rol }}</option>
-        @endforeach
-    </select>
-</div> */ ?>
-
-@if ($mostrarFormPassword)
+@if (! $administrador->logueado())
+    <x-form.select label="Rol" container="col-md-4" name="rol" :opciones="$roles" :selected="old('rol', $administrador->rol ?? null)" field_name="human" field_value="value" placeholder="Elegir rol" />
+@else
     <div class="col-md-4 form-group{{ has_error($errors,'password') }}">
         <label>Password</label>
         <input type="password" class="form-control" name="password" autocomplete="new-password">

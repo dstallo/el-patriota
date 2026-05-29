@@ -37,7 +37,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('subir-tiny', [Dashboard::class, 'subirTiny'])->name('subir-tiny');
 
     // / Administradores
-    GenerarRutas::ABM(Administradores::class, 'administradores', 'administrador', 'Administradores', ['visibilidad']);
+    GenerarRutas::ABM(Administradores::class, 'administradores', 'administrador', 'Administradores');
 
     // newsletter
     Route::get('newsletter/inscriptos', [Newsletter::class, "index"])->name('inscriptos');

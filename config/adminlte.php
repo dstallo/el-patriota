@@ -92,6 +92,8 @@ return [
 
     'login_url' => 'admin/login',
 
+    'password_reset_url' => 'admin/password/reset',
+
     // 'register_url' => 'registrarme',
 
     /*

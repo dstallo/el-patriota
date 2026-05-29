@@ -55,9 +55,9 @@
                 <thead>
                     <tr>
                         <th><a href="{{ $listado->linkOrden('id') }}">#</a></th>
-                        <?php /* <th><a href="{{ $listado->linkOrden('rol') }}">Rol</a></th> */ ?>
                         <th><a href="{{ $listado->linkOrden('nombre') }}">Nombre</a></th>
                         <th><a href="{{ $listado->linkOrden('email') }}">E-Mail</a></th>
+                        <th><a href="{{ $listado->linkOrden('rol') }}">Rol</a></th>
                         <th></th>
                     </tr>
                 </thead>
@@ -65,15 +65,17 @@
                     @foreach ($administradores as $administrador)
                         <tr>
                             <td>{{ $administrador->id }}</td>
-                            <?php /* <td>{{ $administrador->rol }}</td> */?>
                             <td>{{ $administrador->nombre }}</td>
                             <td>{{ $administrador->email }}</td>
+                            <td>{{ $administrador->rol() }}</td>
                             <td class="text-right">
-                                <a href="{{ route('AdministradoresEditar', compact('administrador')) }}" role="button"
-                                    class="btn btn-warning btn-circle"><i class="glyphicon glyphicon-edit"></i></a>
-                                <a href="{{ route('AdministradoresEliminar', compact('administrador')) }}" role="button"
-                                    class="btn btn-danger btn-circle axys-confirmar-eliminar"><i
-                                        class="glyphicon glyphicon-remove"></i></a>
+                            @if (! $administrador->logueado())
+                                {!! accion_visibilidad($administrador->visible, route('AdministradoresVisibilidad',compact('administrador'))) !!}
+                            @endif
+                            <a href="{{ route('AdministradoresEditar', compact('administrador')) }}" role="button" class="btn btn-warning btn-circle"><i class="glyphicon glyphicon-edit"></i></a>
+                            @if (! $administrador->logueado())
+                                <a href="{{ route('AdministradoresEliminar', compact('administrador')) }}" role="button" class="btn btn-danger btn-circle axys-confirmar-eliminar"><i class="glyphicon glyphicon-remove"></i></a>
+                            @endif
                             </td>
                         </tr>
                     @endforeach

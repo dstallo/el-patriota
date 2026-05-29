@@ -15,7 +15,8 @@ class Opciones extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('admin');
+        $this->middleware('rol:admin');
     }
 
     public function index(Encuesta $encuesta, Request $request)

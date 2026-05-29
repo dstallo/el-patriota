@@ -44,6 +44,11 @@ class Noticia extends Model
         return $this->belongsTo(Seccion::class, 'id_seccion');
     }
 
+    public function creador()
+    {
+        return $this->belongsTo(Administrador::class, 'id_creador');
+    }
+
     public function region()
     {
         return $this->belongsTo(Region::class, 'id_region');

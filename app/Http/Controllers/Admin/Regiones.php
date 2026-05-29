@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Axys\AxysFlasher as Flasher;
 use App\Axys\AxysListado as Listado;
-
+use App\Http\Controllers\API\Regiones as APIRegiones;
 use App\Region;
 
 class Regiones extends Controller
@@ -14,27 +14,15 @@ class Regiones extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('admin');
+        $this->middleware('rol:admin');
     }
 
     public function index(Request $request)
     {
         $query = Region::orderBy('orden');
 
-        $listado=new Listado(
-            'listado_regiones',
-            $query,
-            $request,
-            [],
-            [
-                'buscando'  =>[
-                    ['campo'=>'nombre','comparacion'=>'like'],
-                ],
-                'buscando_id' =>[
-                    ['campo'=>'id','comparacion'=>'igual']
-                ]
-            ]
-        );
+        $listado = APIRegiones::listado('listado_regiones');
         
         //$regiones=$listado->paginar(50);
         $regiones=$listado->get();

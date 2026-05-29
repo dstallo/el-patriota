@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Axys\AxysFlasher as Flasher;
 use App\Axys\AxysListado as Listado;
 use App\Axys\Traits\TieneVisibilidad;
-
+use App\Http\Controllers\API\Secciones as APISecciones;
 use App\Seccion;
 
 class Secciones extends Controller
@@ -16,27 +16,15 @@ class Secciones extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('admin');
+        $this->middleware('rol:admin');
     }
 
     public function index(Request $request)
     {
         $query = Seccion::orderBy('orden');
 
-        $listado=new Listado(
-            'listado_secciones',
-            $query,
-            $request,
-            [],
-            [
-                'buscando'  =>[
-                    ['campo'=>'nombre','comparacion'=>'like'],
-                ],
-                'buscando_id' =>[
-                    ['campo'=>'id','comparacion'=>'igual']
-                ]
-            ]
-        );
+        $listado = APISecciones::listado('listado_secciones');
         
         //$secciones=$listado->paginar(50);
         $secciones=$listado->get();

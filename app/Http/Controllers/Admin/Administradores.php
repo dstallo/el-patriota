@@ -8,15 +8,20 @@ use App\Axys\AxysFlasher as Flasher;
 use App\Axys\AxysListado as Listado;
 
 use App\Administrador;
+use App\Axys\Traits\TieneVisibilidad;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class Administradores extends Controller
 {
+    use TieneVisibilidad;
 
     public function __construct()
     {
-        $this->middleware('auth');
-        //$this->middleware('rol.admin', ['except' => ['editar', 'guardar']]);
+        $this->middleware('admin');
+        $this->middleware('rol:admin');
     }
 
     public function index(Request $request)
@@ -25,8 +30,7 @@ class Administradores extends Controller
             'listado_administradores',
             Administrador::query(),
             $request,
-            //['id','nombre','email','rol'],
-            ['id','nombre','email'],
+            ['id','nombre','email','rol'],
             [
                 'buscando'  =>[
                     ['campo'=>'nombre','comparacion'=>'like'],
@@ -69,63 +73,58 @@ class Administradores extends Controller
 
     public function crear()
     {
-        //$roles = Administrador::roles();
+        $roles = Administrador::rolesPosibles();
         $administrador = new Administrador;
-        $mostrarFormPassword = true;
-        //return view('administradores.crear', compact('administrador', 'mostrarFormPassword', 'roles'));
-        return view('admin.administradores.crear', compact('administrador', 'mostrarFormPassword'));
+
+        return view('admin.administradores.crear', compact('administrador', 'roles'));
     }
 
     public function editar(Administrador $administrador)
     {
-        // if(!\Auth::user()->admin() && $administrador->id!=\Auth::id())
-        //     return redirect('/');
+        if(!Auth::user()->admin() && $administrador->id!=Auth::id())
+            return redirect('/');
 
-        $mostrarFormPassword=($administrador->id==\Auth::id());
-        //$roles = Administrador::roles();
+        $roles = Administrador::rolesPosibles();
 
-        //return view('administradores.editar', compact('administrador', 'mostrarFormPassword', 'roles'));
-        return view('admin.administradores.editar', compact('administrador', 'mostrarFormPassword'));
+        return view('admin.administradores.editar', compact('administrador', 'roles'));
     }
 
     public function guardar(Request $request, $id=null)
     {
-        // if(!\Auth::user()->admin() && $id!=\Auth::id())
-        //     return redirect('/');
+        if(!Auth::user()->admin() && $id!=Auth::id())
+             return redirect('/');
 
         $reglas=[
-            'nombre' => 'required',
-            'foto' => 'nullable|image|max:2048',
-            //'rol' => 'required|in:' . implode(',',Administrador::roles()),
+            'nombre'    => ['required', 'max:255'],
+            'foto'      => ['nullable', 'image', 'max:2048'],
+            'email'     => ['required', 'email', $id ? Rule::unique('administradores', 'email')->ignore($id) : Rule::unique('administradores', 'email')],
         ];
 
-        if($id) {
-            //ESTOY EDITANDO UN USUARIO
+        // Si no estoy editando mi usuario (creando o editando otro usuario)
+        if (Auth::id() != $id) {
+            $reglas['rol'] = ['required', 'in:' . implode(',',Administrador::rolesPosibles('values'))];
+        }
 
-            $reglas['email']='unique:administradores,email,'.$id;
+        // Si estoy editando un usuario
+        if($id) {
 
             $administrador=Administrador::findOrFail($id);
-            if($id==\Auth::id() && $request->exists('password') && $request->get('password')!='') {
-                //ME ESTOY CAMBIANDO MI PROPIO PASSWORD
-                $this->validate($request, [
-                    'password' => 'min:6|confirmed'
-                ]);
-                $administrador->password=bcrypt($request->get('password'));
-            }
-        } else {
-            //CREANDO UN USUARIO NUEVO
 
-            $reglas['email'] = 'unique:administradores,email';
+            // Si me estoy cambiando el password
+            if($id==Auth::id() && $request->exists('password') && $request->input('password')!='') {
+                $this->validate($request, ['password' => 'min:6|confirmed']);
+                $administrador->password=bcrypt($request->input('password'));
+            }
+        } else { // Si estoy creando un usuario
+            
             $reglas['password'] = 'required|min:6|confirmed';
             
             $administrador=new Administrador();
         }
 
         //Ejecutar validaciones /////////
-        $validator = \Validator::make($request->all(), $reglas);
-        $validator -> setAttributeNames([
-            
-        ]);
+        $validator = Validator::make($request->all(), $reglas);
+        $validator->setAttributeNames([]);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)
@@ -133,44 +132,48 @@ class Administradores extends Controller
         }
         /////////////////////////////////
 
-        // if($id==\Auth::id() && $administrador->rol != $request->get('rol')) {
-        //     return redirect()->back()->withErrors(['rol'=>'No podés cambiarte tu propio rol'])
-        //         ->withInput($request->except('password', 'password_confirmation'));
-        // }
-
-
         $administrador->subir($request->file('foto'),'foto')->crearThumbnails();
 
-        if($id) {
+        if ($id) {
             //ESTOY EDITANDO UN USUARIO
 
-            // el password es fillable, por seguridad asigno los campos de a uno
-            // (lo dejo fillable para conservar el db:seed)
-            // $administrador->fill($request->all());
-            $administrador->nombre = $request->get('nombre');
-            $administrador->email = $request->get('email');
-            // if($id!=\Auth::id()) {
-            //     $administrador->rol = $request->get('rol');
-            // }
+            $administrador->nombre = $request->input('nombre');
+            $administrador->email = $request->input('email');
+
+            // Solo cambio el rol si no estoy editando mi usuario.
+            if ($id != Auth::id()) {
+                 $administrador->rol = $request->input('rol');
+            }
 
             $administrador->save();
 
-            Flasher::set("El administrador #$administrador->id fue modificado exitosamente.", 'Administrador Editado', 'success')->flashear();
+            Flasher::set("El usuario #$administrador->id fue modificado exitosamente.", 'Usuario Editado', 'success')->flashear();
         } else {
             //CREANDO UN USUARIO NUEVO
 
-            $administrador->nombre = $request->get('nombre');
-            $administrador->email = $request->get('email');
-            //$administrador->rol = $request->get('rol');
-            $administrador->password = bcrypt($request->get('password'));
+            $administrador->nombre = $request->input('nombre');
+            $administrador->email = $request->input('email');
+            $administrador->rol = $request->input('rol');
+            $administrador->password = bcrypt($request->input('password'));
             $administrador->remember_token = Str::random(10);
             $administrador->api_token = Str::random(60);
 
             $administrador->save();
 
-            Flasher::set("El administrador #$administrador->id fue creado exitosamente.", 'Administrador Creado', 'success')->flashear();
+            Flasher::set("El usuario #$administrador->id fue creado exitosamente.", 'Usuario Creado', 'success')->flashear();
         }
-        return redirect()->route('AdministradoresEditar', compact('administrador'));
-        //return redirect()->route('AdministradoresIndex');
+
+        return redirect()->route('AdministradoresIndex');
+    }
+
+    public function visibilidad(Administrador $administrador)
+    {
+        if ($administrador->logueado()) {
+            Flasher::set('No puedes deshabilitar tu propio usuario.', 'Operación no permitida', 'error')->flashear();
+            return redirect()->back();
+        }
+        
+
+        return $this->cambiarVisibilidad($administrador);
     }
 }

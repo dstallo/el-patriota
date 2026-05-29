@@ -1,19 +1,30 @@
 <?php
 
 use App\Http\Controllers\API\Noticias;
+use App\Http\Controllers\API\Regiones;
+use App\Http\Controllers\API\Secciones;
 use Illuminate\Support\Facades\Route;
 use Laravel\Passport\Http\Controllers\AccessTokenController;
 
 // En AuthServiceProvider se deshabilitaron las rutas que crea Passport por defecto. Solo habilitaremos manualmente las siguientes. 
 
-// Ruta para emitir access token
-Route::post('/oauth/token', [AccessTokenController::class, 'issueToken'])->name('api.oauth.token');
+// Middleware para rate limit de la API.
+Route::middleware(['throttle:api'])->group(function(){
+    
+    // Ruta para emitir o refrescar access token
+    Route::post('/oauth/token', [AccessTokenController::class, 'issueToken'])->name('api.oauth.token');
 
-Route::middleware(['throttle:api', 'auth:api'])->group(function(){
-    Route::post('/noticias', [Noticias::class, 'store'])->name('api.noticias.crear');
+    // Rutas que requieren autenticación
+    Route::middleware(['auth:api'])->group(function(){
+        Route::post('/noticias', [Noticias::class, 'store'])->name('api.noticias.crear');
+        Route::get('/noticias', [Noticias::class, "index"])->name('api.noticias.listar');
+        Route::get('/secciones', [Secciones::class, "index"])->name('api.secciones.listar');
+        Route::get('/regiones', [Regiones::class, "index"])->name('api.regiones.listar');
+    });
 
-    Route::get('/noticias', [Noticias::class, "index"])->name('api.noticias.listar');
 });
+
+
 
 
 
