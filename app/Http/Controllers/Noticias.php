@@ -146,7 +146,7 @@ class Noticias extends Controller
         $grupo = Configuracion::obtener('GRUPO_ACTIVO');
         $noticias_grupo = $this->grupo($request)->where('id_region', $region->id)->get();
 
-        return view('home', compact('partes', 'leidas', 'banners'));
+        return view('home', compact('partes', 'leidas', 'banners', 'grupo', 'noticias_grupo'));
     }
 
     public function ficha(Noticia $noticia)

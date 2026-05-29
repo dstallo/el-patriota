@@ -55,11 +55,13 @@
                     <!-- /.col -->
                 </div>
             </form>
+            <?php /*
             <div class="auth-links">
                 <a href="{{ url(config('adminlte.password_reset_url', 'admin/password/reset')) }}"
                    class="text-center"
                 >Olvidé mi contraseña</a>
             </div>
+            */ ?>
         </div>
         <!-- /.login-box-body -->
     </div><!-- /.login-box -->
