@@ -147,6 +147,7 @@ class Noticias extends Controller
             $noticia = new Noticia();
             $noticia->visible = false;
             $noticia->creado_por_api = $por_api;
+            $noticia->id_creador = Auth::user()->id;
         }
 
         $noticia->fill($form)
@@ -158,8 +159,6 @@ class Noticias extends Controller
         foreach (['con_video', 'destacada'] as $check) {
             $noticia->$check = boolval($request->input($check));
         }
-
-        $noticia->id_creador = Auth::user()->id;
 
         $noticia->save();
 
