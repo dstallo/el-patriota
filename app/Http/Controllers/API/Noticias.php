@@ -146,6 +146,7 @@ class Noticias extends Controller
         } else {
             $noticia = new Noticia();
             $noticia->visible = false;
+            $noticia->creado_por_api = $por_api;
         }
 
         $noticia->fill($form)
@@ -159,7 +160,6 @@ class Noticias extends Controller
         }
 
         $noticia->id_creador = Auth::user()->id;
-        $noticia->creado_por_api = $por_api;
 
         $noticia->save();
 
