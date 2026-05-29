@@ -32,7 +32,8 @@
 </div>
 @if (! $administrador->logueado())
     <x-form.select label="Rol" container="col-md-4" name="rol" :opciones="$roles" :selected="old('rol', $administrador->rol ?? null)" field_name="human" field_value="value" placeholder="Elegir rol" />
-@else
+@endif
+@if (! $administrador->exists || $administrador->logueado())
     <div class="col-md-4 form-group{{ has_error($errors,'password') }}">
         <label>Password</label>
         <input type="password" class="form-control" name="password" autocomplete="new-password">

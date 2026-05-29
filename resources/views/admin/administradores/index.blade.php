@@ -67,7 +67,7 @@
                             <td>{{ $administrador->id }}</td>
                             <td>{{ $administrador->nombre }}</td>
                             <td>{{ $administrador->email }}</td>
-                            <td>{{ $administrador->rol() }}</td>
+                            <td>{{ $administrador->obtenerRol() }}</td>
                             <td class="text-right">
                             @if (! $administrador->logueado())
                                 {!! accion_visibilidad($administrador->visible, route('AdministradoresVisibilidad',compact('administrador'))) !!}

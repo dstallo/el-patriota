@@ -54,7 +54,7 @@ class Administrador extends Authenticatable implements OAuthenticatable
         return url('img/usuario.svg');
     }
 
-    public function rol(?string $attr = 'human') {
+    public function obtenerRol(?string $attr = 'human') {
         return static::parsearRol($this->rol, $attr);
     }
 
@@ -84,7 +84,7 @@ class Administrador extends Authenticatable implements OAuthenticatable
 
     // Funciones estáticas
 
-    public static function parsearRol(mixed $rol, ?String $attr = 'str')
+    public static function parsearRol(mixed $rol = null, ?String $attr = 'str')
     {
         if ($attr == 'str') {
             switch($rol) {
@@ -104,7 +104,6 @@ class Administrador extends Authenticatable implements OAuthenticatable
                 case static::ROL_API: case static::ROL_API_HUMAN: case static::ROL_API_STR: return static::ROL_API;
             }
         }
-
 
         return null;
     }
