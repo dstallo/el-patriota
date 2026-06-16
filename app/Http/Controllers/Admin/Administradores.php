@@ -96,7 +96,7 @@ class Administradores extends Controller
 
         $reglas=[
             'nombre'    => ['required', 'max:255'],
-            'foto'      => ['nullable', 'image', 'max:2048'],
+            'foto'      => ['nullable', 'file', 'mimes:'.config('app.image_mimes'),'max:'.config('app.image_size')],
             'email'     => ['required', 'email', $id ? Rule::unique('administradores', 'email')->ignore($id) : Rule::unique('administradores', 'email')],
         ];
 
