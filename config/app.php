@@ -20,9 +20,17 @@ return [
 
     'keywords' => env('APP_DESCRIPTION', 'portal,noticias'),
 
+    // Fecha de inicio para contabilizar ediciones en el footer.
     'fecha_inicio_edicion' => env('FECHA_INICIO_EDICION', '2022-12-09'),
 
+    // Email para recibir consultas
     'email_notificacion_consulta' => env('EMAIL_NOTIFICACION_CONSULTA'),
+
+    // Configuración de archivos.
+    'file_mimes'    => env('APP_FILE_MIMES', 'pdf,doc,docx,xls,xlsx,csv,zip'),
+    'file_size'     => env('APP_FILE_SIZE', 5120),
+    'image_mimes'   => env('APP_IMG_MIMES', 'jpg,jpeg,gif,png,svg'),
+    'image_size'    => env('APP_IMG_SIZE', 5120),
 
     /*
     |--------------------------------------------------------------------------

@@ -82,10 +82,9 @@ class Videos extends Controller
     public function guardar(Request $request, $id = null)
     {
         $this->validate($request, [
-            'nombre' => 'required',
-            'imagen' => 'file|mimes:jpg,png|max:1024',
-            // 'imagen_vertical' => 'file|mimes:jpg,png|max:1024',
-            'link' => 'required',
+            'nombre'    => 'required',
+            'imagen'    => ['nullable', 'file', 'mimes:'.config('app.image_mimes'),'max:'.config('app.image_size')],
+            'link'      => 'required',
         ]);
 
         if ($id) {
@@ -97,7 +96,6 @@ class Videos extends Controller
 
         $video->fill($request->all())
             ->subir($request->file('imagen'), 'imagen', [1400, 650])
-            // ->subir($request->file('imagen_vertical'), 'imagen_vertical')
             ->crearThumbnails();
 
         foreach (['destacado'] as $check) {
