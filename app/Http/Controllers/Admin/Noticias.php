@@ -69,8 +69,9 @@ class Noticias extends Controller
         $secciones = Seccion::orderBy('orden')->get();
         $regiones = Region::orderBy('orden')->get();
         $grupos = Noticia::obtenerGrupos();
+        $opciones_publicacion = Noticia::obtenerOpcionesPublicacion();
 
-        return view('admin.noticias.crear', compact('noticia', 'secciones', 'regiones', 'grupos'));
+        return view('admin.noticias.crear', compact('noticia', 'secciones', 'regiones', 'grupos', 'opciones_publicacion'));
     }
 
     public function editar(Noticia $noticia)
@@ -78,8 +79,9 @@ class Noticias extends Controller
         $secciones = Seccion::orderBy('orden')->get();
         $regiones = Region::orderBy('orden')->get();
         $grupos = Noticia::obtenerGrupos();
+        $opciones_publicacion = Noticia::obtenerOpcionesPublicacion();
 
-        return view('admin.noticias.editar', compact('noticia', 'secciones', 'regiones', 'grupos'));
+        return view('admin.noticias.editar', compact('noticia', 'secciones', 'regiones', 'grupos', 'opciones_publicacion'));
     }
 
     public function guardar(Request $request, $id = null)

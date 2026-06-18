@@ -16,6 +16,8 @@ class Noticia extends Model
 
     protected $table = 'noticias';
 
+    const PERIODO_MAS_LEIDAS = 30; // Cantidad de días para considerar noticias más leídas.
+
     protected $fillable = [
         'id_seccion', 
         'id_region', 
@@ -27,7 +29,8 @@ class Noticia extends Model
         'texto', 
         'embebido_1', 
         'embebido_2', 
-        'grupo'
+        'grupo',
+        'programar_publicacion'
     ];
 
     protected $dir = [
@@ -120,6 +123,9 @@ class Noticia extends Model
             ->where(function($query){
                 return $query->where('s.visible', true)->orWhereNull('s.visible');
             })
+            ->where(function($query){
+                $query->where('programar_publicacion', 0)->orWhere('fecha', '<=', Carbon::now());
+            })
             ->with('seccion')
             ->with('region')
             ->orderBy('fecha', 'desc')
@@ -128,6 +134,7 @@ class Noticia extends Model
 
     public function scopeLeidas($query)
     {
+        // Filtros para noticias más leídas.
         return $query->where('noticias.visible', true)
             // visibilidad en secciones
             ->select('noticias.*')
@@ -135,8 +142,10 @@ class Noticia extends Model
             ->where(function($query){
                 return $query->where('s.visible', true)->orWhereNull('s.visible');
             })
-            ->where('fecha', '>=', Carbon::now()->subDays(16))
-            // /
+            ->where('fecha', '>=', Carbon::now()->subDays(static::PERIODO_MAS_LEIDAS))
+            ->where(function($query){
+                $query->where('programar_publicacion', 0)->orWhere('fecha', '<=', Carbon::now());
+            })
             ->orderBy('visitas', 'desc');
     }
 
@@ -154,5 +163,13 @@ class Noticia extends Model
         
         return Noticia::select('grupo as valor')->whereNotNull('grupo')->groupBy('valor')->orderBy('valor', 'asc')->get();
     
+    }
+
+    public static function obtenerOpcionesPublicacion() {
+        $opciones = [
+            (object) ['value' => 1, 'nombre' => 'Publicar sólo desde la fecha (requiere aprobación)'],
+            (object) ['value' => 0, 'nombre' => 'Publicar inmediatamente (requiere aprobación)'],
+        ];
+        return $opciones;
     }
 }

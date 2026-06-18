@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Validator;
 
 class Noticias extends Controller
 {
+    /* 
+    #### ENDPOINTS PUBLICOS #####
+    */
+
     public function index(Request $request)
     {
         $listado = static::listado();
@@ -53,6 +57,10 @@ class Noticias extends Controller
             )
         ];
     }
+
+    /* 
+    ##### FUNCIONES INTERNAS UTILIZADAS TANTO EN ADMIN COMO EN API #####
+    */
 
     // Obtener listado de noticias, con filtros y ordenamiento.
     static public function listado (?String $identificador = null, mixed $query = null) {
@@ -125,6 +133,7 @@ class Noticias extends Controller
             'grupo'             => ['nullable'],
             'embebido_1'        => ['nullable'],
             'embebido_2'        => ['nullable'],
+            'programar_publicacion' => ['nullable', 'boolean']
         ], [
             'titulo.max'        => 'El título no debe superar los 255 caracteres',
             'autor.max'         => 'El autor no debe superar los 255 caracteres',
@@ -148,6 +157,10 @@ class Noticias extends Controller
             $noticia->visible = false;
             $noticia->creado_por_api = $por_api;
             $noticia->id_creador = Auth::user()->id;
+        }
+
+        if (! isset($form['programar_publicacion'])) {
+            $form['programar_publicacion'] = 1;
         }
 
         $noticia->fill($form)

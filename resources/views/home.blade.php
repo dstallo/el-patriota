@@ -107,7 +107,6 @@
                         <x-banner class="banner horizontal" :banner="$banner" />
                     @endif
                 @endif
-                <?php/* AGREGAR AQUÍ EL GRUPO DE NOTICIAS (con su respectivo banner horizontal por debajo) */?>
 
                 @if (count($leidas ?? []))
                     <div class="leidas">
