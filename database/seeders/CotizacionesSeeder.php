@@ -28,6 +28,18 @@ class CotizacionesSeeder extends Seeder
                 'key'           => 'bolsa',
                 'servicio'      => 'DolarApi',
                 'formateador'   => 'pesos'
+            ],
+            [
+                'nombre'        => 'Dólar Informal',
+                'key'           => 'blue',
+                'servicio'      => 'DolarApi',
+                'formateador'   => 'pesos'
+            ],
+            [
+                'nombre'        => 'Dólar CCL',
+                'key'           => 'contadoconliqui',
+                'servicio'      => 'DolarApi',
+                'formateador'   => 'pesos'
             ]
         ];
 
