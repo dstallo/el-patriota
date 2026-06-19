@@ -160,4 +160,9 @@ $(function() {
     }).on('blur', function(){
         $('header .arriba .logo').removeClass('buscar-focus');
     })
+
+    $('.toggle-cotizaciones').click(function(){
+        $('.cotizaciones').toggleClass('abierto');
+        $(this).toggleClass('abierto');
+    })
 });

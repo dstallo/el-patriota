@@ -40,6 +40,12 @@ class CotizacionesSeeder extends Seeder
                 'key'           => 'contadoconliqui',
                 'servicio'      => 'DolarApi',
                 'formateador'   => 'pesos'
+            ],
+            [
+                'nombre'        => 'Riesgo País',
+                'key'           => 'riesgo-pais/ultimo',
+                'servicio'      => 'ArgentinaDatos',
+                'formateador'   => 'plano'
             ]
         ];
 

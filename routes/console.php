@@ -9,3 +9,8 @@
 | simple approach to interacting with each command's IO methods.
 |
 */
+
+use App\Console\Commands\CotizacionesRefrescar;
+use Illuminate\Support\Facades\Schedule;
+
+Schedule::command(CotizacionesRefrescar::class)->hourly()->between('9:00', '18:00')->weekdays()->timezone('America/Argentina/Buenos_Aires');

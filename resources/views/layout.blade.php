@@ -28,6 +28,9 @@
 
     <title>@yield('titulo', config('app.name'))</title>
 
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/font-awesome/css/font-awesome.min.css') }}">
+
     <link href="{{ mix('css/front.css') }}" rel="stylesheet">
 
     <script>
@@ -134,6 +137,14 @@
                             <a class="pinterest" target="_blank" href="#"><i></i></a>
                         </div>
                     </div>
+                </div>
+                <div class="contenedor contenedor-cotizaciones">
+                    <ul class="cotizaciones">
+                    @foreach(App\Cotizacion::obtener() as $cotizacion)
+                        <li><label>{{ $cotizacion->nombre }}:</label><span class="valores"><span class="valor">{{ $cotizacion->format('compra') }}</span> @if ($cotizacion->venta)<span class="valor">{{ $cotizacion->format('venta') }}</span>@endif</span></li>
+                    @endforeach
+                    </ul>
+                    <div class="contenedor-toggle-cotizaciones"><a href="#" class="toggle-cotizaciones"><span class="label">Ver más</span></a></div>
                 </div>
             </div>
             <div class="abajo">

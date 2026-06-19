@@ -15,6 +15,9 @@ return new class extends Migration
         Schema::create('cotizaciones', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
+            $table->boolean('visible')->default(true);
+            $table->unsignedInteger('orden')->nullable();
+
             $table->string('nombre'); // Nombre humano para mostrar
             $table->string('key'); // Key de identificación en el servicio.
             $table->string('servicio'); // Servicio que actualiza esta cotización

@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Cotizacion;
+use App\Services\ArgentinaDatos;
 use App\Services\DolarApi;
 use Illuminate\Console\Command;
 
@@ -29,7 +30,8 @@ class CotizacionesRefrescar extends Command
      */
 
     protected $servicios = [
-        DolarApi::class
+        DolarApi::class,
+        ArgentinaDatos::class
     ];
 
     /**

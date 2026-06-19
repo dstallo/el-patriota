@@ -2,10 +2,13 @@
 
 namespace App;
 
+use App\Axys\Traits\EsOrdenable;
 use Illuminate\Database\Eloquent\Model;
 
 class Cotizacion extends Model
 {
+    use EsOrdenable;
+
     protected $table = 'cotizaciones';
 
     protected $fillable = [
@@ -19,6 +22,16 @@ class Cotizacion extends Model
         'refrescada' => 'datetime'
     ];
 
+    // Obtener ultimo estado de actualización
+    public function ultimaActualizacion() {
+        $message = ($this->message ? $this->message : '') . ($this->status ? ' ('.$this->status.')' : '');
+
+        if ($message == '')
+            $message = '-';
+
+        return $message;
+    }
+
     // Obtener cotización formateada.
     public function format($valor = 'compra') {
         $formateador = 'format_' . $this->formateador;
@@ -27,12 +40,18 @@ class Cotizacion extends Model
 
     // Formateadores
     public function format_dolares($valor = 'compra') {
-        return 'U$D '.number_format($this->$valor, 2, ',', '.');
+        return 'U$D '.number_format($this->$valor, 0, ',', '.');
     }
 
     public function format_pesos($valor = 'compra') {
-        return '$ '.number_format($this->$valor, 2, ',', '.');
+        return '$ '.number_format($this->$valor, 0, ',', '.');
     }
+
+    public function format_plano($valor = 'compra') {
+        return $this->$valor;
+    }
+
+
 
     // #### Funciones estáticas ####
 
@@ -49,6 +68,6 @@ class Cotizacion extends Model
             $query->where('key', $key);
         }
 
-        return $query->get();
+        return $query->orderBy('orden', 'asc')->get();
     }
 }

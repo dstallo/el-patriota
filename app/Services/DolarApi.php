@@ -7,8 +7,6 @@ use Carbon\Carbon;
 
 class DolarApi extends ServiceBase {
 
-    const API_ROOT = 'https://dolarapi.com/v1';
-
     static public function refrescar(mixed $c): int {
 
         $cotizaciones = Cotizacion::obtener(static::class, $c);
@@ -18,7 +16,12 @@ class DolarApi extends ServiceBase {
         
         $key = $cotizaciones->count() == 1 ? $cotizaciones->first()->key : null;
 
-        $response = static::api($key);
+        $url = 'https://dolarapi.com/v1/dolares';
+
+        if ($key)
+            $url .= '/' . $key;
+
+        $response = parent::api($url);
 
         $refrescadas = 0;
 
@@ -47,33 +50,6 @@ class DolarApi extends ServiceBase {
         }
 
         return $refrescadas;
-    }
-
-    static public function api(?string $key = null) {
-        $url = static::API_ROOT . '/dolares';
-
-        if ($key)
-            $url .= '/' . $key;
-
-        $response = Http::get($url);
-
-		if (! $response) {
-			return ['error' => true, 'status' => null, 'message' => "Error de conexión"];
-		}
-
-        $body = $response->json();
-
-        // dd($body);
-
-        if (! $response->successful()) {
-            return ['error' => true, 'status' => $response->status(), 'message' => "Error de Http"];
-        }
-
-        if (! $body) {
-            return ['error' => true, 'status' => $response->status(), 'message' => "Respuesta vacía"];
-        }
-
-        return ['error' => false, 'status' => $response->status(), 'message' => 'Éxito', 'body' => $body];
     }
 
     static public function buscarCotizacion(array $body, string $key) {
