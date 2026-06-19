@@ -9,6 +9,8 @@ use App\Axys\AxysListado as Listado;
 use App\Axys\Traits\TieneVisibilidad;
 
 use App\Encuesta;
+use App\Noticia;
+use Illuminate\Validation\Rule;
 
 class Encuestas extends Controller
 {
@@ -22,15 +24,18 @@ class Encuestas extends Controller
 
     public function index(Request $input)
     {
-        if(!session()->has('axys.listado.encuestas.valores.buscando_desde')) {
-            session(["axys.listado.encuestas.valores.buscando_desde" => date('Y-m-d', strtotime('-2 month'))]);
-            session(["axys.listado.encuestas.valores.buscando_hasta" => date('Y-m-d', strtotime('+1 day'))]);
-            session(["axys.listado.encuestas.orden" => 'created_at']);
+        if (!session()->has('axys.listado.encuestas.orden')) {
+            session(['axys.listado.encuestas.orden' => 'created_at']);
+            session(['axys.listado.encuestas.sentido' => 'desc']);
         }
+
+        $query = Encuesta::query();
+
+        $query->withNoticiasCount();
 
         $listado=new Listado(
         	'encuestas',
-            Encuesta::query(),
+            $query,
             $input,
             ['id','created_at','nombre'],
             [
@@ -39,13 +44,7 @@ class Encuestas extends Controller
             	],
             	'buscando_id' => [
             		['campo'=>'id','comparacion'=>'igual']
-            	],
-                'buscando_desde'  =>[
-                    ['campo'=>'created_at','comparacion'=>'mayor'],
-                ],
-                'buscando_hasta'  =>[
-                    ['campo'=>'created_at','comparacion'=>'menor'],
-                ],
+            	]
             ]
         );
         
@@ -73,12 +72,14 @@ class Encuestas extends Controller
     public function crear()
     {
         $encuesta = new Encuesta;
-        return view('admin.encuestas.crear',compact('encuesta'));
+        $noticias = Noticia::all();
+        return view('admin.encuestas.crear',compact('encuesta', 'noticias'));
     }
 
     public function editar(Encuesta $encuesta)
     {
-        return view('admin.encuestas.editar',compact('encuesta'));
+        $noticias = Noticia::all();
+        return view('admin.encuestas.editar',compact('encuesta', 'noticias'));
     }
 
     public function guardar(Request $input, $id=null)
@@ -86,6 +87,7 @@ class Encuestas extends Controller
         $this->validate($input, [
             'nombre' => 'required',
             'pregunta' => 'required',
+            'id_noticia' => ['nullable', Rule::exists('noticias', 'id')]
         ]);
 
         if($id) {
@@ -107,11 +109,24 @@ class Encuestas extends Controller
     {
         if($encuesta->visible) {
             $encuesta->visible = false;
-            Flasher::set('Se ocultó el registro exitosamente', 'Oculto', 'success')->flashear();
+            Flasher::set('Se ocultó la encuesta general exitosamente', 'Encuesta Ocultada', 'success')->flashear();
         } else {
             Encuesta::query()->update(['visible' => false]);
             $encuesta->visible = true;
-            Flasher::set('Se visibilizó el registro exitosamente', 'Visible', 'success')->flashear();
+            Flasher::set('Se habilitó la encuesta general exitosamente', 'Encuesta Habilitada', 'success')->flashear();
+        }
+        $encuesta->save();
+        return back();
+    }
+
+    public function visibilidad_noticias(Encuesta $encuesta)
+    {
+        if($encuesta->visible_en_noticias) {
+            $encuesta->visible_en_noticias = false;
+            Flasher::set('Se ocultó la encuesta en las noticias asociadas', 'Encuesta Ocultada', 'success')->flashear();
+        } else {
+            $encuesta->visible_en_noticias = true;
+            Flasher::set('Se habilitó la encuesta en las noticias asociadas', 'Encuesta Habilitada', 'success')->flashear();
         }
         $encuesta->save();
         return back();

@@ -37,14 +37,18 @@
     <label>Bajada</label>
     <textarea class="quill-editor" style="height:180px;" name="bajada">{{ old('bajada', $noticia->bajada) }}</textarea>
 </div>
-<div class="col-md-4 form-group{{ has_error($errors, 'con_video') }}">
-    <label>Contiene video</label>
-    <div>
-        <input type="checkbox" data-toggle="toggle" data-on="Sí" data-off="No" name="con_video" value="1"
-            {{ old('con_video', $noticia->con_video) ? 'checked' : '' }}>
+<div class="col-md-6">
+    <x-form.select label="Encuesta asociada" container="" name="id_encuesta" :opciones="$encuestas" :selected="old('id_encuesta', $noticia->id_encuesta)" placeholder="Elegí una encuesta asociada" field_value="id" field_name="nombre" :allow_clear="true" />
+    <div class="form-group{{ has_error($errors, 'con_video') }}">
+        <label>Contiene video</label>
+        <div>
+            <input type="checkbox" data-toggle="toggle" data-on="Sí" data-off="No" name="con_video" value="1"
+                {{ old('con_video', $noticia->con_video) ? 'checked' : '' }}>
+        </div>
+        <span class="help-block">Agrega ícono de video en los listados de noticias</span>
     </div>
-    <span class="help-block">Agrega ícono de video en los listados de noticias</span>
 </div>
+
 <div class="col-md-12 form-group{{ has_error($errors,'texto') }}">
     <label>Texto</label>
     <textarea class="quill-editor" style="height:180px;" name="texto">{{ old('texto',$noticia->texto) }}</textarea>

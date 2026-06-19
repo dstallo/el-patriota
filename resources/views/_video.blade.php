@@ -17,6 +17,6 @@
 @if (($encuesta = App\Encuesta::activa()) && !isset($GLOBALS['encuesta_responsive_mostrada']))
     <?php $GLOBALS['encuesta_responsive_mostrada'] = true; ?>
     <div class="bloque-encuesta-responsive">
-        @include('_encuesta')
+        <x-encuesta />
     </div>
 @endif

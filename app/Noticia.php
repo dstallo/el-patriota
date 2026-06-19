@@ -30,7 +30,8 @@ class Noticia extends Model
         'embebido_1', 
         'embebido_2', 
         'grupo',
-        'programar_publicacion'
+        'programar_publicacion',
+        'id_encuesta'
     ];
 
     protected $dir = [
@@ -70,6 +71,11 @@ class Noticia extends Model
     public function region()
     {
         return $this->belongsTo(Region::class, 'id_region');
+    }
+
+    public function encuesta()
+    {
+        return $this->belongsTo(Encuesta::class, 'id_encuesta')->where('visible_en_noticias', true);
     }
 
     public function contenidos()

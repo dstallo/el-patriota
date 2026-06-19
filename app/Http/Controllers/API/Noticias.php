@@ -8,6 +8,7 @@ use App\Noticia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class Noticias extends Controller
 {
@@ -110,6 +111,9 @@ class Noticias extends Controller
                 'creado_por_api' => [
                     ['campo' => 'creado_por_api', 'comparacion' => 'igual'],
                 ],
+                'encuesta' => [
+                    ['campo' => 'id_encuesta', 'comparacion' => 'igual'],
+                ],
             ]
         );
     }
@@ -133,7 +137,8 @@ class Noticias extends Controller
             'grupo'             => ['nullable'],
             'embebido_1'        => ['nullable'],
             'embebido_2'        => ['nullable'],
-            'programar_publicacion' => ['nullable', 'boolean']
+            'programar_publicacion' => ['nullable', 'boolean'],
+            'id_encuesta'       => ['nullable', Rule::exists('encuestas', 'id')]
         ], [
             'titulo.max'        => 'El título no debe superar los 255 caracteres',
             'autor.max'         => 'El autor no debe superar los 255 caracteres',

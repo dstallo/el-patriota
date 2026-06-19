@@ -8,7 +8,7 @@
     
     <div class="row">
         
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="box box-info">
                 <div class="box-header with-border">
                   <h3 class="box-title">Acciones</h3>
@@ -20,20 +20,20 @@
         </div>
         
 
-        <div class="col-md-8">
+        <div class="col-md-9">
             <div class="box box-primary">
                 <div class="box-header with-border">
                   <h3 class="box-title">Filtros</h3>
                 </div>
                 <form>
                     <div class="box-body">
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-asterisk"></i></span>
                                 <input type="text" class="form-control" name="buscando_id" placeholder="ID#" value="{{ $listado->old('buscando_id') }}">
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
                                 <input type="text" class="form-control" name="buscando" placeholder="Buscar encuesta..." value="{{ $listado->old('buscando') }}">
@@ -60,6 +60,7 @@
                         <th>#</th>
                         <th>Nombre</th>
                         <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -68,6 +69,7 @@
                             <td class="hidden">{{ $encuesta->orden }}</td>
                             <td>{{ $encuesta->id }}</td>
                             <td>{{ $encuesta->nombre }}</td>
+                            <td>@if ($encuesta->noticias_count > 0) <a href="{{ route('noticias', ['encuesta' => $encuesta->id]) }}">Visible en noticias ({{ $encuesta->noticias_count }})</a> {!! accion_visibilidad($encuesta->visible_en_noticias, route('visibilidad_noticias_encuesta',compact('encuesta'))) !!} @endif</td>
                             <td class="text-right">
                                 <a href="{{ route('opciones', compact('encuesta')) }}" class="btn btn-primary btn-sm">Opciones</a>
                                 {!! accion_visibilidad($encuesta->visible, route('visibilidad_encuesta',compact('encuesta'))) !!}

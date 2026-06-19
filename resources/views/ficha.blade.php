@@ -98,8 +98,8 @@
                 <div class="listado">
                 @if (count($relacionadas))
                     <div class="terciarias">
-                        @foreach ($relacionadas as $noticia)
-                            <x-noticia :noticia="$noticia" />
+                        @foreach ($relacionadas as $r)
+                            <x-noticia :noticia="$r" />
                         @endforeach
                     </div>
                 @endif
@@ -121,16 +121,14 @@
                 </div>
             </div>
 
-
-
             <div class="columna-banners">
                 @forelse($banners['laterales'] as $banner)
                     <x-banner class="banner lateral" :banner="$banner" />
                     @if ($loop->iteration == 2 || ($loop->iteration < 2 && $loop->last))
-                        @include('_encuesta')
+                        <x-encuesta :encuesta="$noticia->encuesta" />
                     @endif
                 @empty
-                    @include('_encuesta')
+                    <x-encuesta :encuesta="$noticia->encuesta" />
                 @endforelse
             </div>
         </div>

@@ -184,7 +184,7 @@ class Noticias extends Controller
         $banners = $this->banners();
 
         $leidas = $this->leidas()->get();
-
+        
         return view('ficha', compact('noticia', 'banners', 'leidas', 'relacionadas'));
     }
 

@@ -1,5 +1,10 @@
-<?php if(!isset($encuesta)) $encuesta = App\Encuesta::activa(); ?>
-@if($encuesta && substr(Request::path(), 0, 8) != 'encuesta')
+@props(["encuesta" => null])
+@php
+    if (! $encuesta) {
+        $encuesta = App\Encuesta::activa();
+    }
+@endphp
+@if ($encuesta && substr(Request::path(), 0, 8) != 'encuesta')
 	<div class="bloque-encuesta">
 		<div class="contenido">
 			<h3>Encuesta</h3>

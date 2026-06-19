@@ -116,6 +116,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('encuestas/guardar/{encuesta?}', [Encuestas::class, "guardar"])->name('guardar_encuesta');
     Route::get('encuestas/{encuesta}/eliminar', [Encuestas::class, "eliminar"])->name('eliminar_encuesta');
     Route::get('encuestas/{encuesta}/visibilidad', [Encuestas::class, "visibilidad"])->name('visibilidad_encuesta');
+    Route::get('encuestas/{encuesta}/visibilidad_noticias', [Encuestas::class, "visibilidad_noticias"])->name('visibilidad_noticias_encuesta');
 
     // opciones
     Route::get('encuestas/{encuesta}/opciones', [Opciones::class, "index"])->name('opciones');
