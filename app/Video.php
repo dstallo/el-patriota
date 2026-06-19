@@ -26,6 +26,12 @@ class Video extends Model
             'tn' => [280, 150],
         ],
     ];
+    
+    protected $images = [
+        'imagen' => [
+            'resize' => [1200,800]
+        ]
+    ];
 
     protected $eliminarConArchivos = ['imagen', 'tn'/* , 'imagen_vertical' */];
 

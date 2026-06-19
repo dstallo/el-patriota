@@ -19,6 +19,15 @@ class Banner extends Model
         'imagen_responsive' => 'contenido/slides/imagenes',
     ];
 
+    protected $images = [
+        'imagen' => [
+            'resize' => [1200,800]
+        ],
+        'imagen_responsive' => [
+            'resize' => [800,1200]
+        ]
+    ];
+
     protected $eliminarConArchivos = ['imagen', 'imagen_responsive'];
 
     public static function ubicaciones()

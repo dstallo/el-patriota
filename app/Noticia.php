@@ -42,6 +42,21 @@ class Noticia extends Model
 
     protected $eliminarConArchivos = ['thumbnail', 'thumbnail_celular', 'banner', 'banner_celular'];
 
+    protected $images = [
+        'thumbnail' => [
+            'resize' => [1200,800]
+        ],
+        'thumbnail_celuar' => [
+            'resize' => [800,1200]
+        ],
+        'banner' => [
+            'resize' => [1200,800]
+        ],
+        'banner_celular' => [
+            'resize' => [800,1200]
+        ]
+    ];
+
     public function seccion()
     {
         return $this->belongsTo(Seccion::class, 'id_seccion');

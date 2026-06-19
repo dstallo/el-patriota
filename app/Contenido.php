@@ -25,6 +25,12 @@ class Contenido extends Model
         ]
     ];
 
+    protected $images = [
+        'imagen' => [
+            'resize' => [1200,800]
+        ]
+    ];
+
     public function noticia()
     {
         return $this->belongsTo(Noticia::class, 'id_noticia');
