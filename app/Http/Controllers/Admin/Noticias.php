@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Axys\AxysFlasher as Flasher;
 use App\Axys\AxysListado as Listado;
 use App\Axys\Traits\TieneVisibilidad;
+use App\Encuesta;
 use App\Http\Controllers\API\Noticias as APINoticias;
 use App\Http\Controllers\Controller;
 use App\Noticia;
@@ -38,12 +39,14 @@ class Noticias extends Controller
         $regiones = Region::orderBy('orden')->get();
         $grupos = Noticia::obtenerGrupos();
 
+        $encuestas = Encuesta::orderBy('created_at', 'desc')->get();
+
         $opciones_generacion = [
             (object) ["id" => "0", "nombre" => "Manuales"],
             (object) ["id" => "1", "nombre" => "Automáticas"]
         ];
 
-        return view('admin.noticias.index', compact('noticias', 'listado', 'secciones', 'regiones', 'grupos', 'opciones_generacion'));
+        return view('admin.noticias.index', compact('noticias', 'listado', 'secciones', 'regiones', 'grupos', 'opciones_generacion', 'encuestas'));
     }
 
     public function eliminar(Noticia $noticia)
@@ -69,8 +72,10 @@ class Noticias extends Controller
         $secciones = Seccion::orderBy('orden')->get();
         $regiones = Region::orderBy('orden')->get();
         $grupos = Noticia::obtenerGrupos();
+        $opciones_publicacion = Noticia::obtenerOpcionesPublicacion();
+        $encuestas = Encuesta::all();
 
-        return view('admin.noticias.crear', compact('noticia', 'secciones', 'regiones', 'grupos'));
+        return view('admin.noticias.crear', compact('noticia', 'secciones', 'regiones', 'grupos', 'opciones_publicacion', 'encuestas'));
     }
 
     public function editar(Noticia $noticia)
@@ -78,8 +83,10 @@ class Noticias extends Controller
         $secciones = Seccion::orderBy('orden')->get();
         $regiones = Region::orderBy('orden')->get();
         $grupos = Noticia::obtenerGrupos();
+        $opciones_publicacion = Noticia::obtenerOpcionesPublicacion();
+        $encuestas = Encuesta::all();
 
-        return view('admin.noticias.editar', compact('noticia', 'secciones', 'regiones', 'grupos'));
+        return view('admin.noticias.editar', compact('noticia', 'secciones', 'regiones', 'grupos', 'opciones_publicacion', 'encuestas'));
     }
 
     public function guardar(Request $request, $id = null)

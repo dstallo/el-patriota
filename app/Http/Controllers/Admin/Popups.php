@@ -81,9 +81,9 @@ class Popups extends Controller
     public function guardar(Request $request, $id = null)
     {
         $this->validate($request, [
-            'nombre' => 'required',
-            'imagen' => 'file|mimes:jpeg,png,jpg|max:1024',
-            'imagen_vertical' => 'file|mimes:jpeg,png,jpg|max:1024',
+            'nombre'            => 'required',
+            'imagen'            => ['nullable', 'file', 'mimes:'.config('app.image_mimes'),'max:'.config('app.image_size')],
+            'imagen_vertical'   => ['nullable', 'file', 'mimes:'.config('app.image_mimes'),'max:'.config('app.image_size')]
         ]);
 
         if ($id) {

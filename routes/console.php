@@ -1,7 +1,4 @@
 <?php
-
-use Illuminate\Foundation\Inspiring;
-
 /*
 |--------------------------------------------------------------------------
 | Console Routes
@@ -13,6 +10,7 @@ use Illuminate\Foundation\Inspiring;
 |
 */
 
-Artisan::command('inspire', function () {
-    $this->comment(Inspiring::quote());
-})->describe('Display an inspiring quote');
+use App\Console\Commands\CotizacionesRefrescar;
+use Illuminate\Support\Facades\Schedule;
+
+Schedule::command(CotizacionesRefrescar::class)->hourly()->between('9:00', '18:00')->weekdays()->timezone('America/Argentina/Buenos_Aires');

@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Http\File as FileHttp;
 use Illuminate\Support\Str;
 use \Image;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 
 /**
  * Agrega funcionalidad correspondiente a modelos que tienen fotos
@@ -20,6 +22,57 @@ trait TieneArchivos
      * lo va guardar en el directorio definido en $this->dir[$campo].
      * Asigna el atributo, pero no guarda a la base de datos.
      */
+
+    public function subir($archivo, $campo='foto')
+    {
+        if(!$archivo) {
+            return $this;
+        }
+
+        $directorio = $this->getDir($campo);
+        
+        $nombre=Str::slug(pathinfo($archivo->getClientOriginalName(), PATHINFO_FILENAME)); //simplifico el nombre
+        $nombre=$nombre.'-'.date('YmdHis'); //lo vuelvo único
+        $nombre=$nombre.'.'.$archivo->getClientOriginalExtension();//le agrego la extensión
+        
+        /*
+        if (! is_dir(public_path($directorio))){
+            mkdir(public_path($directorio), 0775, true);
+        }
+        */
+
+        $extension = strtolower($archivo->getClientOriginalExtension());
+
+        if ($this->images && isset($this->images[$campo]["resize"]) && $extension != 'svg') {
+
+            $tamano = $this->images[$campo]["resize"];
+            /*
+            $manager = new ImageManager(new Driver());
+            
+            $image = $manager->read($archivo->getRealPath());
+            $image->scaleDown(width: $tamano[0], height: $tamano[1])->save(Storage::disk('public')->path("/") . $directorio . '/' . $nombre);
+            Storage::disk('public')->put($this->campo, $image);
+            */
+            
+            $image = Image::make($archivo->getRealPath())->resize($tamano[0], $tamano[1], function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            })->save($this->path_temporal($nombre));
+            Storage::disk(config('filesystems.contenido'))->putFileAs($directorio, new FileHttp($this->path_temporal($nombre)), $nombre, 'public');
+            File::delete($this->path_temporal($nombre));
+            
+            $this->$campo = $nombre;
+            
+        }
+        else {
+            $archivo->storeAs($directorio, $nombre);
+            $this->$campo = $nombre;
+        }
+        
+        return $this;
+    }
+
+    /*
     public function subir($archivo, $campo='foto')
     {
         if(!$archivo) {
@@ -34,6 +87,7 @@ trait TieneArchivos
         $this->$campo=$nombre;
         return $this;
     }
+    */
 
     /**
      * Recibe el texto en base64 de la imagen y el nombre del campo
@@ -60,6 +114,7 @@ trait TieneArchivos
     /**
      * Resizea la imagen manteniendo proporción y recortando sobrantes
      */
+    /*
     public function fit($ancho, $alto, $campo='foto')
     {
         if(config('filesystems.contenido')=='local') {
@@ -81,10 +136,12 @@ trait TieneArchivos
 
         return $this;
     }
+    */
 
     /**
      * Resizea la imagen manteniendo proporción y evitando upsize, no cropea
      */
+    /*
     public function resize($ancho, $alto, $campo='foto')
     {
         if(config('filesystems.contenido')=='local') {
@@ -109,6 +166,7 @@ trait TieneArchivos
 
         return $this;
     }
+    */
 
     /**
      * Crea todos los thumbnails asociados al campo en $this->thumbnails.

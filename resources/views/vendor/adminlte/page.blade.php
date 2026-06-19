@@ -164,22 +164,16 @@
                 <ul class="sidebar-menu nav" data-widget="tree">
                     <li><a href="{{ url('admin/') }}"><i class="fa fa-fw fa-tachometer"></i><span>Inicio</span></a></li>
                     <li class="header">NOTICIAS</li>
-                    <li><a href="{{ url('admin/secciones') }}"><i
-                                class="fa fa-fw fa-folder-open"></i><span>Secciones</span></a></li>
+                    <li><a href="{{ url('admin/secciones') }}"><i class="fa fa-fw fa-folder-open"></i><span>Secciones</span></a></li>
                     <li><a href="{{ url('admin/regiones') }}"><i class="fa fa-fw fa-sitemap"></i><span>Regiones</span></a>
                     </li>
-                    <li><a href="{{ url('admin/noticias') }}"><i
-                                class="fa fa-fw fa-newspaper-o"></i><span>Noticias</span></a></li>
+                    <li><a href="{{ url('admin/noticias') }}"><i class="fa fa-fw fa-newspaper-o"></i><span>Noticias</span></a></li>
                     <li class="header">OTRAS</li>
-                    <li><a href="{{ url('admin/popups') }}"><i class="fa fa-fw fa-window-maximize"></i><span>Popups
-                                home</span></a></li>
-                    <li><a href="{{ url('admin/videos') }}"><i class="fa fa-fw fa-play"></i><span>Entrevistas</span></a>
-                    </li>
-                    <li><a href="{{ url('admin/encuestas') }}"><i
-                                class="fa fa-fw fa-question-circle"></i><span>Encuestas</span></a></li>
-                    <li><a href="{{ url('admin/newsletter/inscriptos') }}"><i class="fa fa-fw fa-envelope"></i>
-                            Newsletter</a>
-                    </li>
+                    <li><a href="{{ url('admin/cotizaciones') }}"><i class="fa fa-fw fa-money"></i><span>Cotizaciones</span></a></li>
+                    <li><a href="{{ url('admin/popups') }}"><i class="fa fa-fw fa-window-maximize"></i><span>Popups home</span></a></li>
+                    <li><a href="{{ url('admin/videos') }}"><i class="fa fa-fw fa-play"></i><span>Entrevistas</span></a></li>
+                    <li><a href="{{ url('admin/encuestas') }}"><i class="fa fa-fw fa-question-circle"></i><span>Encuestas</span></a></li>
+                    <li><a href="{{ url('admin/newsletter/inscriptos') }}"><i class="fa fa-fw fa-envelope"></i>Newsletter</a></li>
                     <li><a href="{{ url('admin/banners') }}"><i class="fa fa-fw fa-image"></i><span>Banners</span></a></li>
                 </ul>
                 <!-- /.sidebar-menu -->

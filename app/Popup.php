@@ -19,5 +19,15 @@ class Popup extends Model
         'imagen' => 'popups-generales',
         'imagen_vertical' => 'popups-generales',
     ];
+
+    protected $images = [
+        'imagen' => [
+            'resize' => [1200,800]
+        ],
+        'imagen_vertical' => [
+            'resize' => [800,1200]
+        ]
+    ];
+
     protected $eliminarConArchivos = ['imagen', 'imagen_vertical'];
 }

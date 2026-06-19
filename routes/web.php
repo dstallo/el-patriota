@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\Regiones;
 use App\Http\Controllers\Admin\Secciones;
 use App\Http\Controllers\Admin\Videos;
 use App\Http\Controllers\Admin\Banners;
+use App\Http\Controllers\Admin\Cotizaciones;
 use App\Http\Controllers\Admin\Encuestas;
 use App\Http\Controllers\Admin\Noticias;
 use App\Http\Controllers\Admin\Opciones;
@@ -31,7 +32,12 @@ Route::group(['prefix' => 'admin'], function () {
 
     Route::get('/', [Dashboard::class, 'index'])->name('home');
 
+    // Configuraciones
     Route::post('/configuraciones', [Dashboard::class, 'guardar'])->name('guardar_configuraciones');
+
+    // Cotizaciones
+    Route::get('/cotizaciones', [Cotizaciones::class, 'index'])->name('cotizaciones');
+    Route::post('/cotizaciones/ordenar', [Cotizaciones::class, "ordenar"])->name('ordenar_cotizaciones');
 
     // imágenes tinymce
     Route::post('subir-tiny', [Dashboard::class, 'subirTiny'])->name('subir-tiny');
@@ -110,6 +116,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('encuestas/guardar/{encuesta?}', [Encuestas::class, "guardar"])->name('guardar_encuesta');
     Route::get('encuestas/{encuesta}/eliminar', [Encuestas::class, "eliminar"])->name('eliminar_encuesta');
     Route::get('encuestas/{encuesta}/visibilidad', [Encuestas::class, "visibilidad"])->name('visibilidad_encuesta');
+    Route::get('encuestas/{encuesta}/visibilidad_noticias', [Encuestas::class, "visibilidad_noticias"])->name('visibilidad_noticias_encuesta');
 
     // opciones
     Route::get('encuestas/{encuesta}/opciones', [Opciones::class, "index"])->name('opciones');

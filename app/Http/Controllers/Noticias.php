@@ -10,11 +10,16 @@ use App\Noticia;
 use App\Popup;
 use App\Region;
 use App\Seccion;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class Noticias extends Controller
 {
+
+    /* 
+    ### Funciones privadas para filtros de noticias. #####
+    */
     protected function noticias($request = null, $excepto = [])
     {
         $noticias = Noticia::obtener();
@@ -98,6 +103,10 @@ class Noticias extends Controller
         return compact('horizontales', 'laterales');
     }
 
+    /* 
+    #### Endpoints públicos de noticias #####
+    */
+
     public function home(Request $request)
     {
         $destacadas = $this->noticias($request)->where('destacada', true)->take(10)->get();
@@ -151,7 +160,10 @@ class Noticias extends Controller
 
     public function ficha(Noticia $noticia)
     {
-        if (! ($noticia->seccion?->visible ?? true)) {
+        if (! ($noticia->seccion?->visible ?? true) || 
+            ! $noticia->visible || 
+            ($noticia->programar_publicacion && $noticia->fecha > Carbon::now()
+            )) {
             return redirect('/');
         }
 
@@ -172,7 +184,7 @@ class Noticias extends Controller
         $banners = $this->banners();
 
         $leidas = $this->leidas()->get();
-
+        
         return view('ficha', compact('noticia', 'banners', 'leidas', 'relacionadas'));
     }
 

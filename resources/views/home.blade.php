@@ -107,7 +107,6 @@
                         <x-banner class="banner horizontal" :banner="$banner" />
                     @endif
                 @endif
-                <?php/* AGREGAR AQUÍ EL GRUPO DE NOTICIAS (con su respectivo banner horizontal por debajo) */?>
 
                 @if (count($leidas ?? []))
                     <div class="leidas">
@@ -141,10 +140,10 @@
                 @forelse($banners['laterales'] as $banner)
                     <x-banner class="banner lateral" :banner="$banner" />
                     @if ($loop->iteration == 2 || ($loop->iteration < 2 && $loop->last))
-                        @include('_encuesta')
+                        <x-encuesta />
                     @endif
                 @empty
-                    @include('_encuesta')
+                    <x-encuesta />
                 @endforelse
             </div>
         </div>

@@ -12,44 +12,43 @@
 <x-form.select label="Sección" container="col-md-4" name="id_seccion" :opciones="$secciones" :selected="old('id_seccion', $noticia->id_seccion)" placeholder="Elegí la sección" field_value="id" field_name="nombre" :allow_clear="true" />
 <x-form.select label="Región" container="col-md-4" name="id_region" :opciones="$regiones" :selected="old('id_region', $noticia->id_region)" placeholder="Elegí la región" field_value="id" field_name="nombre" :allow_clear="true" />
 <x-form.select label="Grupo de noticias" container="col-md-4" name="grupo" :opciones="$grupos" :selected="old('grupo', $noticia->grupo)" placeholder="Completá o elegí el grupo de noticias" field_value="valor" field_name="valor" :tags="true" :allow_clear="true" />
-<div class="col-md-4 form-group{{ has_error($errors, 'fecha') }}">
-    <label>Fecha</label>
-    <input type="datetime-local" class="form-control" name="fecha" value="{{ old('fecha', $noticia->fecha_html) }}">
+<div class="col-md-4">
+    <div class="form-group {{ has_error($errors, 'fecha') }}">
+        <label>Fecha</label>
+        <input type="datetime-local" class="form-control" name="fecha" value="{{ old('fecha', $noticia->fecha_html) }}">
+    </div>
+    <x-form.select label="" container="" name="programar_publicacion" :opciones="$opciones_publicacion" :selected="old('programar_publicacion', $noticia->programar_publicacion ?? 1)" field_value="value" field_name="nombre" />
 </div>
 
 <div class="col-md-4 form-group{{ has_error($errors, 'volanta') }}">
     <label>Volanta</label>
     <input type="text" class="form-control" name="volanta" value="{{ old('volanta', $noticia->volanta) }}">
 </div>
-<div class="col-md-4 form-group{{ has_error($errors, 'titulo') }}">
-    <label>Título</label>
-    <input type="text" class="form-control" name="titulo" value="{{ old('titulo', $noticia->titulo) }}">
-    <span class="help-block">Colocar entre llaves para destacar. Por ejemplo: {Urgente:} Resto del título</span>
-</div>
 <div class="col-md-4 form-group{{ has_error($errors, 'autor') }}">
     <label>Autor</label>
     <input type="text" class="form-control" name="autor" value="{{ old('autor', $noticia->autor) }}">
 </div>
-<div class="col-md-12">&nbsp;</div>
-<div class="col-md-6 form-group{{ has_error($errors, 'embebido_1') }}">
-    <label>Embebido 1</label>
-    <textarea class="form-control" style="height:180px;" name="embebido_1">{{ old('embebido_1', $noticia->embebido_1) }}</textarea>
-</div>
-<div class="col-md-6 form-group{{ has_error($errors, 'embebido_2') }}">
-    <label>Embebido 2</label>
-    <textarea class="form-control" style="height:180px;" name="embebido_2">{{ old('embebido_2', $noticia->embebido_2) }}</textarea>
+<div class="col-md-12 form-group{{ has_error($errors, 'titulo') }}">
+    <label>Título</label>
+    <input type="text" class="form-control" name="titulo" value="{{ old('titulo', $noticia->titulo) }}">
+    <span class="help-block">Colocar entre llaves para destacar. Por ejemplo: {Urgente:} Resto del título</span>
 </div>
 <div class="col-md-6 form-group{{ has_error($errors, 'bajada') }}">
     <label>Bajada</label>
     <textarea class="quill-editor" style="height:180px;" name="bajada">{{ old('bajada', $noticia->bajada) }}</textarea>
 </div>
-<div class="col-md-2 form-group{{ has_error($errors, 'con_video') }}">
-    <label>Contiene video</label>
-    <div>
-        <input type="checkbox" data-toggle="toggle" data-on="Sí" data-off="No" name="con_video" value="1"
-            {{ old('con_video', $noticia->con_video) ? 'checked' : '' }}>
+<div class="col-md-6">
+    <x-form.select label="Encuesta asociada" container="" name="id_encuesta" :opciones="$encuestas" :selected="old('id_encuesta', $noticia->id_encuesta)" placeholder="Elegí una encuesta asociada" field_value="id" field_name="nombre" :allow_clear="true" />
+    <div class="form-group{{ has_error($errors, 'con_video') }}">
+        <label>Contiene video</label>
+        <div>
+            <input type="checkbox" data-toggle="toggle" data-on="Sí" data-off="No" name="con_video" value="1"
+                {{ old('con_video', $noticia->con_video) ? 'checked' : '' }}>
+        </div>
+        <span class="help-block">Agrega ícono de video en los listados de noticias</span>
     </div>
 </div>
+
 <div class="col-md-12 form-group{{ has_error($errors,'texto') }}">
     <label>Texto</label>
     <textarea class="quill-editor" style="height:180px;" name="texto">{{ old('texto',$noticia->texto) }}</textarea>
@@ -93,7 +92,18 @@
 
 <div class="col-md-12">&nbsp;</div>
 
-<div class="col-md-4 form-group{{ has_error($errors, 'destacada') }}">
+<div class="col-md-6 form-group{{ has_error($errors, 'embebido_1') }}">
+    <label>Embebido 1</label>
+    <textarea class="form-control" style="height:180px;" name="embebido_1">{{ old('embebido_1', $noticia->embebido_1) }}</textarea>
+</div>
+<div class="col-md-6 form-group{{ has_error($errors, 'embebido_2') }}">
+    <label>Embebido 2</label>
+    <textarea class="form-control" style="height:180px;" name="embebido_2">{{ old('embebido_2', $noticia->embebido_2) }}</textarea>
+</div>
+
+<div class="col-md-12">&nbsp;</div>
+
+<div class="col-md-2 form-group{{ has_error($errors, 'destacada') }}">
     <label>Destacada</label>
     <div>
         <input type="checkbox" data-toggle="toggle" data-on="Sí" data-off="No" name="destacada" value="1"
@@ -101,7 +111,7 @@
     </div>
 </div>
 
-<div class="col-md-4 form-group{{ has_error($errors, 'banner') }}">
+<div class="col-md-5 form-group{{ has_error($errors, 'banner') }}">
     <label>Banner</label>
     @if ($noticia->tiene('banner'))
         <div style="position:relative;">
@@ -117,7 +127,7 @@
     @endif
 </div>
 
-<div class="col-md-4 form-group{{ has_error($errors, 'banner_celular') }}">
+<div class="col-md-5 form-group{{ has_error($errors, 'banner_celular') }}">
     <label>Banner celular</label>
     @if ($noticia->tiene('banner_celular'))
         <div style="position:relative;">

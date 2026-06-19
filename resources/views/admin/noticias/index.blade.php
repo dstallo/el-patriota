@@ -34,22 +34,22 @@
                                     value="{{ $listado->old('id') }}">
                             </div>
                         </div>
-                        <div class="col-md-9 form-group">
+                        <div class="col-md-6 form-group">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
                                 <input type="text" class="form-control" name="query" placeholder="Buscar noticia..."
                                     value="{{ $listado->old('query') }}">
                             </div>
                         </div>
+                        <x-form.select onchange="$(this).closest('form').submit()" container="col-md-3" name="grupo" :opciones="$grupos" :selected="$listado->old('grupo')" placeholder="Elegí el grupo de noticias" field_value="valor" field_name="valor" :allow_clear="true" />
                         
                         <x-form.select onchange="$(this).closest('form').submit()" container="col-md-3" name="seccion" :opciones="$secciones" :selected="$listado->old('seccion')" placeholder="Elegí la sección" field_value="id" field_name="nombre" :allow_clear="true" />
                         <x-form.select onchange="$(this).closest('form').submit()" container="col-md-3" name="region" :opciones="$regiones" :selected="$listado->old('region')" placeholder="Elegí la región" field_value="id" field_name="nombre" :allow_clear="true" />
-                        <x-form.select onchange="$(this).closest('form').submit()" container="col-md-3" name="grupo" :opciones="$grupos" :selected="$listado->old('grupo')" placeholder="Elegí el grupo de noticias" field_value="valor" field_name="valor" :allow_clear="true" />
                     
                         <x-form.select onchange="$(this).closest('form').submit()" name="creado_por_api" container="col-md-3" :opciones="$opciones_generacion" :selected="$listado->old('creado_por_api')" placeholder="Tipo de creación" :allow_clear="true"  />
                         
+                        <x-form.select onchange="$(this).closest('form').submit()" container="col-md-3" name="encuesta" :opciones="$encuestas" :selected="$listado->old('encuesta')" placeholder="Encuesta asociada" field_value="id" field_name="nombre" :allow_clear="true" />
                         
-
                     </div>
                     <input type="submit" class="hidden">
                 </form>

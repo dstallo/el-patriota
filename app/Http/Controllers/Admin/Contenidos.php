@@ -49,7 +49,7 @@ class Contenidos extends Controller
 
         $this->validate($request, [
             'nombre' => 'required',
-            'imagen' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
+            'imagen' => ['nullable', 'file', 'mimes:'.config('app.image_mimes'),'max:'.config('app.image_size')],
             'video' => 'nullable|video',
         ]);
 
@@ -111,7 +111,6 @@ class Contenidos extends Controller
         $contenido->fill($request->all())
             ->subir($request->file('imagen'),'imagen')
             ->crearThumbnails()
-            ->ordenar([['id_noticia', $noticia->id]])
             ->save();
 
         Flasher::set("El contenido multimedia fue modificado exitosamente.", 'Contenido Editado', 'success')->flashear();
